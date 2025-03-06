@@ -1,101 +1,153 @@
-import Image from "next/image";
+import Carrossel from "./components/carrossel";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  // Carrossel de 1 produto por slide (novidades, por exemplo)
+  const produtosSingle = [
+    {
+      id: 1,
+      imageUrl: "https://i.imgur.com/3Nz4zHv.jpg",
+      title: "Novidade 1",
+      price: "",
+      description: "Descrição da novidade 1",
+      primeiroCarrossel: true,
+    },
+    {
+      id: 2,
+      imageUrl: "https://i.imgur.com/ROfFygP.jpg",
+      title: "Novidade 2",
+      price: "",
+      description: "Descrição da novidade 2",
+      primeiroCarrossel: true,
+    },
+    {
+      id: 3,
+      imageUrl: "https://i.imgur.com/ROfFygP.jpg",
+      title: "Novidade 3",
+      price: "",
+      description: "Descrição da novidade 3",
+      primeiroCarrossel: true,
+    },
+  ];
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  // Carrossel com 6 produtos (card de produtos, com imagem, título, descrição)
+  const produtosMulti = [
+    {
+      id: 1,
+      imageUrl: "https://i.imgur.com/717KfcI.jpg",
+      title: "Produto 1",
+      price: "R$ 19,99",
+      description: "Produto para cabelos com hidratação intensa.",
+      primeiroCarrossel: false,
+    },
+    {
+      id: 2,
+      imageUrl: "https://i.imgur.com/BY92HYV.jpg",
+      title: "Produto 2",
+      price: "R$ 29,99",
+      description: "Máscara capilar nutritiva.",
+      primeiroCarrossel: false,
+    },
+    {
+      id: 3,
+      imageUrl: "https://i.imgur.com/HinCOlV.jpg",
+      title: "Produto 3",
+      price: "R$ 49,99",
+      description: "Shampoo restaurador para cabelos danificados.",
+      primeiroCarrossel: false,
+    },
+    {
+      id: 4,
+      imageUrl: "https://i.imgur.com/hnrxdMX.jpg",
+      title: "Produto 4",
+      price: "R$ 59,99",
+      description: "Condicionador fortalecedor com queratina.",
+      primeiroCarrossel: false,
+    },
+    {
+      id: 5,
+      imageUrl: "https://i.imgur.com/4eXQwip.jpg",
+      title: "Produto 5",
+      price: "R$ 69,99",
+      description: "Óleo capilar nutritivo com argan.",
+      primeiroCarrossel: false,
+    },
+    {
+      id: 6,
+      imageUrl: "https://i.imgur.com/6fs55eT.jpg",
+      title: "Produto 6",
+      price: "R$ 79,99",
+      description: "Finalizador capilar antifrizz.",
+      primeiroCarrossel: false,
+    },
+  ];
+
+  return (
+    <div>
+      {/* Carrossel de novidades (1 imagem por slide) */}
+      <Carrossel
+        items={produtosSingle}
+        slidesPerView={1}
+        spaceBetween={0}
+        autoplayDelay={4000}
+        loop
+        swiperClassName="w-full max-w-[1920px] mx-auto h-[400px] md:h-[400px] lg:h-[500px]"
+      />
+
+      {/* Título para o segundo carrossel */}
+      <div className="mt-8 sm:mt-10 md:mt-14 text-center">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">
+          Cabelos
+        </h2>
+        <p className="text-gray-600 mt-1 text-xs sm:text-sm md:text-base">
+          Descubra os melhores produtos para cuidar dos seus cabelos.
+        </p>
+      </div>
+
+      {/* Espaço entre os carrosséis */}
+      <div className="mt-3 flex justify-center">
+        {/* Container com borda, sombra e limite de largura */}
+        <div className="border border-gray-300 shadow-lg p-8 w-full max-w-[1500px] mx-auto">
+          <Carrossel
+            items={produtosMulti}
+            loop
+            autoplayDelay={undefined}
+            centeredSlides={true}
+            slidesPerView={1}
+            spaceBetween={10}
+            swiperClassName="w-full h-[520px] md:h-[520px]"
+            breakpoints={{
+              0: {
+                slidesPerView: 1,
+                spaceBetween: 20,
+              },
+              375: {
+                slidesPerView: 1.15,
+                spaceBetween: 5,
+              },
+              425: {
+                slidesPerView: 1.3,
+                spaceBetween: 5,
+              },
+              640: {
+                slidesPerView: 2.5,
+                spaceBetween: 10,
+              },
+              768: {
+                slidesPerView: 2.5,
+                spaceBetween: 10,
+              },
+              1024: {
+                slidesPerView: 3.5,
+                spaceBetween: 10,
+              },
+              1440: {
+                slidesPerView: 5,
+                spaceBetween: 10,
+              },
+            }}
+          />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
     </div>
   );
 }
