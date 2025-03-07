@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
-import { FiShoppingCart, FiEye, FiTag, FiAlertCircle, FiCheckCircle, FiXCircle, FiBell } from "react-icons/fi";
+import { FiShoppingCart, FiEye, FiAlertCircle, FiCheckCircle, FiXCircle } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 
 /**

@@ -5,17 +5,45 @@
 
 import Carrossel from "./components/carrossel";
 import Footer from "./components/Footer";
-import Link from "next/link";
-import { FiArrowRight } from "react-icons/fi";
 import { 
   heroProducts, 
   cabelosProducts, 
   skincareProducts, 
   maquiagemProducts, 
   perfumesProducts, 
-  corpoProducts 
+  corpoProducts,
+  CategoryProduct 
 } from "./data/categories";
-import Image from "next/image";
+
+// Interface para compatibilidade com o componente Carrossel
+interface CarouselItem {
+  id: number;
+  imageUrl: string;
+  title: string;
+  price: string;
+  description: string;
+  link?: string;
+  primeiroCarrossel: boolean;
+  category?: string;
+  isViewAllSlide?: boolean;
+  viewAllUrl?: string;
+  stockQuantity?: number;
+  promocao?: boolean;
+  descontoPromocao?: number;
+  cupom?: string;
+}
+
+/**
+ * Converte um array de produtos para CarouselItem[]
+ * para compatibilidade com o componente Carrossel
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const convertToCarouselItems = (products: any[]): CarouselItem[] => {
+  return products.map(product => ({
+    ...product,
+    id: typeof product.id === 'string' ? parseInt(product.id, 10) : product.id
+  })) as CarouselItem[];
+};
 
 /**
  * Componente da página inicial
@@ -60,14 +88,14 @@ export default function Home() {
   };
 
   /**
-   * Filtra produtos populares e adiciona slide "Ver Todos"
+   * Filtra produtos populares e adiciona slide "Ver Todos" no final
    * 
-   * @param produtos - Array de produtos de uma categoria
-   * @param category - Nome da categoria
-   * @param urlPath - Caminho URL para a página da categoria
+   * @param produtos - Lista de produtos da categoria
+   * @param category - Nome da categoria para exibição
+   * @param urlPath - Caminho da URL para a página "Ver Todos"
    * @returns Array de produtos filtrados com slide "Ver Todos" no final
    */
-  const filtrarProdutosPopularesEAdicionarVerTodos = (produtos: any[], category: string, urlPath: string) => {
+  const filtrarProdutosPopularesEAdicionarVerTodos = (produtos: CategoryProduct[], category: string, urlPath: string) => {
     // Filtrar apenas os produtos marcados como topSell
     const produtosPopulares = produtos.filter(product => product.topSell === true);
     
@@ -166,7 +194,7 @@ export default function Home() {
             <div className="relative">
               <div className="rounded-2xl overflow-hidden shadow-[0_10px_40px_-15px_rgba(255,105,180,0.3)] bg-white/40 p-8 border-2 border-[#ff69b4]/20 hover:shadow-[0_15px_50px_-12px_rgba(255,105,180,0.4)] transition-shadow duration-300">
                 <Carrossel
-                  items={categoria.produtos}
+                  items={convertToCarouselItems(categoria.produtos)}
                   loop={false}
                   autoplayDelay={undefined}
                   centeredSlides={false}

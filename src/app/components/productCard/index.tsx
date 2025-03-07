@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import ProductModal from "../ProductModal";
 import { useCart } from "../../context/CartContext";
-import { FiShoppingCart, FiEye, FiTag, FiGrid, FiArrowRight, FiAlertCircle, FiCheckCircle, FiXCircle, FiBell } from "react-icons/fi";
+import { FiGrid, FiArrowRight, FiAlertCircle, FiCheckCircle, FiXCircle } from "react-icons/fi";
 
 /**
  * Interface que define as propriedades do componente de cartão de produto

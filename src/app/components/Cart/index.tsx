@@ -1,8 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState } from 'react';
-import { FiX, FiPlus, FiMinus, FiTrash, FiArrowRight, FiShoppingCart, FiCheck, FiTag } from 'react-icons/fi';
-import { FaWhatsapp } from 'react-icons/fa';
+import { FiX, FiShoppingCart, FiTag } from 'react-icons/fi';
 import { useCart } from '../../context/CartContext';
 import CartItem from './CartItem';
 
@@ -18,9 +17,6 @@ export default function Carrinho() {
     cartItems, 
     isCartOpen, 
     toggleCart, 
-    removeFromCart, 
-    increaseQuantity, 
-    decreaseQuantity,
     cartTotal,
     cartCount
   } = useCart();
@@ -88,7 +84,7 @@ export default function Carrinho() {
   };
 
   /**
-   * Remove o cupom de desconto aplicado
+   * Remove o cupom aplicado
    */
   const removerCupom = () => {
     setDescontoAplicado(0);
@@ -271,7 +267,16 @@ export default function Carrinho() {
                   {descontoAplicado > 0 && (
                     <div className="flex justify-between items-center mb-2 text-green-600">
                       <span>Desconto:</span>
-                      <span>-R$ {descontoAplicado.toFixed(2).replace('.', ',')}</span>
+                      <span className="flex items-center">
+                        -R$ {descontoAplicado.toFixed(2).replace('.', ',')}
+                        <button 
+                          onClick={removerCupom}
+                          className="ml-2 text-gray-500 hover:text-red-500 transition-colors"
+                          aria-label="Remover cupom"
+                        >
+                          <FiX className="w-4 h-4" />
+                        </button>
+                      </span>
                     </div>
                   )}
                   

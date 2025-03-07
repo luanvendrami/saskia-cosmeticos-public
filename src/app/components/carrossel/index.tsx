@@ -89,7 +89,7 @@ export default function Carrossel({
           pauseOnMouseEnter: true,
           waitForTransition: true
         } : false}
-        slidesPerView={1}
+        slidesPerView={slidesPerView}
         spaceBetween={spaceBetween}
         className={swiperClassName}
         breakpoints={breakpoints}
