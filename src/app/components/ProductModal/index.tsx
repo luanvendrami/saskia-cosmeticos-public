@@ -4,21 +4,44 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
-import { FiShoppingCart, FiEye } from "react-icons/fi";
+import { FiShoppingCart, FiEye, FiTag, FiAlertCircle, FiCheckCircle, FiXCircle, FiBell } from "react-icons/fi";
+import { FaWhatsapp } from "react-icons/fa";
 
-interface ProductModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  imageUrl: string;
-  title: string;
-  description: string;
-  price?: string;
-  category?: string;
-  hideViewAll?: boolean;
-  onAddToCart?: (e: React.MouseEvent) => void;
+/**
+ * Interface que define as propriedades do componente de modal de produto
+ */
+interface PropModalProduto {
+  isOpen: boolean;           // Indica se o modal está aberto
+  onClose: () => void;       // Função para fechar o modal
+  imageUrl: string;          // URL da imagem do produto
+  title: string;             // Título do produto
+  description: string;       // Descrição do produto
+  price?: string;            // Preço do produto (opcional)
+  category?: string;         // Categoria do produto (opcional)
+  hideViewAll?: boolean;     // Indica se deve ocultar a opção "Ver Todos" (opcional)
+  onAddToCart?: (e: React.MouseEvent) => void; // Função para adicionar ao carrinho (opcional)
+  stockQuantity?: number;    // Quantidade em estoque (opcional)
+  promocao?: boolean;        // Indica se o produto está em promoção (opcional)
+  descontoPromocao?: number; // Porcentagem de desconto aplicada na promoção (opcional)
+  cupom?: string;            // Código do cupom de desconto (opcional)
 }
 
-export default function ProductModal({
+/**
+ * Componente que exibe um modal detalhado de produto
+ * Permite visualizar mais informações e adicionar ao carrinho
+ * 
+ * @param isOpen - Indica se o modal está aberto
+ * @param onClose - Função para fechar o modal
+ * @param imageUrl - URL da imagem do produto
+ * @param title - Título do produto
+ * @param description - Descrição do produto
+ * @param price - Preço do produto
+ * @param category - Categoria do produto
+ * @param hideViewAll - Indica se deve ocultar a opção "Ver Todos"
+ * @param onAddToCart - Função para adicionar ao carrinho
+ * @param stockQuantity - Quantidade em estoque
+ */
+export default function ModalProduto({
   isOpen,
   onClose,
   imageUrl,
@@ -28,28 +51,42 @@ export default function ProductModal({
   category,
   hideViewAll = false,
   onAddToCart,
-}: ProductModalProps) {
+  stockQuantity,
+  promocao,
+  descontoPromocao,
+  cupom
+}: PropModalProduto) {
   useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
+    /**
+     * Trata o evento de pressionar a tecla ESC para fechar o modal
+     * 
+     * @param e - Evento de teclado
+     */
+    const tratarTeclaEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
 
     if (isOpen) {
-      document.addEventListener("keydown", handleEscape);
+      document.addEventListener("keydown", tratarTeclaEsc);
       document.body.style.overflow = "hidden";
     }
 
     return () => {
-      document.removeEventListener("keydown", handleEscape);
+      document.removeEventListener("keydown", tratarTeclaEsc);
       document.body.style.overflow = "unset";
     };
   }, [isOpen, onClose]);
 
-  // Map category display names to URL paths
-  const getCategoryPath = (category?: string) => {
+  /**
+   * Mapeia nomes de categoria para seus respectivos caminhos de URL
+   * 
+   * @param category - Nome da categoria
+   * @returns Caminho da URL correspondente à categoria
+   */
+  const obterCaminhoCategoria = (category?: string) => {
     if (!category) return "";
     
-    const categoryMap: {[key: string]: string} = {
+    const mapaCategorias: {[key: string]: string} = {
       "Cabelos": "cabelos",
       "Skin Care": "skincare",
       "Maquiagem": "maquiagem",
@@ -57,7 +94,108 @@ export default function ProductModal({
       "Corpo": "corpo"
     };
     
-    return categoryMap[category] || category.toLowerCase();
+    return mapaCategorias[category] || "";
+  };
+
+  /**
+   * Calcula o preço com desconto aplicado
+   * 
+   * @param precoOriginal - Preço original em formato string (ex: "R$ 99,90")
+   * @returns Preço com desconto formatado (ex: "89,91")
+   */
+  const calcularPrecoComDesconto = (precoOriginal: string) => {
+    if (!precoOriginal) return null;
+    
+    // Só calcula desconto se o produto estiver em promoção
+    if (!promocao) return null;
+    
+    // Extrai o valor numérico da string de preço (ex: "R$ 99,90" -> 99.90)
+    const valorPreco = parseFloat(precoOriginal.replace('R$ ', '').replace(',', '.'));
+    
+    // Aplica o desconto configurado (valor padrão é 10% se não for especificado)
+    const percentualDesconto = descontoPromocao || 10;
+    const valorComDesconto = valorPreco * (1 - percentualDesconto / 100);
+    
+    // Format back to Brazilian currency format (without R$ prefix)
+    return valorComDesconto.toFixed(2).replace('.', ',');
+  };
+  
+  // Obtém o preço com desconto se o preço existir
+  const precoComDesconto = price ? calcularPrecoComDesconto(price) : null;
+
+  /**
+   * Obtém a mensagem e estilo de status de estoque apropriados
+   * com base na quantidade em estoque
+   * 
+   * @returns Objeto contendo mensagem, classe CSS e ícone para o status de estoque
+   */
+  const obterStatusEstoque = () => {
+    // Default to 10 units if stockQuantity is undefined
+    const quantidade = typeof stockQuantity === 'number' ? stockQuantity : 10;
+    
+    if (quantidade <= 0) {
+      return {
+        message: "Esgotado",
+        className: "text-red-500 uppercase font-medium flex items-center",
+        icon: <FiXCircle className="mr-1 text-red-500" />
+      };
+    } else if (quantidade <= 3) {
+      return {
+        message: `Apenas ${quantidade} ${quantidade === 1 ? 'unidade' : 'unidades'}!`,
+        className: "text-orange-500 uppercase font-medium flex items-center",
+        icon: <FiAlertCircle className="mr-1 text-orange-500" />
+      };
+    } else if (quantidade <= 5) {
+      return {
+        message: "Últimas unidades!",
+        className: "text-orange-400 uppercase font-medium flex items-center",
+        icon: <FiAlertCircle className="mr-1 text-orange-400" />
+      };
+    } else if (quantidade <= 10) {
+      return {
+        message: "Poucas unidades",
+        className: "text-[#ff69b4] uppercase font-medium flex items-center",
+        icon: <FiAlertCircle className="mr-1 text-[#ff69b4]" />
+      };
+    } else {
+      return {
+        message: "Em estoque",
+        className: "text-green-600 uppercase font-medium flex items-center",
+        icon: <FiCheckCircle className="mr-1 text-green-600" />
+      };
+    }
+  };
+  
+  const statusEstoque = obterStatusEstoque();
+
+  /**
+   * Formata a mensagem de notificação para ser enviada via WhatsApp
+   * quando um produto estiver esgotado
+   * 
+   * @returns Mensagem formatada para notificação de disponibilidade
+   */
+  const formatarMensagemNotificacaoEstoque = () => {
+    // Formatar uma mensagem para enviar pelo WhatsApp
+    // Incluir informações sobre o produto e solicitar notificação quando estiver disponível
+    return encodeURIComponent(
+      `Olá! Estou interessado(a) no produto *${title}* que está esgotado no momento. ` +
+      `Por favor, me avise quando estiver disponível novamente. Obrigado(a)!`
+    );
+  };
+
+  /**
+   * Abre o WhatsApp com uma mensagem pré-formatada para solicitar
+   * notificação quando o produto estiver disponível
+   */
+  const abrirNotificacaoWhatsApp = () => {
+    // Número de telefone para WhatsApp - deve ser configurado conforme o número da loja
+    const numeroWhatsApp = "5511999999999"; // Exemplo: 5511999999999
+    
+    // Formatar a mensagem
+    const mensagem = formatarMensagemNotificacaoEstoque();
+    
+    // Abrir a URL do WhatsApp em uma nova janela
+    window.open(`https://wa.me/${numeroWhatsApp}?text=${mensagem}`, '_blank');
   };
 
   if (!isOpen) return null;
@@ -99,10 +237,19 @@ export default function ProductModal({
               src={imageUrl}
               alt={title}
               fill
-              className="object-cover"
+              className={`object-cover ${stockQuantity === 0 ? 'grayscale' : ''}`}
               sizes="(max-width: 1024px) 100vw, 1024px"
               priority
             />
+            
+            {/* Out of Stock Overlay */}
+            {stockQuantity === 0 && (
+              <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center">
+                <div className="bg-red-500 text-white px-8 py-3 rounded-sm font-bold tracking-wider text-xl transform -rotate-12 shadow-lg mb-4">
+                  ESGOTADO
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Content */}
@@ -122,30 +269,71 @@ export default function ProductModal({
             </div>
 
             {price && (
-              <div className="mt-6 flex items-center justify-between">
-                <p className="text-2xl font-bold text-[#ff69b4]">{price}</p>
-                <span className="text-sm text-gray-500 uppercase tracking-wider">
-                  Em estoque
-                </span>
+              <div className="mt-6">
+                {/* Preço e desconto */}
+                <div className="flex items-center mb-4">
+                  <p className="text-xl text-gray-500 line-through">{price}</p>
+                  {promocao && (
+                    <span className="ml-3 bg-[#ff69b4] text-white text-sm px-2 py-0.5 rounded font-medium">
+                      -{descontoPromocao || 10}%
+                    </span>
+                  )}
+                </div>
+
+                {/* Preço final */}
+                <div className="flex items-center">
+                  <span className="text-2xl font-bold text-green-600">
+                    {promocao && precoComDesconto ? `R$ ${precoComDesconto}` : price}
+                  </span>
+                  {promocao && cupom && (
+                    <div className="ml-3 bg-green-100 px-3 py-1 rounded-md">
+                      <span className="text-sm text-green-800 font-medium">
+                        Cupom: {cupom}
+                      </span>
+                    </div>
+                  )}
+                </div>
+                
+                {/* Stock Status */}
+                <div className="flex justify-between items-center mt-2">
+                  <span className={`text-sm tracking-wider ${statusEstoque.className}`}>
+                    {statusEstoque.icon} {statusEstoque.message}
+                  </span>
+                </div>
               </div>
             )}
 
             <div className="mt-6 grid gap-4 grid-cols-1 sm:grid-cols-2">
-              {/* Add to Cart Button */}
+              {/* Add to Cart Button - Disable if out of stock */}
               {price && onAddToCart && (
-                <button
-                  onClick={onAddToCart}
-                  className="w-full py-3 bg-pink-500 text-white rounded-lg flex items-center justify-center gap-2 hover:bg-pink-600 transition-colors"
-                >
-                  <FiShoppingCart className="w-5 h-5" />
-                  Adicionar ao Carrinho
-                </button>
+                <>
+                  {stockQuantity === 0 ? (
+                    <button
+                      className="w-full py-3 rounded-lg flex items-center justify-center gap-2 bg-white border-2 border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors shadow-sm"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        abrirNotificacaoWhatsApp();
+                      }}
+                    >
+                      <FaWhatsapp className="w-5 h-5 text-green-600" />
+                      Avise-me quando disponível
+                    </button>
+                  ) : (
+                    <button
+                      onClick={onAddToCart}
+                      className="w-full py-3 bg-pink-500 text-white rounded-lg flex items-center justify-center gap-2 hover:bg-pink-600 transition-colors"
+                    >
+                      <FiShoppingCart className="w-5 h-5" />
+                      Adicionar ao Carrinho
+                    </button>
+                  )}
+                </>
               )}
 
               {/* View All Products Button */}
               {category && !hideViewAll && (
                 <Link
-                  href={`/${getCategoryPath(category)}`}
+                  href={`/${obterCaminhoCategoria(category)}`}
                   className="w-full py-3 bg-white border border-pink-500 text-pink-500 rounded-lg flex items-center justify-center gap-2 hover:bg-pink-50 transition-colors"
                   onClick={onClose}
                 >

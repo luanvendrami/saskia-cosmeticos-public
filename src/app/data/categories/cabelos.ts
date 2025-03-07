@@ -1,14 +1,6 @@
-export interface Product {
-  id: number;
-  imageUrl: string;
-  title: string;
-  price: string;
-  description: string;
-  primeiroCarrossel: boolean;
-  category: string;
-}
+import { CategoryProduct } from './index';
 
-export const cabelosProducts: Product[] = [
+export const cabelosProducts: CategoryProduct[] = [
   {
     id: 101,
     imageUrl: "/images/6fs55eT.jpeg", 
@@ -17,6 +9,11 @@ export const cabelosProducts: Product[] = [
     description: "Shampoo para cabelos danificados com fórmula nutritiva e reparadora.",
     primeiroCarrossel: false,
     category: "Cabelos",
+    stockQuantity: 20,
+    topSell: true,
+    promocao: true,
+    descontoPromocao: 10,
+    cupom: "PROMO10"
   },
   {
     id: 102, 
@@ -26,60 +23,95 @@ export const cabelosProducts: Product[] = [
     description: "Condicionador para todos os tipos de cabelo com hidratação profunda.",
     primeiroCarrossel: false,
     category: "Cabelos",
+    stockQuantity: 8,
+    topSell: true,
+    promocao: true,
+    descontoPromocao: 10,
+    cupom: "PROMO10"
   },
   {
     id: 103,
     imageUrl: "/images/6fs55eT.jpeg", 
     title: "Máscara Capilar",
     price: "R$ 35,90",
-    description: "Máscara de tratamento intensivo para cabelos ressecados e quebradiços.",
+    description: "Máscara de tratamento intensivo para cabelos ressecados ou danificados.",
     primeiroCarrossel: false,
     category: "Cabelos",
+    stockQuantity: 15,
+    topSell: false,
+    promocao: true,
+    descontoPromocao: 10,
+    cupom: "PROMO10"
   },
   {
     id: 104,
     imageUrl: "/images/6fs55eT.jpeg", 
     title: "Óleo de Argan",
     price: "R$ 45,90",
-    description: "Óleo nutritivo com argan para cabelos danificados, proporciona brilho e maciez.",
+    description: "Óleo nutritivo para cabelos com pontas duplas e ressecamento.",
     primeiroCarrossel: false,
     category: "Cabelos",
+    stockQuantity: 10,
+    topSell: false,
+    promocao: true,
+    descontoPromocao: 10,
+    cupom: "PROMO10"
   },
   {
     id: 105,
     imageUrl: "/images/6fs55eT.jpeg", 
-    title: "Leave-in",
+    title: "Leave-in Reparador",
     price: "R$ 32,90",
-    description: "Creme sem enxágue para proteger e hidratar os fios durante o dia.",
+    description: "Leave-in sem enxágue para proteção térmica e hidratação contínua.",
     primeiroCarrossel: false,
     category: "Cabelos",
+    stockQuantity: 20,
+    topSell: true,
+    promocao: true,
+    descontoPromocao: 10,
+    cupom: "PROMO10"
   },
   {
     id: 106,
     imageUrl: "/images/6fs55eT.jpeg", 
-    title: "Ampola de Reconstrução",
-    price: "R$ 19,90",
-    description: "Ampola de tratamento intensivo para reconstrução capilar instantânea.",
+    title: "Ativador de Cachos",
+    price: "R$ 29,90",
+    description: "Creme ativador para definição e hidratação de cachos.",
     primeiroCarrossel: false,
     category: "Cabelos",
+    stockQuantity: 8,
+    topSell: false,
+    promocao: true,
+    descontoPromocao: 10,
+    cupom: "PROMO10"
   },
   {
     id: 107,
     imageUrl: "/images/6fs55eT.jpeg", 
-    title: "Protetor Térmico",
-    price: "R$ 36,90",
-    description: "Protetor para uso antes de secador e chapinha, evita danos causados pelo calor.",
+    title: "Finalizador Anti-Frizz",
+    price: "R$ 38,90",
+    description: "Finalizador para controle de frizz e brilho intenso.",
     primeiroCarrossel: false,
     category: "Cabelos",
+    stockQuantity: 12,
+    topSell: true,
+    promocao: true,
+    descontoPromocao: 10,
+    cupom: "PROMO10"
   },
   {
     id: 108,
     imageUrl: "/images/6fs55eT.jpeg", 
-    title: "Finalizador de Cachos",
-    price: "R$ 39,90",
-    description: "Creme para definição de cachos com controle de frizz e hidratação.",
+    title: "Protetor Térmico",
+    price: "R$ 37,90",
+    description: "Protetor térmico para cabelos expostos a secador, chapinha e babyliss.",
     primeiroCarrossel: false,
     category: "Cabelos",
+    stockQuantity: 15,
+    topSell: true,
+    promocao: true,
+    descontoPromocao: 10,
+    cupom: "PROMO10"
   },
   {
     id: 109,
@@ -89,6 +121,11 @@ export const cabelosProducts: Product[] = [
     description: "Spray para dar volume aos cabelos finos e sem vida.",
     primeiroCarrossel: false,
     category: "Cabelos",
+    stockQuantity: 5,
+    topSell: true,
+    promocao: true,
+    descontoPromocao: 10,
+    cupom: "PROMO10"
   },
   {
     id: 110,
@@ -98,5 +135,10 @@ export const cabelosProducts: Product[] = [
     description: "Tônico para o couro cabeludo, estimula o crescimento dos fios.",
     primeiroCarrossel: false,
     category: "Cabelos",
+    stockQuantity: 5,
+    topSell: true,
+    promocao: true,
+    descontoPromocao: 10,
+    cupom: "PROMO10"
   },
 ]; 

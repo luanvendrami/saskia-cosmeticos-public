@@ -1,14 +1,19 @@
-import { Product } from './cabelos';
+import { CategoryProduct } from './index';
 
-export const perfumesProducts: Product[] = [
+export const perfumesProducts: CategoryProduct[] = [
   {
     id: 401,
-    imageUrl: "/images/6fs55eT.jpeg", 
-    title: "Perfume Floral",
+    imageUrl: "/images/6fs55eT.jpeg",
+    title: "Eau de Parfum Floral",
     price: "R$ 129,90",
-    description: "Perfume com notas florais para uma fragrância delicada e feminina.",
+    description: "Perfume floral com notas de jasmim e baunilha.",
     primeiroCarrossel: false,
     category: "Perfumes",
+    stockQuantity: 10,
+    topSell: true,
+    promocao: true,
+    descontoPromocao: 10,
+    cupom: "PROMO10"
   },
   {
     id: 402,
@@ -18,15 +23,25 @@ export const perfumesProducts: Product[] = [
     description: "Perfume amadeirado com notas de sândalo e cedro para uma fragrância marcante.",
     primeiroCarrossel: false,
     category: "Perfumes",
+    stockQuantity: 3,
+    topSell: true,
+    promocao: true,
+    descontoPromocao: 10,
+    cupom: "PROMO10"
   },
   {
     id: 403,
     imageUrl: "/images/6fs55eT.jpeg", 
     title: "Perfume Cítrico",
     price: "R$ 119,90",
-    description: "Perfume com notas cítricas refrescantes e vibrantes.",
+    description: "Perfume cítrico com notas de bergamota e limão para uma fragrância refrescante.",
     primeiroCarrossel: false,
     category: "Perfumes",
+    stockQuantity: 5,
+    topSell: true,
+    promocao: true,
+    descontoPromocao: 10,
+    cupom: "PROMO10"
   },
   {
     id: 404,
@@ -36,6 +51,11 @@ export const perfumesProducts: Product[] = [
     description: "Perfume oriental com notas exóticas e sensuais.",
     primeiroCarrossel: false,
     category: "Perfumes",
+    stockQuantity: 7,
+    topSell: true,
+    promocao: true,
+    descontoPromocao: 10,
+    cupom: "PROMO10"
   },
   {
     id: 405,
@@ -45,6 +65,11 @@ export const perfumesProducts: Product[] = [
     description: "Eau de Toilette com notas frutais e aroma jovial.",
     primeiroCarrossel: false,
     category: "Perfumes",
+    stockQuantity: 7,
+    topSell: true,
+    promocao: true,
+    descontoPromocao: 10,
+    cupom: "PROMO10"
   },
   {
     id: 406,
@@ -54,6 +79,11 @@ export const perfumesProducts: Product[] = [
     description: "Perfume com notas aquáticas para uma sensação de frescor.",
     primeiroCarrossel: false,
     category: "Perfumes",
+    stockQuantity: 7,
+    topSell: true,
+    promocao: true,
+    descontoPromocao: 10,
+    cupom: "PROMO10"
   },
   {
     id: 407,
@@ -63,6 +93,11 @@ export const perfumesProducts: Product[] = [
     description: "Deo colônia para uso diário com fragrância suave e refrescante.",
     primeiroCarrossel: false,
     category: "Perfumes",
+    stockQuantity: 5,
+    topSell: true,
+    promocao: true,
+    descontoPromocao: 10,
+    cupom: "PROMO10"
   },
   {
     id: 408,
@@ -72,6 +107,11 @@ export const perfumesProducts: Product[] = [
     description: "Perfume com notas adocicadas e aroma envolvente.",
     primeiroCarrossel: false,
     category: "Perfumes",
+    stockQuantity: 5,
+    topSell: false,
+    promocao: true,
+    descontoPromocao: 10,
+    cupom: "PROMO10"
   },
   {
     id: 409,
@@ -81,6 +121,11 @@ export const perfumesProducts: Product[] = [
     description: "Perfume com notas de especiarias e um toque de mistério.",
     primeiroCarrossel: false,
     category: "Perfumes",
+    stockQuantity: 0,
+    topSell: false,
+    promocao: true,
+    descontoPromocao: 10,
+    cupom: "PROMO10"
   },
   {
     id: 410,
@@ -90,5 +135,10 @@ export const perfumesProducts: Product[] = [
     description: "Body splash com fragrância leve para uso após o banho.",
     primeiroCarrossel: false,
     category: "Perfumes",
+    stockQuantity: 0,
+    topSell: false,
+    promocao: true,
+    descontoPromocao: 10,
+    cupom: "PROMO10"
   },
 ]; 

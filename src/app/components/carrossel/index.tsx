@@ -10,8 +10,6 @@ import "swiper/css/autoplay";
 import styles from "./styles.module.css";
 import ProductCard from "../productCard";
 import CarrosselImagens from "../carrosselimagens";
-import Link from "next/link";
-import { FiArrowRight } from "react-icons/fi";
 
 // Define um tipo manual para breakpoints
 type SwiperBreakpoints = {
@@ -22,7 +20,7 @@ type SwiperBreakpoints = {
 };
 
 interface CarouselItem {
-  id: number | string;
+  id: number;
   imageUrl: string;
   title: string;
   price: string;
@@ -32,6 +30,10 @@ interface CarouselItem {
   category?: string;
   isViewAllSlide?: boolean;
   viewAllUrl?: string;
+  stockQuantity?: number;
+  promocao?: boolean;
+  descontoPromocao?: number;
+  cupom?: string;
 }
 
 interface CarouselProps {
@@ -70,24 +72,6 @@ export default function Carrossel({
     };
   }, []);
 
-  // Componente "Ver Todos" para o slide final
-  const ViewAllSlide = ({ category, viewAllUrl }: { category: string, viewAllUrl: string }) => {
-    return (
-      <div className="flex flex-col items-center justify-center h-full bg-white/80 p-8 rounded-2xl border-2 border-[#ff69b4]/20 hover:border-[#ff69b4]/40 transition-all duration-300">
-        <h3 className="text-2xl font-bold text-[#ff69b4] mb-4">Ver Todos</h3>
-        <p className="text-gray-600 text-center mb-8">
-          Veja todos os produtos disponíveis na categoria <span className="font-semibold">{category}</span>
-        </p>
-        <Link
-          href={viewAllUrl}
-          className="px-6 py-3 bg-[#ff69b4] hover:bg-[#ff1493] text-white rounded-full flex items-center transition-colors duration-300"
-        >
-          Explorar Categoria <FiArrowRight className="ml-2" />
-        </Link>
-      </div>
-    );
-  };
-
   return (
     <div className={`relative mx-auto ${styles.paginationOverride}`}>
       <Swiper
@@ -113,17 +97,21 @@ export default function Carrossel({
       >
         {items.map((item) => (
           <SwiperSlide key={item.id}>
-            {item.isViewAllSlide ? (
-              <ViewAllSlide category={item.category || ""} viewAllUrl={item.viewAllUrl || "#"} />
-            ) : !item.primeiroCarrossel ? (
+            {!item.primeiroCarrossel ? (
               <ProductCard
-                id={typeof item.id === 'number' ? item.id : 0}
+                id={item.id}
                 imageUrl={item.imageUrl}
                 title={item.title}
                 price={item.price}
                 description={item.description}
                 link={item.link}
                 category={item.category}
+                isViewAllSlide={item.isViewAllSlide}
+                viewAllUrl={item.viewAllUrl}
+                stockQuantity={item.stockQuantity}
+                promocao={item.promocao}
+                descontoPromocao={item.descontoPromocao}
+                cupom={item.cupom}
               />
             ) : (
               <CarrosselImagens imageUrl={item.imageUrl} />

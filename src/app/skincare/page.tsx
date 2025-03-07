@@ -2,18 +2,25 @@
 
 import { useState, useEffect } from 'react';
 import CategoryPage from '../components/CategoryPage';
-import { products, Product } from '../data/products';
+import { skincareProducts, convertCategoryProductToProduct, Product } from '../data/categories';
 
+/**
+ * Componente de página para a categoria Skin Care
+ * 
+ * Carrega os produtos de cuidados com a pele e os prepara para exibição
+ * utilizando o componente CategoryPage
+ */
 export default function Skincare() {
-  const [categoryProducts, setCategoryProducts] = useState<Product[]>([]);
+  const [produtosCategoria, setProdutosCategoria] = useState<Product[]>([]);
   
   useEffect(() => {
-    // Filter products for this category
-    const skincareProducts = products.filter(product => 
-      product.category.toLowerCase() === 'skincare'
-    );
-    setCategoryProducts(skincareProducts);
+    // Converte produtos da categoria para o formato Product
+    const produtosFormatados = skincareProducts
+      .filter(produto => !produto.isViewAllSlide) // Remove slides "Ver Todos"
+      .map(convertCategoryProductToProduct);
+    
+    setProdutosCategoria(produtosFormatados);
   }, []);
 
-  return <CategoryPage categoryName="skincare" products={categoryProducts} />;
+  return <CategoryPage categoryName="skincare" products={produtosCategoria} />;
 }

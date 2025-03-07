@@ -1,14 +1,19 @@
-import { Product } from './cabelos';
+import { CategoryProduct } from './index';
 
-export const corpoProducts: Product[] = [
+export const corpoProducts: CategoryProduct[] = [
   {
-    id: 501,
-    imageUrl: "/images/6fs55eT.jpeg", 
-    title: "Hidratante Corporal",
-    price: "R$ 45,90",
-    description: "Hidratante corporal para pele seca com manteiga de karité.",
+    id: 301,
+    imageUrl: "/images/6fs55eT.jpeg",
+    title: "Loção Corporal",
+    price: "R$ 39,90",
+    description: "Loção corporal hidratante de rápida absorção.",
     primeiroCarrossel: false,
     category: "Corpo",
+    stockQuantity: 25,
+    topSell: true,
+    promocao: true,
+    descontoPromocao: 10,
+    cupom: "PROMO10"
   },
   {
     id: 502,
@@ -18,6 +23,11 @@ export const corpoProducts: Product[] = [
     description: "Esfoliante para remoção de células mortas e renovação da pele.",
     primeiroCarrossel: false,
     category: "Corpo",
+    stockQuantity: 0,
+    topSell: true,
+    promocao: true,
+    descontoPromocao: 10,
+    cupom: "PROMO10"
   },
   {
     id: 503,
@@ -27,6 +37,11 @@ export const corpoProducts: Product[] = [
     description: "Óleo nutritivo para pele seca e ressecada com vitamina E.",
     primeiroCarrossel: false,
     category: "Corpo",
+    stockQuantity: 0,
+    topSell: true,
+    promocao: true,
+    descontoPromocao: 10,
+    cupom: "PROMO10"
   },
   {
     id: 504,
@@ -36,6 +51,11 @@ export const corpoProducts: Product[] = [
     description: "Sabonete líquido para limpeza diária com fragrância suave.",
     primeiroCarrossel: false,
     category: "Corpo",
+    stockQuantity: 0,
+    topSell: true,
+    promocao: true,
+    descontoPromocao: 10,
+    cupom: "PROMO10"
   },
   {
     id: 505,
@@ -45,6 +65,11 @@ export const corpoProducts: Product[] = [
     description: "Loção para firmeza da pele com colágeno e elastina.",
     primeiroCarrossel: false,
     category: "Corpo",
+    stockQuantity: 0,
+    topSell: true,
+    promocao: true,
+    descontoPromocao: 10,
+    cupom: "PROMO10"
   },
   {
     id: 506,
@@ -54,6 +79,11 @@ export const corpoProducts: Product[] = [
     description: "Creme hidratante para mãos ressecadas, ação rápida e duradoura.",
     primeiroCarrossel: false,
     category: "Corpo",
+    stockQuantity: 0,
+    topSell: true,
+    promocao: true,
+    descontoPromocao: 10,
+    cupom: "PROMO10"
   },
   {
     id: 507,
@@ -63,6 +93,11 @@ export const corpoProducts: Product[] = [
     description: "Desodorante roll-on com 48h de proteção e sem manchas na roupa.",
     primeiroCarrossel: false,
     category: "Corpo",
+    stockQuantity: 12,
+    topSell: true,
+    promocao: true,
+    descontoPromocao: 10,
+    cupom: "PROMO10"
   },
   {
     id: 508,
@@ -72,6 +107,11 @@ export const corpoProducts: Product[] = [
     description: "Protetor solar FPS 50 resistente à água para corpo e rosto.",
     primeiroCarrossel: false,
     category: "Corpo",
+    stockQuantity: 0,
+    topSell: true,
+    promocao: true,
+    descontoPromocao: 10,
+    cupom: "PROMO10"
   },
   {
     id: 509,
@@ -81,6 +121,11 @@ export const corpoProducts: Product[] = [
     description: "Creme com ação anticelulite e modeladora para todos os tipos de pele.",
     primeiroCarrossel: false,
     category: "Corpo",
+    stockQuantity: 15,
+    topSell: true,
+    promocao: true,
+    descontoPromocao: 10,
+    cupom: "PROMO10"
   },
   {
     id: 510,
@@ -90,5 +135,10 @@ export const corpoProducts: Product[] = [
     description: "Gel de banho com fragrância relaxante e hidratação prolongada.",
     primeiroCarrossel: false,
     category: "Corpo",
+    stockQuantity: 0,
+    topSell: true,
+    promocao: true,
+    descontoPromocao: 10,
+    cupom: "PROMO10"
   },
 ]; 

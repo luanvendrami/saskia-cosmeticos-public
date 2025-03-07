@@ -2,18 +2,25 @@
 
 import { useState, useEffect } from 'react';
 import CategoryPage from '../components/CategoryPage';
-import { products, Product } from '../data/products';
+import { cabelosProducts, convertCategoryProductToProduct, Product } from '../data/categories';
 
+/**
+ * Componente de página para a categoria Cabelos
+ * 
+ * Carrega os produtos de cabelos e os prepara para exibição
+ * utilizando o componente CategoryPage
+ */
 export default function Cabelos() {
-  const [categoryProducts, setCategoryProducts] = useState<Product[]>([]);
+  const [produtosCategoria, setProdutosCategoria] = useState<Product[]>([]);
   
   useEffect(() => {
-    // Filter products for this category
-    const hairProducts = products.filter(product => 
-      product.category.toLowerCase() === 'cabelos'
-    );
-    setCategoryProducts(hairProducts);
+    // Converte produtos da categoria para o formato Product
+    const produtosFormatados = cabelosProducts
+      .filter(produto => !produto.isViewAllSlide) // Remove slides "Ver Todos"
+      .map(convertCategoryProductToProduct);
+    
+    setProdutosCategoria(produtosFormatados);
   }, []);
 
-  return <CategoryPage categoryName="cabelos" products={categoryProducts} />;
+  return <CategoryPage categoryName="cabelos" products={produtosCategoria} />;
 }

@@ -12,8 +12,10 @@ import {
   FiYoutube 
 } from "react-icons/fi";
 
-// Categorias para navegação do rodapé
-const categories = [
+/**
+ * Categorias para navegação do rodapé
+ */
+const categorias = [
   { name: "Cabelos", href: "/cabelos" },
   { name: "Skin Care", href: "/skincare" },
   { name: "Maquiagem", href: "/maquiagem" },
@@ -21,8 +23,10 @@ const categories = [
   { name: "Corpo", href: "/corpo" },
 ];
 
-// Links de atendimento ao cliente
-const customerService = [
+/**
+ * Links de atendimento ao cliente
+ */
+const linksAtendimento = [
   { name: "Perguntas Frequentes", href: "#" },
   { name: "Envio e Devoluções", href: "#" },
   { name: "Termos e Condições", href: "#" },
@@ -30,7 +34,13 @@ const customerService = [
   { name: "Fale Conosco", href: "#" },
 ];
 
-export default function Footer() {
+/**
+ * Componente de Rodapé
+ * 
+ * Exibe informações de contato, navegação por categorias
+ * e links úteis para atendimento ao cliente
+ */
+export default function Rodape() {
   return (
     <footer className="bg-white text-gray-600">
       {/* Conteúdo Principal do Rodapé */}
@@ -79,13 +89,13 @@ export default function Footer() {
           <div className="flex flex-col items-center">
             <h4 className="text-lg font-semibold text-gray-800 mb-4 text-center">Categorias</h4>
             <ul className="space-y-2 w-full flex flex-col items-center">
-              {categories.map((category) => (
-                <li key={category.name}>
+              {categorias.map((categoria) => (
+                <li key={categoria.name}>
                   <Link 
-                    href={category.href}
+                    href={categoria.href}
                     className="hover:text-[#ff69b4] transition-colors"
                   >
-                    {category.name}
+                    {categoria.name}
                   </Link>
                 </li>
               ))}
@@ -96,7 +106,7 @@ export default function Footer() {
           <div className="flex flex-col items-center md:items-end">
             <h4 className="text-lg font-semibold text-gray-800 mb-4 text-center md:text-right">Atendimento ao Cliente</h4>
             <ul className="space-y-2 w-full flex flex-col items-center md:items-end">
-              {customerService.map((item) => (
+              {linksAtendimento.map((item) => (
                 <li key={item.name}>
                   <Link 
                     href={item.href}

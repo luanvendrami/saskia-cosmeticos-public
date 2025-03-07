@@ -2,18 +2,25 @@
 
 import { useState, useEffect } from 'react';
 import CategoryPage from '../components/CategoryPage';
-import { products, Product } from '../data/products';
+import { corpoProducts, convertCategoryProductToProduct, Product } from '../data/categories';
 
+/**
+ * Componente de página para a categoria Corpo
+ * 
+ * Carrega os produtos para cuidados corporais e os prepara para exibição
+ * utilizando o componente CategoryPage
+ */
 export default function Corpo() {
-  const [categoryProducts, setCategoryProducts] = useState<Product[]>([]);
+  const [produtosCategoria, setProdutosCategoria] = useState<Product[]>([]);
   
   useEffect(() => {
-    // Filter products for this category
-    const bodyProducts = products.filter(product => 
-      product.category.toLowerCase() === 'corpo'
-    );
-    setCategoryProducts(bodyProducts);
+    // Converte produtos da categoria para o formato Product
+    const produtosFormatados = corpoProducts
+      .filter(produto => !produto.isViewAllSlide) // Remove slides "Ver Todos"
+      .map(convertCategoryProductToProduct);
+    
+    setProdutosCategoria(produtosFormatados);
   }, []);
 
-  return <CategoryPage categoryName="corpo" products={categoryProducts} />;
+  return <CategoryPage categoryName="corpo" products={produtosCategoria} />;
 }

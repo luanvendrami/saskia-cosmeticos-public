@@ -1,3 +1,8 @@
+/**
+ * @fileoverview Página inicial da loja
+ * Exibe carrosséis de produtos populares por categoria e banner promocional
+ */
+
 import Carrossel from "./components/carrossel";
 import Footer from "./components/Footer";
 import Link from "next/link";
@@ -8,12 +13,22 @@ import {
   skincareProducts, 
   maquiagemProducts, 
   perfumesProducts, 
-  corpoProducts,
-  Product
+  corpoProducts 
 } from "./data/categories";
+import Image from "next/image";
 
+/**
+ * Componente da página inicial
+ * 
+ * Exibe os produtos em destaque organizados por categoria
+ * e elementos promocionais
+ */
 export default function Home() {
-  const carrosselBreakpoints = {
+  /**
+   * Configurações de breakpoints para os carrosséis
+   * Define como os slides se ajustam em diferentes tamanhos de tela
+   */
+  const configuracaoCarrossel = {
     0: {
       slidesPerView: 1,
       spaceBetween: 10,
@@ -44,13 +59,23 @@ export default function Home() {
     },
   };
 
-  // Função para limitar produtos e adicionar slide "Ver Todos"
-  const limitProductsAndAddViewAll = (produtos: Product[], category: string, urlPath: string) => {
-    // Limitar para 7 produtos
-    const limitedProducts = produtos.slice(0, 7);
+  /**
+   * Filtra produtos populares e adiciona slide "Ver Todos"
+   * 
+   * @param produtos - Array de produtos de uma categoria
+   * @param category - Nome da categoria
+   * @param urlPath - Caminho URL para a página da categoria
+   * @returns Array de produtos filtrados com slide "Ver Todos" no final
+   */
+  const filtrarProdutosPopularesEAdicionarVerTodos = (produtos: any[], category: string, urlPath: string) => {
+    // Filtrar apenas os produtos marcados como topSell
+    const produtosPopulares = produtos.filter(product => product.topSell === true);
+    
+    // Limitar para no máximo 7 produtos
+    const produtosLimitados = produtosPopulares.slice(0, 7);
     
     // Adicionar slide "Ver Todos"
-    const viewAllSlide = {
+    const slideVerTodos = {
       id: `viewAll-${category}`,
       imageUrl: "/images/6fs55eT.jpeg",
       title: "Ver Todos",
@@ -59,10 +84,13 @@ export default function Home() {
       primeiroCarrossel: false,
       category,
       isViewAllSlide: true,
-      viewAllUrl: `/${urlPath}`
+      viewAllUrl: `/${urlPath}`,
+      promocao: false,
+      descontoPromocao: 0,
+      cupom: ""
     };
     
-    return [...limitedProducts, viewAllSlide];
+    return [...produtosLimitados, slideVerTodos];
   };
 
   // Categorias organizadas com seus produtos
@@ -72,35 +100,35 @@ export default function Home() {
       titulo: "Cabelos",
       descricao: "Descubra os melhores produtos para cuidar dos seus cabelos.",
       urlPath: "cabelos",
-      produtos: limitProductsAndAddViewAll(cabelosProducts, "Cabelos", "cabelos")
+      produtos: filtrarProdutosPopularesEAdicionarVerTodos(cabelosProducts, "Cabelos", "cabelos")
     },
     {
       id: 2,
       titulo: "Skin Care",
       descricao: "Descubra os melhores produtos para sua skin care.",
       urlPath: "skincare",
-      produtos: limitProductsAndAddViewAll(skincareProducts, "Skin Care", "skincare")
+      produtos: filtrarProdutosPopularesEAdicionarVerTodos(skincareProducts, "Skin Care", "skincare")
     },
     {
       id: 3,
       titulo: "Maquiagem",
       descricao: "Descubra os melhores produtos para sua maquiagem.",
       urlPath: "maquiagem",
-      produtos: limitProductsAndAddViewAll(maquiagemProducts, "Maquiagem", "maquiagem")
+      produtos: filtrarProdutosPopularesEAdicionarVerTodos(maquiagemProducts, "Maquiagem", "maquiagem")
     },
     {
       id: 4,
       titulo: "Perfumes",
       descricao: "Descubra os melhores perfumes.",
       urlPath: "perfumes",
-      produtos: limitProductsAndAddViewAll(perfumesProducts, "Perfumes", "perfumes")
+      produtos: filtrarProdutosPopularesEAdicionarVerTodos(perfumesProducts, "Perfumes", "perfumes")
     },
     {
       id: 5,
       titulo: "Corpo",
       descricao: "Descubra os melhores produtos para o seu corpo.",
       urlPath: "corpo",
-      produtos: limitProductsAndAddViewAll(corpoProducts, "Corpo", "corpo")
+      produtos: filtrarProdutosPopularesEAdicionarVerTodos(corpoProducts, "Corpo", "corpo")
     },
   ];
 
@@ -114,6 +142,13 @@ export default function Home() {
         loop
         swiperClassName="w-full max-w-[1920px] mx-auto h-[400px] md:h-[400px] lg:h-[500px]"
       />
+
+      {/* Banner de Promoção */}
+      <div className="bg-[#ff69b4]/10 py-3 px-4 text-center text-gray-700 rounded-lg shadow-sm mb-8 transition-all hover:bg-[#ff69b4]/20">
+        <p className="text-sm md:text-base">
+          Use o cupom <span className="font-mono bg-pink-100 text-[#ff69b4] px-1.5 py-0.5 rounded mx-1">PROMO10</span> e ganhe 10% OFF na sua compra!
+        </p>
+      </div>
 
       {categorias.map((categoria) => (
         <div key={categoria.id} className="py-12 px-4 sm:px-6 lg:px-8">
@@ -138,7 +173,7 @@ export default function Home() {
                   slidesPerView={1}
                   spaceBetween={10}
                   swiperClassName="w-full h-[520px] md:h-[520px]"
-                  breakpoints={carrosselBreakpoints}
+                  breakpoints={configuracaoCarrossel}
                 />
               </div>
             </div>

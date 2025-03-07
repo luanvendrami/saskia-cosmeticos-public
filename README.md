@@ -34,3 +34,16 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Sobre o projeto
+
+Este é um site de e-commerce para a marca Saskia Cosméticos, construído com Next.js e Tailwind CSS. O site inclui:
+
+- Carrossel de produtos
+- Categorias de produtos
+- Carrinho de compras com suporte para cupons de desconto
+- Integração com WhatsApp para finalização de pedidos
+
+### Cupom de desconto disponível
+
+- **PROMO10**: 10% de desconto em toda a loja

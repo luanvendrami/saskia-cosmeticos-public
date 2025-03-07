@@ -4,64 +4,83 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { FiX, FiStar, FiGift } from 'react-icons/fi';
 
-export default function PromoModal() {
-  const [isVisible, setIsVisible] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
+/**
+ * Componente que exibe um modal promocional
+ * 
+ * Mostra uma oferta especial com cupom de desconto para o usuário
+ * Aparece uma vez por sessão para novos visitantes
+ */
+export default function ModalPromocional() {
+  const [visivel, setVisivel] = useState(false);
+  const [montado, setMontado] = useState(false);
 
   useEffect(() => {
     // Marcando que o componente foi montado no cliente
-    setIsMounted(true);
+    setMontado(true);
     
     try {
       // Verificar se é a primeira visita (usando localStorage)
-      const hasSeenPromo = localStorage.getItem('hasSeenPromo');
+      const jaViuPromocao = localStorage.getItem('hasSeenPromo');
       
-      if (!hasSeenPromo) {
+      if (!jaViuPromocao) {
         // Se for a primeira visita, mostrar o modal após um pequeno delay
         const timer = setTimeout(() => {
-          setIsVisible(true);
-        }, 1000);
+          setVisivel(true);
+          // Registrar que o usuário já viu a promoção
+          localStorage.setItem('hasSeenPromo', 'true');
+          
+          // Definir um tempo para expirar (24 horas)
+          const expirationTime = new Date().getTime() + (24 * 60 * 60 * 1000);
+          localStorage.setItem('promoExpiration', expirationTime.toString());
+        }, 3000); // 3 segundos de atraso
         
         return () => clearTimeout(timer);
+      } else {
+        // Verificar se o tempo expirou
+        const expirationTime = localStorage.getItem('promoExpiration');
+        
+        if (expirationTime && new Date().getTime() > parseInt(expirationTime)) {
+          // Reset se o tempo expirou
+          resetarPromocao();
+        }
       }
     } catch (error) {
-      // Em caso de erro ao acessar localStorage (por exemplo, no SSR ou em navegadores com cookies desabilitados)
-      console.error('Erro ao acessar localStorage:', error);
+      // Tratamento para caso o localStorage não esteja disponível (ex: navegação privada)
+      console.error('Erro ao acessar localStorage', error);
     }
   }, []);
 
-  const closeModal = () => {
-    try {
-      setIsVisible(false);
-      // Marcar que o usuário já viu o modal
-      localStorage.setItem('hasSeenPromo', 'true');
-    } catch (error) {
-      console.error('Erro ao salvar no localStorage:', error);
-    }
+  /**
+   * Fecha o modal promocional
+   */
+  const fecharModal = () => {
+    setVisivel(false);
   };
 
-  // Para testar o modal, podemos remover temporariamente o localStorage
-  const resetPromo = () => {
+  /**
+   * Reseta o estado da promoção, permitindo que ela seja exibida novamente
+   */
+  const resetarPromocao = () => {
     try {
       localStorage.removeItem('hasSeenPromo');
-      window.location.reload();
+      localStorage.removeItem('promoExpiration');
     } catch (error) {
-      console.error('Erro ao remover do localStorage:', error);
+      console.error('Erro ao resetar promoção', error);
     }
   };
 
   // Não renderizar nada durante a renderização do servidor ou se o componente não estiver montado
-  if (!isMounted) return null;
+  if (!montado) return null;
   
   // Não renderizar se o modal não estiver visível
-  if (!isVisible) return null;
+  if (!visivel) return null;
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-0">
       {/* Overlay com blur */}
       <div 
         className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-fade-in"
-        onClick={closeModal}
+        onClick={fecharModal}
       />
 
       {/* Modal */}
@@ -70,14 +89,14 @@ export default function PromoModal() {
         <div className="absolute -left-6 -top-6 w-20 h-20 bg-pink-500 rounded-full opacity-20"></div>
         <div className="absolute -right-6 -bottom-6 w-20 h-20 bg-purple-500 rounded-full opacity-20"></div>
         
-        {/* Banner "15% OFF" */}
-        <div className="absolute -right-12 -top-2 rotate-45 bg-[#ff69b4] text-white text-xs font-bold py-1 px-12 shadow-md z-10">
-          15% OFF
+        {/* Banner "10% OFF" */}
+        <div className="absolute top-0 right-0 bg-gradient-to-r from-pink-500 to-red-500 text-white py-1 px-4 transform rotate-12 translate-x-2 -translate-y-2 rounded-sm text-sm font-bold shadow-lg">
+          10% OFF
         </div>
 
         {/* Botão de fechar */}
         <button 
-          onClick={closeModal}
+          onClick={fecharModal}
           className="absolute right-3 top-3 z-10 bg-white/80 rounded-full p-1 shadow-md hover:bg-white transition-colors"
           aria-label="Fechar modal promocional"
         >
@@ -106,7 +125,7 @@ export default function PromoModal() {
                 <span className="text-xs font-bold tracking-wider">OFERTA EXCLUSIVA</span>
               </div>
               <h3 className="text-xl font-extrabold drop-shadow-md">
-                15% OFF EM TUDO!
+                10% OFF EM TUDO!
               </h3>
             </div>
           </div>
@@ -121,17 +140,17 @@ export default function PromoModal() {
             
             {/* Título - visível apenas no desktop */}
             <h2 className="hidden md:block text-2xl md:text-3xl font-bold text-gray-800 mb-3">
-              GANHE 15% OFF EM TODO O SITE!
+              GANHE 10% OFF EM TODO O SITE!
             </h2>
             
             <p className="text-sm md:text-base text-gray-600 mb-5 md:mb-6">
-              Aproveite nossa <span className="font-semibold">oferta exclusiva</span> para 
-              novos clientes! Use o cupom abaixo em sua primeira compra e ganhe 15% de desconto em qualquer produto.
+              Estamos super animados para oferecer esta promoção especial para
+              novos clientes! Use o cupom abaixo em sua primeira compra e ganhe 10% de desconto em qualquer produto.
             </p>
             
             {/* Código do cupom */}
             <div className="bg-[#ff69b4] text-2xl md:text-3xl font-bold text-white py-2 px-4 rounded-lg mx-auto md:mx-0 transform rotate-2 shadow-lg animate-pulse-shadow">
-              HOJE15
+              PROMO10
             </div>
             
             <p className="mt-4 text-xs text-gray-500">
@@ -142,7 +161,7 @@ export default function PromoModal() {
 
         {/* Botão para aproveitar a promoção */}
         <button
-          onClick={closeModal}
+          onClick={fecharModal}
           className="w-full py-4 bg-[#ff69b4] hover:bg-[#ff1493] text-white text-lg font-bold transition-colors duration-300 flex items-center justify-center"
         >
           <FiGift className="mr-2" />
@@ -152,7 +171,7 @@ export default function PromoModal() {
         {/* Botão para resetar o modal (apenas durante o desenvolvimento) */}
         {process.env.NODE_ENV === 'development' && (
           <button
-            onClick={resetPromo}
+            onClick={resetarPromocao}
             className="absolute left-3 top-3 z-10 bg-gray-100 text-xs text-gray-500 rounded p-1 opacity-50 hover:opacity-100"
           >
             Reset (dev)
