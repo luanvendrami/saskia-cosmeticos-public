@@ -1,91 +1,113 @@
 import Carrossel from "./components/carrossel";
+import Footer from "./components/Footer";
+import Link from "next/link";
+import { FiArrowRight } from "react-icons/fi";
+import { 
+  heroProducts, 
+  cabelosProducts, 
+  skincareProducts, 
+  maquiagemProducts, 
+  perfumesProducts, 
+  corpoProducts,
+  Product
+} from "./data/categories";
 
 export default function Home() {
-  // Carrossel de 1 produto por slide (novidades, por exemplo)
-  const produtosSingle = [
-    {
-      id: 1,
-      imageUrl: "https://i.imgur.com/3Nz4zHv.jpg",
-      title: "Novidade 1",
-      price: "",
-      description: "Descrição da novidade 1",
-      primeiroCarrossel: true,
+  const carrosselBreakpoints = {
+    0: {
+      slidesPerView: 1,
+      spaceBetween: 10,
     },
-    {
-      id: 2,
-      imageUrl: "https://i.imgur.com/ROfFygP.jpg",
-      title: "Novidade 2",
-      price: "",
-      description: "Descrição da novidade 2",
-      primeiroCarrossel: true,
+    375: {
+      slidesPerView: 1,
+      spaceBetween: 10,
     },
-    {
-      id: 3,
-      imageUrl: "https://i.imgur.com/ROfFygP.jpg",
-      title: "Novidade 3",
-      price: "",
-      description: "Descrição da novidade 3",
-      primeiroCarrossel: true,
+    425: {
+      slidesPerView: 1,
+      spaceBetween: 10,
     },
-  ];
+    640: {
+      slidesPerView: 2,
+      spaceBetween: 10,
+    },
+    768: {
+      slidesPerView: 2.2,
+      spaceBetween: 10,
+    },
+    1024: {
+      slidesPerView: 3,
+      spaceBetween: 10,
+    },
+    1440: {
+      slidesPerView: 4,
+      spaceBetween: 10,
+    },
+  };
 
-  // Carrossel com 6 produtos (card de produtos, com imagem, título, descrição)
-  const produtosMulti = [
+  // Função para limitar produtos e adicionar slide "Ver Todos"
+  const limitProductsAndAddViewAll = (produtos: Product[], category: string, urlPath: string) => {
+    // Limitar para 7 produtos
+    const limitedProducts = produtos.slice(0, 7);
+    
+    // Adicionar slide "Ver Todos"
+    const viewAllSlide = {
+      id: `viewAll-${category}`,
+      imageUrl: "/images/6fs55eT.jpeg",
+      title: "Ver Todos",
+      price: "",
+      description: `Veja todos os produtos de ${category}`,
+      primeiroCarrossel: false,
+      category,
+      isViewAllSlide: true,
+      viewAllUrl: `/${urlPath}`
+    };
+    
+    return [...limitedProducts, viewAllSlide];
+  };
+
+  // Categorias organizadas com seus produtos
+  const categorias = [
     {
       id: 1,
-      imageUrl: "https://i.imgur.com/717KfcI.jpg",
-      title: "Produto 1",
-      price: "R$ 19,99",
-      description: "Produto para cabelos com hidratação intensa.",
-      primeiroCarrossel: false,
+      titulo: "Cabelos",
+      descricao: "Descubra os melhores produtos para cuidar dos seus cabelos.",
+      urlPath: "cabelos",
+      produtos: limitProductsAndAddViewAll(cabelosProducts, "Cabelos", "cabelos")
     },
     {
       id: 2,
-      imageUrl: "https://i.imgur.com/BY92HYV.jpg",
-      title: "Produto 2",
-      price: "R$ 29,99",
-      description: "Máscara capilar nutritiva.",
-      primeiroCarrossel: false,
+      titulo: "Skin Care",
+      descricao: "Descubra os melhores produtos para sua skin care.",
+      urlPath: "skincare",
+      produtos: limitProductsAndAddViewAll(skincareProducts, "Skin Care", "skincare")
     },
     {
       id: 3,
-      imageUrl: "https://i.imgur.com/HinCOlV.jpg",
-      title: "Produto 3",
-      price: "R$ 49,99",
-      description: "Shampoo restaurador para cabelos danificados.",
-      primeiroCarrossel: false,
+      titulo: "Maquiagem",
+      descricao: "Descubra os melhores produtos para sua maquiagem.",
+      urlPath: "maquiagem",
+      produtos: limitProductsAndAddViewAll(maquiagemProducts, "Maquiagem", "maquiagem")
     },
     {
       id: 4,
-      imageUrl: "https://i.imgur.com/hnrxdMX.jpg",
-      title: "Produto 4",
-      price: "R$ 59,99",
-      description: "Condicionador fortalecedor com queratina.",
-      primeiroCarrossel: false,
+      titulo: "Perfumes",
+      descricao: "Descubra os melhores perfumes.",
+      urlPath: "perfumes",
+      produtos: limitProductsAndAddViewAll(perfumesProducts, "Perfumes", "perfumes")
     },
     {
       id: 5,
-      imageUrl: "https://i.imgur.com/4eXQwip.jpg",
-      title: "Produto 5",
-      price: "R$ 69,99",
-      description: "Óleo capilar nutritivo com argan.",
-      primeiroCarrossel: false,
-    },
-    {
-      id: 6,
-      imageUrl: "https://i.imgur.com/6fs55eT.jpg",
-      title: "Produto 6",
-      price: "R$ 79,99",
-      description: "Finalizador capilar antifrizz.",
-      primeiroCarrossel: false,
+      titulo: "Corpo",
+      descricao: "Descubra os melhores produtos para o seu corpo.",
+      urlPath: "corpo",
+      produtos: limitProductsAndAddViewAll(corpoProducts, "Corpo", "corpo")
     },
   ];
 
   return (
-    <div>
-      {/* Carrossel de novidades (1 imagem por slide) */}
+    <div className="bg-[#ffe1ff] min-h-screen">
       <Carrossel
-        items={produtosSingle}
+        items={heroProducts}
         slidesPerView={1}
         spaceBetween={0}
         autoplayDelay={4000}
@@ -93,61 +115,38 @@ export default function Home() {
         swiperClassName="w-full max-w-[1920px] mx-auto h-[400px] md:h-[400px] lg:h-[500px]"
       />
 
-      {/* Título para o segundo carrossel */}
-      <div className="mt-8 sm:mt-10 md:mt-14 text-center">
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">
-          Cabelos
-        </h2>
-        <p className="text-gray-600 mt-1 text-xs sm:text-sm md:text-base">
-          Descubra os melhores produtos para cuidar dos seus cabelos.
-        </p>
-      </div>
-
-      {/* Espaço entre os carrosséis */}
-      <div className="mt-3 flex justify-center">
-        {/* Container com borda, sombra e limite de largura */}
-        <div className="border border-gray-300 shadow-lg p-8 w-full max-w-[1500px] mx-auto">
-          <Carrossel
-            items={produtosMulti}
-            loop
-            autoplayDelay={undefined}
-            centeredSlides={true}
-            slidesPerView={1}
-            spaceBetween={10}
-            swiperClassName="w-full h-[520px] md:h-[520px]"
-            breakpoints={{
-              0: {
-                slidesPerView: 1,
-                spaceBetween: 20,
-              },
-              375: {
-                slidesPerView: 1.15,
-                spaceBetween: 5,
-              },
-              425: {
-                slidesPerView: 1.3,
-                spaceBetween: 5,
-              },
-              640: {
-                slidesPerView: 2.5,
-                spaceBetween: 10,
-              },
-              768: {
-                slidesPerView: 2.5,
-                spaceBetween: 10,
-              },
-              1024: {
-                slidesPerView: 3.5,
-                spaceBetween: 10,
-              },
-              1440: {
-                slidesPerView: 5,
-                spaceBetween: 10,
-              },
-            }}
-          />
+      {categorias.map((categoria) => (
+        <div key={categoria.id} className="py-12 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#ff69b4] mb-4 tracking-tight animate-modal-slide-up">
+                {categoria.titulo}
+              </h2>
+              <div className="w-32 h-1.5 bg-gradient-to-r from-[#ff69b4] to-[#ff1493] mx-auto mb-6 rounded-full shadow-lg"></div>
+              <p className="text-lg md:text-xl text-[#ff69b4]/90 max-w-2xl mx-auto leading-relaxed font-medium">
+                {categoria.descricao}
+              </p>
+            </div>
+            
+            <div className="relative">
+              <div className="rounded-2xl overflow-hidden shadow-[0_10px_40px_-15px_rgba(255,105,180,0.3)] bg-white/40 p-8 border-2 border-[#ff69b4]/20 hover:shadow-[0_15px_50px_-12px_rgba(255,105,180,0.4)] transition-shadow duration-300">
+                <Carrossel
+                  items={categoria.produtos}
+                  loop={false}
+                  autoplayDelay={undefined}
+                  centeredSlides={false}
+                  slidesPerView={1}
+                  spaceBetween={10}
+                  swiperClassName="w-full h-[520px] md:h-[520px]"
+                  breakpoints={carrosselBreakpoints}
+                />
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      ))}
+      
+      <Footer />
     </div>
   );
 }
