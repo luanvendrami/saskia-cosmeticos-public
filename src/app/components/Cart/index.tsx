@@ -130,7 +130,7 @@ export default function Carrinho() {
     if (cartItems.length === 0) return;
     
     // WhatsApp phone number - should be the store's phone
-    const numeroWhatsApp = "5511999999999"; // Example: Brazilian number format
+    const numeroWhatsApp = "5547997273738"; // Example: Brazilian number format
     
     // Format cart items into a WhatsApp message
     const mensagem = formatarCarrinhoParaWhatsApp();
