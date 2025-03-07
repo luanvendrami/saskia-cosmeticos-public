@@ -1,6 +1,7 @@
 import Header from "./components/header";
 import "./globals.css";
 import { CartProvider } from "./context/CartContext";
+import PromoModal from "./components/PromoModal";
 
 export default function RootLayout({
   children,
@@ -15,6 +16,7 @@ export default function RootLayout({
         <CartProvider>
           <Header/>
           {children}
+          <PromoModal />
         </CartProvider>
       </body>
     </html>
