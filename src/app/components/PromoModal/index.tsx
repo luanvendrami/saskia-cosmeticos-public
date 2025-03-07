@@ -6,10 +6,13 @@ import { FiX, FiStar, FiGift } from 'react-icons/fi';
 
 export default function PromoModal() {
   const [isVisible, setIsVisible] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    // Verificar se o código está rodando no cliente
-    if (typeof window !== 'undefined') {
+    // Marcando que o componente foi montado no cliente
+    setIsMounted(true);
+    
+    try {
       // Verificar se é a primeira visita (usando localStorage)
       const hasSeenPromo = localStorage.getItem('hasSeenPromo');
       
@@ -21,21 +24,36 @@ export default function PromoModal() {
         
         return () => clearTimeout(timer);
       }
+    } catch (error) {
+      // Em caso de erro ao acessar localStorage (por exemplo, no SSR ou em navegadores com cookies desabilitados)
+      console.error('Erro ao acessar localStorage:', error);
     }
   }, []);
 
   const closeModal = () => {
-    setIsVisible(false);
-    // Marcar que o usuário já viu o modal
-    localStorage.setItem('hasSeenPromo', 'true');
+    try {
+      setIsVisible(false);
+      // Marcar que o usuário já viu o modal
+      localStorage.setItem('hasSeenPromo', 'true');
+    } catch (error) {
+      console.error('Erro ao salvar no localStorage:', error);
+    }
   };
 
   // Para testar o modal, podemos remover temporariamente o localStorage
   const resetPromo = () => {
-    localStorage.removeItem('hasSeenPromo');
-    window.location.reload();
+    try {
+      localStorage.removeItem('hasSeenPromo');
+      window.location.reload();
+    } catch (error) {
+      console.error('Erro ao remover do localStorage:', error);
+    }
   };
 
+  // Não renderizar nada durante a renderização do servidor ou se o componente não estiver montado
+  if (!isMounted) return null;
+  
+  // Não renderizar se o modal não estiver visível
   if (!isVisible) return null;
 
   return (
