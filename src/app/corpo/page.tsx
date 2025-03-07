@@ -4,16 +4,16 @@ import { useState, useEffect } from 'react';
 import CategoryPage from '../components/CategoryPage';
 import { products, Product } from '../data/products';
 
-export default function Maquiagem() {
+export default function Corpo() {
   const [categoryProducts, setCategoryProducts] = useState<Product[]>([]);
   
   useEffect(() => {
     // Filter products for this category
-    const makeupProducts = products.filter(product => 
-      product.category.toLowerCase() === 'maquiagem'
+    const bodyProducts = products.filter(product => 
+      product.category.toLowerCase() === 'corpo'
     );
-    setCategoryProducts(makeupProducts);
+    setCategoryProducts(bodyProducts);
   }, []);
 
-  return <CategoryPage categoryName="maquiagem" products={categoryProducts} />;
+  return <CategoryPage categoryName="corpo" products={categoryProducts} />;
 }
