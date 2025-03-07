@@ -1,33 +1,61 @@
 "use client";
 
 import Link from "next/link";
-import styles from "./styles.module.css";
 import Navbar from "../navbar";
-import { useState } from "react";
-
+import Cart from "../Cart";
+import { useState, useEffect } from "react";
+import { Menu } from "lucide-react";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768); // 768px is the mobile breakpoint
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   return (
     <>
-      <header className={`${styles.header_container} relative z-50 w-full mx-auto max-w-[1920px]`}>
-        <div className={styles.text_container}>
-          <div className={styles.text_internal_container}>
-          <div className={`${styles.text_div} hidden md:block`}>
-              <Link href="/">Saskia Cosméticos</Link>
-            </div>
+      <header className="relative z-50 w-full mx-auto max-w-[1920px] bg-[#ffe1ff] shadow-md">
+        <div className="w-full px-4 py-3 flex items-center justify-center">
+          <div className="flex-1 flex justify-start items-center">
+            {isMobile && (
+              <button
+                className="p-2 rounded-lg hover:bg-pink-100 transition-colors"
+                onClick={toggleMenu}
+                aria-label="Toggle menu"
+              >
+                <Menu className="w-6 h-6 text-[#ff69b4]" />
+              </button>
+            )}
+          </div>
+          
+          <div className="flex-1 flex justify-center items-center">
+            <Link 
+              href="/" 
+              className="text-xl sm:text-2xl font-bold text-[#ff69b4] hover:text-[#ff1493] transition-colors duration-300"
+            >
+              Saskia Cosméticos
+            </Link>
+          </div>
+          
+          <div className="flex-1 flex justify-end items-center gap-1 sm:gap-3">
+            <Cart />
           </div>
         </div>
 
-        {/* Navbar passa o estado do menu aberto */}
-        <Navbar setIsMenuOpen={setIsMenuOpen} />
+        <Navbar setIsMenuOpen={setIsMenuOpen} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
       </header>
-
-      {/* Fundo de Blur que cobre apenas abaixo do Header */}
-      {isMenuOpen && (
-        <div className="fixed top-[8rem] left-0 w-full h-[calc(100vh-8rem)] bg-black/70 backdrop-blur-lg z-10"></div>
-      )}
     </>
   );
 }

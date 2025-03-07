@@ -2,6 +2,56 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom animations */
+@keyframes modal-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-modal-slide-up {
+  animation: modal-slide-up 0.3s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out forwards;
+}
+
+/* Product card hover effects */
+.product-card-hover {
+  transition: all 0.3s ease;
+}
+
+.product-card-hover:hover {
+  transform: translateY(-5px);
+}
+
+/* Search input focus effect */
+.search-input-focus {
+  transition: all 0.2s ease;
+  border: 1px solid #e5e7eb;
+}
+
+.search-input-focus:focus {
+  border-color: #ff69b4;
+  box-shadow: 0 0 0 2px rgba(255, 105, 180, 0.2);
+  outline: none;
+}
+
 body {
   font-family: Arial, Helvetica, sans-serif;
 }

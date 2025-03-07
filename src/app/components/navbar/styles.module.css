@@ -1,5 +1,5 @@
 .header_navbar_container {
-    @apply flex justify-center items-center w-full space-x-8 h-16 bg-[#faeddf];
+    @apply flex justify-center items-center w-full space-x-8 h-16 bg-[#ffe1ff];
 }
 
 .link_text{

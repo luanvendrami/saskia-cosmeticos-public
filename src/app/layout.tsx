@@ -1,5 +1,6 @@
 import Header from "./components/header";
 import "./globals.css";
+import { CartProvider } from "./context/CartContext";
 
 export default function RootLayout({
   children,
@@ -9,12 +10,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`antialiased bg-[#e0aaff]`}
+        className={`antialiased bg-[#ffe1ff]`}
       >
-
-        <Header/>
-
-        {children}
+        <CartProvider>
+          <Header/>
+          {children}
+        </CartProvider>
       </body>
     </html>
   );
