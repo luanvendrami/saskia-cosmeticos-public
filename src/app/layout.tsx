@@ -2,6 +2,7 @@ import Header from "./components/header";
 import "./globals.css";
 import { CartProvider } from "./context/CartContext";
 import PromoModal from "./components/PromoModal";
+import { ToastProvider } from "./contexts/ToastContext";
 
 export default function RootLayout({
   children,
@@ -14,9 +15,11 @@ export default function RootLayout({
         className={`antialiased bg-[#ffe1ff]`}
       >
         <CartProvider>
-          <Header/>
-          {children}
-          <PromoModal />
+          <ToastProvider>
+            <Header/>
+            {children}
+            <PromoModal />
+          </ToastProvider>
         </CartProvider>
       </body>
     </html>

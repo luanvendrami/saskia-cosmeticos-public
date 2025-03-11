@@ -2,10 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { FiShoppingCart, FiEye, FiAlertCircle, FiCheckCircle, FiXCircle } from "react-icons/fi";
-import { FaWhatsapp } from "react-icons/fa";
+import { FiShoppingCart, FiEye, FiAlertCircle, FiCheckCircle, FiXCircle, FiX } from "react-icons/fi";
+import { FaWhatsapp, FaThumbsUp } from "react-icons/fa";
+import { useToast } from "../../contexts/ToastContext";
 
 /**
  * Interface que define as propriedades do componente de modal de produto
@@ -56,6 +57,13 @@ export default function ModalProduto({
   descontoPromocao,
   cupom
 }: PropModalProduto) {
+  // Get the toast functionality from context
+  const { showToast } = useToast();
+
+  // State for the in-modal notification
+  const [showAddedNotification, setShowAddedNotification] = useState(false);
+  const [isExiting, setIsExiting] = useState(false);
+
   useEffect(() => {
     /**
      * Trata o evento de pressionar a tecla ESC para fechar o modal
@@ -189,13 +197,46 @@ export default function ModalProduto({
    */
   const abrirNotificacaoWhatsApp = () => {
     // Número de telefone para WhatsApp - deve ser configurado conforme o número da loja
-    const numeroWhatsApp = "5511999999999"; // Exemplo: 5511999999999
+    const numeroWhatsApp = "5547997273738"; // Exemplo: 5511999999999
     
     // Formatar a mensagem
     const mensagem = formatarMensagemNotificacaoEstoque();
     
     // Abrir a URL do WhatsApp em uma nova janela
     window.open(`https://wa.me/${numeroWhatsApp}?text=${mensagem}`, '_blank');
+  };
+
+  /**
+   * Handler para adicionar o produto ao carrinho e exibir uma notificação dentro do modal
+   * 
+   * @param e - Evento de clique
+   */
+  const handleAddToCart = (e: React.MouseEvent) => {
+    // Call the original onAddToCart function if provided
+    if (onAddToCart) {
+      onAddToCart(e);
+    }
+    
+    // If notification is already showing, reset it for a fresh animation
+    if (showAddedNotification) {
+      setIsExiting(true);
+      setTimeout(() => {
+        setIsExiting(false);
+        setShowAddedNotification(true);
+      }, 300);
+    } else {
+      // Show the in-modal notification
+      setShowAddedNotification(true);
+    }
+    
+    // Hide the notification after 3 seconds
+    setTimeout(() => {
+      setIsExiting(true);
+      setTimeout(() => {
+        setShowAddedNotification(false);
+        setIsExiting(false);
+      }, 400);
+    }, 3000);
   };
 
   if (!isOpen) return null;
@@ -209,7 +250,7 @@ export default function ModalProduto({
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-2xl mx-4 animate-modal-slide-up max-h-[90vh] overflow-auto">
+      <div className="relative w-full max-w-2xl mx-4 animate-modal-slide-up max-h-[80vh] md:max-h-[90vh] overflow-auto">
         <div className="relative bg-white rounded-2xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
           {/* Close button */}
           <button
@@ -231,14 +272,55 @@ export default function ModalProduto({
             </svg>
           </button>
 
+          {/* In-modal notification for cart add */}
+          {showAddedNotification && (
+            <div className="absolute top-4 inset-x-0 flex justify-center z-[10001]">
+              <div className={`px-1 w-full max-w-sm ${isExiting ? 'animate-slide-out-top' : 'animate-slide-in-top'}`}>
+                <div className="flex items-center bg-white rounded-lg shadow-xl overflow-hidden border border-green-200">
+                  {/* Left colored section with icon */}
+                  <div className="bg-gradient-to-br from-green-400 to-emerald-600 p-3 flex items-center justify-center">
+                    <div className="animate-thumbs-up">
+                      <FaThumbsUp className="text-white w-6 h-6" />
+                    </div>
+                  </div>
+                  
+                  {/* Content section */}
+                  <div className="flex-1 px-4 py-3">
+                    <div className="flex justify-between items-center">
+                      <h3 className="font-bold text-gray-800">Sucesso!</h3>
+                      <button
+                        onClick={() => {
+                          setIsExiting(true);
+                          setTimeout(() => {
+                            setShowAddedNotification(false);
+                            setIsExiting(false);
+                          }, 400);
+                        }}
+                        className="text-gray-400 hover:text-gray-600"
+                      >
+                        <FiX className="w-4 h-4" />
+                      </button>
+                    </div>
+                    <p className="text-sm text-gray-600 mt-1">
+                      <span className="font-semibold text-pink-500">{title}</span> adicionado ao seu carrinho!
+                    </p>
+                  </div>
+                  
+                  {/* Animated border indicator */}
+                  <div className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-green-400 via-emerald-500 to-green-400 animate-shimmer w-full"></div>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Image */}
-          <div className="relative w-full h-[400px]">
+          <div className="relative w-full h-[250px] sm:h-[350px] md:h-[400px]">
             <Image
               src={imageUrl}
               alt={title}
               fill
               className={`object-cover ${stockQuantity === 0 ? 'grayscale' : ''}`}
-              sizes="(max-width: 1024px) 100vw, 1024px"
+              sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, 1024px"
               priority
             />
             
@@ -253,41 +335,41 @@ export default function ModalProduto({
           </div>
 
           {/* Content */}
-          <div className="p-6 bg-gradient-to-b from-white to-gray-50">
+          <div className="p-4 sm:p-6 bg-gradient-to-b from-white to-gray-50">
             {category && (
-              <span className="inline-block px-3 py-1 text-sm font-medium text-[#ff69b4] bg-pink-50 rounded-full mb-3">
+              <span className="inline-block px-3 py-1 text-sm font-medium text-[#ff69b4] bg-pink-50 rounded-full mb-2 sm:mb-3">
                 {category}
               </span>
             )}
             
-            <h3 className="text-2xl font-semibold text-gray-800 tracking-tight">
+            <h3 className="text-xl sm:text-2xl font-semibold text-gray-800 tracking-tight">
               {title}
             </h3>
 
-            <div className="mt-4">
-              <p className="text-gray-600 leading-relaxed">{description}</p>
+            <div className="mt-3 sm:mt-4">
+              <p className="text-sm sm:text-base text-gray-600 leading-relaxed">{description}</p>
             </div>
 
             {price && (
-              <div className="mt-6">
+              <div className="mt-4 sm:mt-6">
                 {/* Preço e desconto */}
-                <div className="flex items-center mb-4">
-                  <p className="text-xl text-gray-500 line-through">{price}</p>
+                <div className="flex items-center mb-2 sm:mb-4">
+                  <p className="text-lg sm:text-xl text-gray-500 line-through">{price}</p>
                   {promocao && (
-                    <span className="ml-3 bg-[#ff69b4] text-white text-sm px-2 py-0.5 rounded font-medium">
+                    <span className="ml-3 bg-[#ff69b4] text-white text-xs sm:text-sm px-2 py-0.5 rounded font-medium">
                       -{descontoPromocao || 10}%
                     </span>
                   )}
                 </div>
 
                 {/* Preço final */}
-                <div className="flex items-center">
-                  <span className="text-2xl font-bold text-green-600">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-xl sm:text-2xl font-bold text-green-600">
                     {promocao && precoComDesconto ? `R$ ${precoComDesconto}` : price}
                   </span>
                   {promocao && cupom && (
-                    <div className="ml-3 bg-green-100 px-3 py-1 rounded-md">
-                      <span className="text-sm text-green-800 font-medium">
+                    <div className="bg-green-100 px-2 sm:px-3 py-1 rounded-md">
+                      <span className="text-xs sm:text-sm text-green-800 font-medium">
                         Cupom: {cupom}
                       </span>
                     </div>
@@ -296,34 +378,34 @@ export default function ModalProduto({
                 
                 {/* Stock Status */}
                 <div className="flex justify-between items-center mt-2">
-                  <span className={`text-sm tracking-wider ${statusEstoque.className}`}>
+                  <span className={`text-xs sm:text-sm tracking-wider ${statusEstoque.className}`}>
                     {statusEstoque.icon} {statusEstoque.message}
                   </span>
                 </div>
               </div>
             )}
 
-            <div className="mt-6 grid gap-4 grid-cols-1 sm:grid-cols-2">
+            <div className="mt-4 sm:mt-6 grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2">
               {/* Add to Cart Button - Disable if out of stock */}
               {price && onAddToCart && (
                 <>
                   {stockQuantity === 0 ? (
                     <button
-                      className="w-full py-3 rounded-lg flex items-center justify-center gap-2 bg-white border-2 border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors shadow-sm"
+                      className="w-full py-2.5 sm:py-3 rounded-lg flex items-center justify-center gap-1 sm:gap-2 bg-white border-2 border-gray-300 text-gray-700 text-sm sm:text-base hover:bg-gray-50 transition-colors shadow-sm"
                       onClick={(e) => {
                         e.stopPropagation();
                         abrirNotificacaoWhatsApp();
                       }}
                     >
-                      <FaWhatsapp className="w-5 h-5 text-green-600" />
+                      <FaWhatsapp className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
                       Avise-me quando disponível
                     </button>
                   ) : (
                     <button
-                      onClick={onAddToCart}
-                      className="w-full py-3 bg-pink-500 text-white rounded-lg flex items-center justify-center gap-2 hover:bg-pink-600 transition-colors"
+                      onClick={handleAddToCart}
+                      className="w-full py-2.5 sm:py-3 bg-pink-500 text-white rounded-lg flex items-center justify-center gap-1 sm:gap-2 text-sm sm:text-base hover:bg-pink-600 transition-colors"
                     >
-                      <FiShoppingCart className="w-5 h-5" />
+                      <FiShoppingCart className="w-4 h-4 sm:w-5 sm:h-5" />
                       Adicionar ao Carrinho
                     </button>
                   )}
@@ -334,10 +416,10 @@ export default function ModalProduto({
               {category && !hideViewAll && (
                 <Link
                   href={`/${obterCaminhoCategoria(category)}`}
-                  className="w-full py-3 bg-white border border-pink-500 text-pink-500 rounded-lg flex items-center justify-center gap-2 hover:bg-pink-50 transition-colors"
+                  className="w-full py-2.5 sm:py-3 bg-white border border-pink-500 text-pink-500 rounded-lg flex items-center justify-center gap-1 sm:gap-2 text-sm sm:text-base hover:bg-pink-50 transition-colors"
                   onClick={onClose}
                 >
-                  <FiEye className="w-5 h-5" />
+                  <FiEye className="w-4 h-4 sm:w-5 sm:h-5" />
                   Ver Todos {category}
                 </Link>
               )}
