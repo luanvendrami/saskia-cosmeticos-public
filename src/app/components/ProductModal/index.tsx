@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { FiShoppingCart, FiEye, FiAlertCircle, FiCheckCircle, FiXCircle, FiX } from "react-icons/fi";
 import { FaWhatsapp, FaThumbsUp } from "react-icons/fa";
-import { useToast } from "../../contexts/ToastContext";
 
 /**
  * Interface que define as propriedades do componente de modal de produto
@@ -57,9 +56,6 @@ export default function ModalProduto({
   descontoPromocao,
   cupom
 }: PropModalProduto) {
-  // Get the toast functionality from context
-  const { showToast } = useToast();
-
   // State for the in-modal notification
   const [showAddedNotification, setShowAddedNotification] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
