@@ -119,7 +119,7 @@ export default function ModalProduto({
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-2xl mx-4 animate-modal-slide-up max-h-[95vh] md:max-h-[90vh] overflow-auto">
+      <div className="relative w-full max-w-2xl mx-4 animate-modal-slide-up max-h-[90vh] md:max-h-[85vh] overflow-auto">
         <div className="relative bg-white rounded-2xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
           {/* Close button */}
           <button
@@ -183,16 +183,18 @@ export default function ModalProduto({
           )}
 
           {/* Image */}
-          <div className="relative w-full flex justify-center items-center overflow-hidden" style={{ maxHeight: 'min(300px, 35vh)' }}>
-            <Image
-              src={imageUrl}
-              alt={title}
-              width={800}
-              height={800}
-              className={`w-auto h-auto max-w-full max-h-[300px] sm:max-h-[500px] object-contain ${stockQuantity === 0 ? 'grayscale' : ''}`}
-              sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, 1024px"
-              priority
-            />
+          <div className="relative w-full flex justify-center items-center overflow-hidden bg-gray-50 p-2">
+            <div className="w-full flex justify-center items-center" style={{ aspectRatio: '1/1', maxHeight: '280px' }}>
+              <Image
+                src={imageUrl}
+                alt={title}
+                width={500}
+                height={500}
+                className={`w-auto h-auto max-w-full max-h-[200px] sm:max-h-[280px] object-contain ${stockQuantity === 0 ? 'grayscale' : ''}`}
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, 1024px"
+                priority
+              />
+            </div>
             
             {/* Out of Stock Overlay */}
             {stockQuantity === 0 && (
@@ -205,7 +207,7 @@ export default function ModalProduto({
           </div>
 
           {/* Content */}
-          <div className="p-3 sm:p-6 bg-gradient-to-b from-white to-gray-50">
+          <div className="p-2 sm:p-6 bg-gradient-to-b from-white to-gray-50">
             {category && (
               <span className="inline-block px-3 py-1 text-sm font-medium text-[#ff69b4] bg-pink-50 rounded-full mb-2 sm:mb-3">
                 {category}
@@ -217,7 +219,7 @@ export default function ModalProduto({
             </h3>
 
             <div className="mt-2 sm:mt-4">
-              <p className="text-xs sm:text-base text-gray-600 leading-relaxed line-clamp-3 sm:line-clamp-none">{description}</p>
+              <p className="text-xs sm:text-base text-gray-600 leading-relaxed line-clamp-2 sm:line-clamp-none">{description}</p>
             </div>
 
             {price && (
@@ -248,26 +250,26 @@ export default function ModalProduto({
                 
                 {/* Stock Status - Component now supplies icons and styling */}
                 {typeof stockQuantity === 'number' && (
-                  <div className="flex justify-between items-center mt-2">
+                  <div className="flex justify-between items-center mt-1">
                     {stockQuantity <= 0 ? (
-                      <span className="text-red-500 uppercase font-medium flex items-center">
+                      <span className="text-red-500 uppercase text-xs sm:text-sm font-medium flex items-center">
                         <FiXCircle className="mr-1 text-red-500" /> Esgotado
                       </span>
                     ) : stockQuantity <= 3 ? (
-                      <span className="text-orange-500 uppercase font-medium flex items-center">
+                      <span className="text-orange-500 uppercase text-xs sm:text-sm font-medium flex items-center">
                         <FiAlertCircle className="mr-1 text-orange-500" /> 
                         Apenas {stockQuantity} {stockQuantity === 1 ? 'unidade' : 'unidades'}!
                       </span>
                     ) : stockQuantity <= 5 ? (
-                      <span className="text-orange-400 uppercase font-medium flex items-center">
+                      <span className="text-orange-400 uppercase text-xs sm:text-sm font-medium flex items-center">
                         <FiAlertCircle className="mr-1 text-orange-400" /> Últimas unidades!
                       </span>
                     ) : stockQuantity <= 10 ? (
-                      <span className="text-[#ff69b4] uppercase font-medium flex items-center">
+                      <span className="text-[#ff69b4] uppercase text-xs sm:text-sm font-medium flex items-center">
                         <FiAlertCircle className="mr-1 text-[#ff69b4]" /> Poucas unidades
                       </span>
                     ) : (
-                      <span className="text-green-600 uppercase font-medium flex items-center">
+                      <span className="text-green-600 uppercase text-xs sm:text-sm font-medium flex items-center">
                         <FiCheckCircle className="mr-1 text-green-600" /> Em estoque
                       </span>
                     )}
@@ -276,7 +278,7 @@ export default function ModalProduto({
               </div>
             )}
 
-            <div className="mt-3 sm:mt-6 grid gap-2 sm:gap-4 grid-cols-1 sm:grid-cols-2">
+            <div className="mt-2 sm:mt-6 grid gap-2 sm:gap-4 grid-cols-1 sm:grid-cols-2">
               {/* Add to Cart Button - Disable if out of stock */}
               {price && onAddToCart && (
                 <>

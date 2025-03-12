@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Navbar from "../navbar";
-import Cart from "../cart";
+import Carrinho from "../carrinhocompras";
 import { useState, useEffect } from "react";
 import { Menu } from "lucide-react";
 
@@ -50,7 +50,7 @@ export default function Header() {
           </div>
           
           <div className="flex-1 flex justify-end items-center gap-1 sm:gap-3">
-            <Cart />
+            <Carrinho />
           </div>
         </div>
 
