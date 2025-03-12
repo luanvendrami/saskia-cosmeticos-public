@@ -2,7 +2,8 @@
 
 import Image from 'next/image';
 import { FiTrash2, FiMinus, FiPlus } from 'react-icons/fi';
-import { useCart, CartItem as CartItemType } from '../../context/CartContext';
+import { useCart } from '../../context/CartContext';
+import { CartItem as CartItemType } from '../../interfaces/cart';
 
 interface CartItemProps {
   item: CartItemType;

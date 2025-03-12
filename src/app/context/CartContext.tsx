@@ -3,6 +3,9 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { CartItem } from '../interfaces/cart';
 
+// Re-export CartItem type
+export type { CartItem };
+
 interface CartContextType {
   cartItems: CartItem[];
   isCartOpen: boolean;
