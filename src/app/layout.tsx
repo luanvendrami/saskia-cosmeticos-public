@@ -2,7 +2,7 @@ import Header from "./components/header";
 import "./globals.css";
 import { CartProvider } from "./context/CartContext";
 import PromoModal from "./components/PromoModal";
-import { ToastProvider } from "./contexts/ToastContext";
+import { ToastProvider } from "./context/ToastContext";
 
 export default function RootLayout({
   children,

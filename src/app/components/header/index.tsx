@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Navbar from "../navbar";
-import Cart from "../Cart";
+import Cart from "../cart";
 import { useState, useEffect } from "react";
 import { Menu } from "lucide-react";
 

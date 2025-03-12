@@ -3,15 +3,9 @@
 import { useState, useEffect } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import ProductCard from '../productCard';
-import { Product } from '../../data/categories';
-
-/**
- * Props do componente de página de categoria
- */
-interface CategoryPageProps {
-  categoryName: string;   // Nome da categoria (usado para URLs e títulos)
-  products: Product[];    // Lista de produtos da categoria
-}
+import { Product } from '../../interfaces/product';
+import { CategoryPageProps } from '../../interfaces/category';
+import { ProductService, DataService } from '../../services';
 
 /**
  * Componente que exibe uma página completa de categoria de produtos
@@ -24,58 +18,14 @@ export default function CategoryPage({ categoryName, products }: CategoryPagePro
   const [termoPesquisa, setTermoPesquisa] = useState('');
   const [produtosFiltrados, setProdutosFiltrados] = useState<Product[]>([]);
 
-  // Ordenação e filtragem de produtos
+  // Ordenação e filtragem de produtos usando DataService
   useEffect(() => {
-    // Primeiro ordena os produtos por topSell, depois por disponibilidade em estoque, depois alfabeticamente
-    const produtosOrdenados = [...products].sort((a, b) => {
-      // Primeiro ordenar por topSell (produtos em destaque primeiro)
-      if (a.topSell && !b.topSell) return -1;
-      if (!a.topSell && b.topSell) return 1;
-      
-      // Depois ordenar por disponibilidade em estoque (produtos disponíveis primeiro)
-      // Produtos sem stockQuantity definido são considerados em estoque
-      const aTemEstoque = a.stockQuantity === undefined || (a.stockQuantity > 0);
-      const bTemEstoque = b.stockQuantity === undefined || (b.stockQuantity > 0);
-      
-      if (aTemEstoque && !bTemEstoque) return -1;
-      if (!aTemEstoque && bTemEstoque) return 1;
-      
-      // Por fim, ordenar alfabeticamente pelo nome
-      return a.name.localeCompare(b.name);
-    });
-    
-    // Aplicar filtro de pesquisa, se existir
-    if (termoPesquisa.trim()) {
-      const termoPesquisaMinusculo = termoPesquisa.toLowerCase();
-      const filtrados = produtosOrdenados.filter(produto => 
-        produto.name.toLowerCase().includes(termoPesquisaMinusculo) || 
-        produto.description.toLowerCase().includes(termoPesquisaMinusculo)
-      );
-      setProdutosFiltrados(filtrados);
-    } else {
-      setProdutosFiltrados(produtosOrdenados);
-    }
+    const filteredProducts = DataService.filterAndSortProducts(products, termoPesquisa);
+    setProdutosFiltrados(filteredProducts);
   }, [termoPesquisa, products]);
 
-  /**
-   * Obtém o nome de exibição da categoria a partir do seu identificador
-   * 
-   * @param categoryName - Identificador da categoria (usado em URLs)
-   * @returns Nome formatado para exibição ao usuário
-   */
-  const obterNomeExibicaoCategoria = (categoryName: string) => {
-    const nomesCategorias: { [key: string]: string } = {
-      'cabelos': 'Cabelos',
-      'skincare': 'Skin Care',
-      'maquiagem': 'Maquiagem',
-      'perfumes': 'Perfumes',
-      'corpo': 'Corpo'
-    };
-    
-    return nomesCategorias[categoryName] || categoryName;
-  };
-
-  const nomeExibicao = obterNomeExibicaoCategoria(categoryName);
+  // Use ProductService to get the display name of the category
+  const nomeExibicao = ProductService.getCategoryDisplayName(categoryName);
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">

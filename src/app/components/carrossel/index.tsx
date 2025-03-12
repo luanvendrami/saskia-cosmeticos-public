@@ -10,43 +10,7 @@ import "swiper/css/autoplay";
 import styles from "./styles.module.css";
 import ProductCard from "../productCard";
 import CarrosselImagens from "../carrosselimagens";
-
-// Define um tipo manual para breakpoints
-type SwiperBreakpoints = {
-  [width: number]: {
-    slidesPerView?: number;
-    spaceBetween?: number;
-  };
-};
-
-interface CarouselItem {
-  id: number;
-  imageUrl: string;
-  title: string;
-  price: string;
-  description: string;
-  link?: string;
-  primeiroCarrossel: boolean;
-  category?: string;
-  isViewAllSlide?: boolean;
-  viewAllUrl?: string;
-  stockQuantity?: number;
-  promocao?: boolean;
-  descontoPromocao?: number;
-  cupom?: string;
-}
-
-interface CarouselProps {
-  items: CarouselItem[];
-  autoplayDelay?: number;
-  loop?: boolean;
-  navigationEnabled?: boolean;
-  slidesPerView?: number;
-  spaceBetween?: number;
-  swiperClassName?: string;
-  breakpoints?: SwiperBreakpoints;
-  centeredSlides?: boolean;
-}
+import { CarouselProps } from "../../interfaces/carousel";
 
 export default function Carrossel({
   items,

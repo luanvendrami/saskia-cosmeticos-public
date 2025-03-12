@@ -142,7 +142,6 @@ export const skincareProducts: CategoryProduct[] = [
     cupom: "PROMO10"
   },
 ]; 
-
 export interface Product {
   id: number;
   imageUrl: string;

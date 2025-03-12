@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import CategoryPage from '../components/CategoryPage';
-import { cabelosProducts, convertCategoryProductToProduct, Product } from '../data/categories';
+import { cabelosProducts } from '../data/categories';
+import { Product } from '../interfaces/product';
+import { DataService } from '../services';
 
 /**
  * Componente de página para a categoria Cabelos
@@ -14,11 +16,8 @@ export default function Cabelos() {
   const [produtosCategoria, setProdutosCategoria] = useState<Product[]>([]);
   
   useEffect(() => {
-    // Converte produtos da categoria para o formato Product
-    const produtosFormatados = cabelosProducts
-      .filter(produto => !produto.isViewAllSlide) // Remove slides "Ver Todos"
-      .map(convertCategoryProductToProduct);
-    
+    // Use DataService to prepare products
+    const produtosFormatados = DataService.prepareCategoryProducts(cabelosProducts);
     setProdutosCategoria(produtosFormatados);
   }, []);
 

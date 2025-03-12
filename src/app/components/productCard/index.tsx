@@ -6,26 +6,9 @@ import { useState } from "react";
 import ProductModal from "../ProductModal";
 import { useCart } from "../../context/CartContext";
 import { FiGrid, FiArrowRight, FiAlertCircle, FiCheckCircle, FiXCircle } from "react-icons/fi";
+import { ProductCardProps } from "../../interfaces/productCard";
+import { ProductService } from "../../services";
 
-/**
- * Interface que define as propriedades do componente de cartão de produto
- */
-interface PropCartaoProduto {
-  id: number;                // Identificador único do produto
-  imageUrl: string;          // URL da imagem do produto
-  title: string;             // Título do produto
-  description: string;       // Descrição do produto
-  link?: string;             // Link opcional para navegação
-  price?: string;            // Preço do produto em formato string (ex: "R$ 99,90")
-  category?: string;         // Categoria do produto
-  hideViewAll?: boolean;     // Indica se deve ocultar a opção "Ver Todos"
-  isViewAllSlide?: boolean;  // Indica se este cartão é um slide "Ver Todos"
-  viewAllUrl?: string;       // URL para a página "Ver Todos" da categoria
-  stockQuantity?: number;    // Quantidade em estoque
-  promocao?: boolean;        // Indica se o produto está em promoção
-  descontoPromocao?: number; // Porcentagem de desconto aplicada na promoção
-  cupom?: string;            // Código do cupom de desconto (ex: "PROMO10")
-}
 
 /**
  * Componente que exibe um cartão de produto com opções de visualização rápida e adição ao carrinho
@@ -42,22 +25,22 @@ interface PropCartaoProduto {
  * @param viewAllUrl - URL para a página "Ver Todos" da categoria
  * @param stockQuantity - Quantidade em estoque
  */
-export default function CartaoProduto({
+export default function ProductCard({
   id,
   imageUrl,
   title,
   description,
-  link,
   price,
   category,
-  hideViewAll = false,
-  isViewAllSlide = false,
+  link,
+  hideViewAll,
+  isViewAllSlide,
   viewAllUrl,
   stockQuantity,
   promocao,
   descontoPromocao,
   cupom
-}: PropCartaoProduto) {
+}: ProductCardProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { addToCart } = useCart();
 
@@ -91,103 +74,20 @@ export default function CartaoProduto({
       });
     }
   };
-
-  /**
-   * Mapeia nomes de categoria para seus respectivos caminhos de URL
-   * 
-   * @param category - Nome da categoria
-   * @returns Caminho da URL correspondente à categoria
-   */
-  const obterCaminhoCategoria = (category?: string) => {
-    if (!category) return "";
-    
-    const mapaCategorias: {[key: string]: string} = {
-      "Cabelos": "cabelos",
-      "Skin Care": "skincare",
-      "Maquiagem": "maquiagem",
-      "Perfumes": "perfumes",
-      "Corpo": "corpo"
-    };
-    
-    return mapaCategorias[category] || "";
-  };
-
-  /**
-   * Calcula o preço com desconto aplicado
-   * 
-   * @param precoOriginal - Preço original em formato string (ex: "R$ 99,90")
-   * @returns Preço com desconto formatado (ex: "89,91")
-   */
-  const calcularPrecoComDesconto = (precoOriginal: string) => {
-    if (!precoOriginal) return null;
-    
-    // Só calcula desconto se o produto estiver em promoção
-    if (!promocao) return null;
-    
-    // Extrai o valor numérico da string de preço (ex: "R$ 99,90" -> 99.90)
-    const valorPreco = parseFloat(precoOriginal.replace('R$ ', '').replace(',', '.'));
-    
-    // Aplica o desconto configurado (valor padrão é 10% se não for especificado)
-    const percentualDesconto = descontoPromocao || 10;
-    const valorComDesconto = valorPreco * (1 - percentualDesconto / 100);
-    
-    // Format back to Brazilian currency format (without R$ prefix)
-    return valorComDesconto.toFixed(2).replace('.', ',');
-  };
   
-  // Obtém o preço com desconto se o preço existir
-  const precoComDesconto = price ? calcularPrecoComDesconto(price) : null;
-
-  /**
-   * Obtém a mensagem e estilo de status de estoque apropriados
-   * com base na quantidade em estoque
-   * 
-   * @returns Objeto contendo mensagem, classe CSS e ícone para o status de estoque
-   */
-  const obterStatusEstoque = () => {
-    // Default to 10 units if stockQuantity is undefined
-    const quantidade = typeof stockQuantity === 'number' ? stockQuantity : 10;
-    
-    if (quantidade <= 0) {
-      return {
-        message: "Esgotado",
-        className: "text-red-500 uppercase font-medium flex items-center",
-        icon: <FiXCircle className="mr-1 text-red-500" />
-      };
-    } else if (quantidade <= 3) {
-      return {
-        message: `Apenas ${quantidade} ${quantidade === 1 ? 'unidade' : 'unidades'}!`,
-        className: "text-orange-500 uppercase font-medium flex items-center",
-        icon: <FiAlertCircle className="mr-1 text-orange-500" />
-      };
-    } else if (quantidade <= 5) {
-      return {
-        message: "Últimas unidades!",
-        className: "text-orange-400 uppercase font-medium flex items-center",
-        icon: <FiAlertCircle className="mr-1 text-orange-400" />
-      };
-    } else if (quantidade <= 10) {
-      return {
-        message: "Poucas unidades",
-        className: "text-[#ff69b4] uppercase font-medium flex items-center",
-        icon: <FiAlertCircle className="mr-1 text-[#ff69b4]" />
-      };
-    } else {
-      return {
-        message: "Em estoque",
-        className: "text-green-600 uppercase font-medium flex items-center",
-        icon: <FiCheckCircle className="mr-1 text-green-600" />
-      };
-    }
-  };
+  // Get the category path using ProductService
+  const categoryPath = category ? ProductService.getCategoryPath(category) : "";
   
-  const statusEstoque = obterStatusEstoque();
+  // Get the discounted price using ProductService
+  const precoComDesconto = price 
+    ? ProductService.calculateDiscountedPrice(price, promocao || false, descontoPromocao) 
+    : null;
 
   // Check if this is a "Ver Todos" card
   if (isViewAllSlide && title === "Ver Todos") {
     return (
       <Link 
-        href={viewAllUrl || `/${obterCaminhoCategoria(category)}`}
+        href={viewAllUrl || `/${categoryPath}`}
         className="group relative w-full sm:w-[280px] h-[500px] overflow-hidden rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-pink-200 transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_8px_30px_rgb(0,0,0,0.2)]"
       >
         {/* Gradient Background - Lightened for better contrast */}
@@ -255,10 +155,6 @@ export default function CartaoProduto({
               </div>
             </div>
           )}
-          
-          {/* Removed View All Products Button */}
-          
-          {/* Removed Add to Cart Button */}
         </div>
 
         <div className="p-4 sm:p-5 h-[200px] flex flex-col justify-between bg-gradient-to-b from-white to-gray-50">
@@ -300,11 +196,31 @@ export default function CartaoProduto({
                 )}
               </div>
               
-              {/* Stock Status - Bottom Row */}
+              {/* Stock Status - Directly display status */}
               <div className="flex justify-between items-center mt-1">
-                <span className={`text-[10px] sm:text-xs tracking-wider ${statusEstoque.className}`}>
-                  {statusEstoque.icon} {statusEstoque.message}
-                </span>
+                {typeof stockQuantity === 'number' && (
+                  <span className={stockQuantity <= 0 
+                    ? "text-[10px] sm:text-xs tracking-wider text-red-500 uppercase font-medium flex items-center"
+                    : stockQuantity <= 3
+                    ? "text-[10px] sm:text-xs tracking-wider text-orange-500 uppercase font-medium flex items-center"
+                    : stockQuantity <= 5
+                    ? "text-[10px] sm:text-xs tracking-wider text-orange-400 uppercase font-medium flex items-center"
+                    : stockQuantity <= 10
+                    ? "text-[10px] sm:text-xs tracking-wider text-[#ff69b4] uppercase font-medium flex items-center"
+                    : "text-[10px] sm:text-xs tracking-wider text-green-600 uppercase font-medium flex items-center"
+                  }>
+                    {stockQuantity <= 0 
+                      ? <><FiXCircle className="mr-1 text-red-500" /> Esgotado</>
+                      : stockQuantity <= 3
+                      ? <><FiAlertCircle className="mr-1 text-orange-500" /> Apenas {stockQuantity} {stockQuantity === 1 ? 'unidade' : 'unidades'}!</>
+                      : stockQuantity <= 5
+                      ? <><FiAlertCircle className="mr-1 text-orange-400" /> Últimas unidades!</>
+                      : stockQuantity <= 10
+                      ? <><FiAlertCircle className="mr-1 text-[#ff69b4]" /> Poucas unidades</>
+                      : <><FiCheckCircle className="mr-1 text-green-600" /> Em estoque</>
+                    }
+                  </span>
+                )}
               </div>
             </div>
           )}

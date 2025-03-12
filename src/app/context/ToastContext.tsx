@@ -2,8 +2,7 @@
 
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 import Toast from '../components/Toast';
-
-type ToastType = 'success' | 'error' | 'info';
+import { ToastType } from '../interfaces/toast';
 
 interface ToastMessage {
   id: string;
@@ -44,6 +43,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
       {toasts.map((toast) => (
         <Toast
           key={toast.id}
+          isVisible={true}
           message={toast.message}
           type={toast.type}
           duration={toast.duration}

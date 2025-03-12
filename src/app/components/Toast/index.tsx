@@ -1,26 +1,22 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { FiCheck, FiShoppingCart, FiX } from "react-icons/fi";
+import { FiCheck, FiShoppingCart, FiX, FiInfo, FiAlertTriangle } from "react-icons/fi";
 import { createPortal } from "react-dom";
-
-interface ToastProps {
-  message: string;
-  type?: 'success' | 'error' | 'info';
-  duration?: number;
-  onClose?: () => void;
-  showCartIcon?: boolean;
-}
+import { ToastProps } from "../../interfaces/toast";
 
 export default function Toast({ 
   message, 
   type = 'success', 
   duration = 3000, 
   onClose,
+  isVisible = true,
+  icon,
+  position = 'bottom-center',
   showCartIcon = false 
-}: ToastProps) {
+}: ToastProps & { showCartIcon?: boolean }) {
   const [mounted, setMounted] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
+  const [isShowing, setIsShowing] = useState(isVisible);
   const [isExiting, setIsExiting] = useState(false);
 
   useEffect(() => {
@@ -30,7 +26,7 @@ export default function Toast({
     const timer = setTimeout(() => {
       setIsExiting(true);
       setTimeout(() => {
-        setIsVisible(false);
+        setIsShowing(false);
         setTimeout(() => {
           if (onClose) onClose();
         }, 500); // Wait for exit animation to complete
@@ -44,6 +40,7 @@ export default function Toast({
 
   // Determine icon based on toast type
   const getIcon = () => {
+    if (icon) return icon;
     if (showCartIcon) return <FiShoppingCart className="text-white text-lg" />;
     
     switch (type) {
@@ -51,6 +48,10 @@ export default function Toast({
         return <FiCheck className="text-white text-lg" />;
       case 'error':
         return <FiX className="text-white text-lg" />;
+      case 'info':
+        return <FiInfo className="text-white text-lg" />;
+      case 'warning':
+        return <FiAlertTriangle className="text-white text-lg" />;
       default:
         return <FiCheck className="text-white text-lg" />;
     }
@@ -65,8 +66,29 @@ export default function Toast({
         return 'bg-gradient-to-r from-red-500 to-red-600';
       case 'info':
         return 'bg-gradient-to-r from-blue-500 to-blue-600';
+      case 'warning':
+        return 'bg-gradient-to-r from-amber-500 to-amber-600';
       default:
         return 'bg-gradient-to-r from-green-500 to-green-600';
+    }
+  };
+
+  // Get position class
+  const getPositionClass = () => {
+    switch (position) {
+      case 'top-right':
+        return 'top-8 right-8 transform-none';
+      case 'top-left':
+        return 'top-8 left-8 transform-none';
+      case 'bottom-right':
+        return 'bottom-8 right-8 transform-none';
+      case 'bottom-left':
+        return 'bottom-8 left-8 transform-none';
+      case 'top-center':
+        return 'top-8 left-1/2 transform -translate-x-1/2';
+      case 'bottom-center':
+      default:
+        return 'bottom-8 left-1/2 transform -translate-x-1/2';
     }
   };
 
@@ -79,12 +101,12 @@ export default function Toast({
     return '';
   };
 
-  // Don't render anything on the server
-  if (!mounted || !isVisible) return null;
+  // Don't render anything on the server or if not visible
+  if (!mounted || !isShowing) return null;
 
   const toastContent = (
     <div 
-      className={`fixed bottom-8 left-1/2 transform -translate-x-1/2 z-[10000] flex items-center p-4 mb-4 
+      className={`fixed ${getPositionClass()} z-[10000] flex items-center p-4 mb-4 
                   rounded-lg shadow-xl ${getBgColor()} text-white 
                   ${getAnimation()} transition-all duration-300 ${isExiting ? 'scale-95 opacity-0' : 'scale-100 opacity-100'}`}
       style={{ 
@@ -104,7 +126,7 @@ export default function Toast({
         onClick={() => {
           setIsExiting(true);
           setTimeout(() => {
-            setIsVisible(false);
+            setIsShowing(false);
             setTimeout(() => {
               if (onClose) onClose();
             }, 500);

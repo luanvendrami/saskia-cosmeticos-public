@@ -1,14 +1,10 @@
 import Image from "next/image";
-
-interface CarrosselImagensProps {
-  imageUrl: string;
-  alt?: string;
-}
+import { CarouselImagesProps } from "../../interfaces/carousel";
 
 export default function CarrosselImagens({
   imageUrl,
   alt = "Imagem de novidade",
-}: CarrosselImagensProps) {
+}: CarouselImagesProps) {
   return (
     <div className="relative w-full h-full">
       <Image
