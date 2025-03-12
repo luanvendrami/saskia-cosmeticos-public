@@ -4,7 +4,7 @@ import { useRef, useEffect, useState } from 'react';
 import { FiX, FiShoppingCart, FiTag } from 'react-icons/fi';
 import { useCart } from '../../context/CartContext';
 import { CartService } from '../../services';
-import CartItem from '../cartItem/cartitem';
+import CartItem from '../cartItem';
 
 /**
  * Componente de Carrinho de Compras
@@ -60,10 +60,7 @@ export default function Carrinho() {
     
     // Lista de cupons válidos com seus percentuais de desconto
     const cuponsValidos: { [key: string]: number } = {
-      "PROMO10": 10,
-      "PROMO20": 20,
-      "WELCOME": 15,
-      "SASKIA30": 30
+      "PROMO10": 10
     };
     
     // Verificar se o cupom é válido
