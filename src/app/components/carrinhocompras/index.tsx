@@ -4,7 +4,7 @@ import { useRef, useEffect, useState } from 'react';
 import { FiX, FiShoppingCart, FiTag } from 'react-icons/fi';
 import { useCart } from '../../context/CartContext';
 import { CartService } from '../../services';
-import CartItem from '../cartItem';
+import CartItem from '../cartItem/index';
 
 /**
  * Componente de Carrinho de Compras
@@ -12,7 +12,7 @@ import CartItem from '../cartItem';
  * Exibe os produtos adicionados, permite gerenciar quantidades
  * e finalizar o pedido via WhatsApp
  */
-export default function Carrinho() {
+export default function CarrinhoCompras() {
   const cartRef = useRef<HTMLDivElement>(null);
   const { 
     cartItems, 
