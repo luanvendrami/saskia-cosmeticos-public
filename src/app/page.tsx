@@ -15,23 +15,8 @@ import {
   CategoryProduct 
 } from "./data/categories";
 
-// Interface para compatibilidade com o componente Carrossel
-interface CarouselItem {
-  id: number;
-  imageUrl: string;
-  title: string;
-  price: string;
-  description: string;
-  link?: string;
-  primeiroCarrossel: boolean;
-  category?: string;
-  isViewAllSlide?: boolean;
-  viewAllUrl?: string;
-  stockQuantity?: number;
-  promocao?: boolean;
-  descontoPromocao?: number;
-  cupom?: string;
-}
+import { CarouselItem } from "./interfaces";
+
 
 /**
  * Converte um array de produtos para CarouselItem[]
@@ -174,7 +159,7 @@ export default function Home() {
       {/* Banner de Promoção */}
       <div className="bg-[#ff69b4]/10 py-3 px-4 text-center text-gray-700 rounded-lg shadow-sm mb-8 transition-all hover:bg-[#ff69b4]/20">
         <p className="text-sm md:text-base">
-          Use o cupom <span className="font-mono bg-pink-100 text-[#ff69b4] px-1.5 py-0.5 rounded mx-1">PROMO10</span> e ganhe 10% OFF na sua compra!
+          Use o cupom <span className="font-mono bg-pink-100 text-[#ff69b4] px-1.5 py-0.5 rounded mx-1">PROMO10</span> e ganhe 10% OFF na sua compra em pagamento a vista ou pix!
         </p>
       </div>
 

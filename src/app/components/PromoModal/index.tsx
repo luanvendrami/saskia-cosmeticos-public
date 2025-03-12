@@ -125,7 +125,7 @@ export default function ModalPromocional() {
                 <span className="text-xs font-bold tracking-wider">OFERTA EXCLUSIVA</span>
               </div>
               <h3 className="text-xl font-extrabold drop-shadow-md">
-                10% OFF EM TUDO!
+                10% OFF EM TUDO NO PAGAMENTO A VISTA OU PIX!
               </h3>
             </div>
           </div>
@@ -140,7 +140,7 @@ export default function ModalPromocional() {
             
             {/* Título - visível apenas no desktop */}
             <h2 className="hidden md:block text-2xl md:text-3xl font-bold text-gray-800 mb-3">
-              GANHE 10% OFF EM TODO O SITE!
+              GANHE 10% OFF EM TODO O SITE NO PAGAMENTO A VISTA OU PIX!
             </h2>
             
             <p className="text-sm md:text-base text-gray-600 mb-5 md:mb-6">
