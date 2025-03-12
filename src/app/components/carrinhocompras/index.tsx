@@ -3,8 +3,8 @@
 import { useRef, useEffect, useState } from 'react';
 import { FiX, FiShoppingCart, FiTag } from 'react-icons/fi';
 import { useCart } from '../../context/CartContext';
-import CartItem from './CartItem';
 import { CartService } from '../../services';
+import CartItem from '../cartItem/cartitem';
 
 /**
  * Componente de Carrinho de Compras
