@@ -5,18 +5,17 @@
 
 import Carrossel from "./components/carrossel";
 import Footer from "./components/Footer";
-import { 
-  heroProducts, 
-  cabelosProducts, 
-  skincareProducts, 
-  maquiagemProducts, 
-  perfumesProducts, 
+import {
+  heroProducts,
+  cabelosProducts,
+  skincareProducts,
+  maquiagemProducts,
+  perfumesProducts,
   corpoProducts,
-  CategoryProduct 
+  CategoryProduct,
 } from "./data/categories";
 
 import { CarouselItem } from "./interfaces";
-
 
 /**
  * Converte um array de produtos para CarouselItem[]
@@ -24,15 +23,15 @@ import { CarouselItem } from "./interfaces";
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const convertToCarouselItems = (products: any[]): CarouselItem[] => {
-  return products.map(product => ({
+  return products.map((product) => ({
     ...product,
-    id: typeof product.id === 'string' ? parseInt(product.id, 10) : product.id
+    id: typeof product.id === "string" ? parseInt(product.id, 10) : product.id,
   })) as CarouselItem[];
 };
 
 /**
  * Componente da página inicial
- * 
+ *
  * Exibe os produtos em destaque organizados por categoria
  * e elementos promocionais
  */
@@ -74,19 +73,25 @@ export default function Home() {
 
   /**
    * Filtra produtos populares e adiciona slide "Ver Todos" no final
-   * 
+   *
    * @param produtos - Lista de produtos da categoria
    * @param category - Nome da categoria para exibição
    * @param urlPath - Caminho da URL para a página "Ver Todos"
    * @returns Array de produtos filtrados com slide "Ver Todos" no final
    */
-  const filtrarProdutosPopularesEAdicionarVerTodos = (produtos: CategoryProduct[], category: string, urlPath: string) => {
+  const filtrarProdutosPopularesEAdicionarVerTodos = (
+    produtos: CategoryProduct[],
+    category: string,
+    urlPath: string
+  ) => {
     // Filtrar apenas os produtos marcados como topSell
-    const produtosPopulares = produtos.filter(product => product.topSell === true);
-    
+    const produtosPopulares = produtos.filter(
+      (product) => product.topSell === true
+    );
+
     // Limitar para no máximo 7 produtos
     const produtosLimitados = produtosPopulares.slice(0, 7);
-    
+
     // Adicionar slide "Ver Todos"
     const slideVerTodos = {
       id: `viewAll-${category}`,
@@ -100,9 +105,9 @@ export default function Home() {
       viewAllUrl: `/${urlPath}`,
       promocao: false,
       descontoPromocao: 0,
-      cupom: ""
+      cupom: "",
     };
-    
+
     return [...produtosLimitados, slideVerTodos];
   };
 
@@ -113,35 +118,55 @@ export default function Home() {
       titulo: "Cabelos",
       descricao: "Descubra os melhores produtos para cuidar dos seus cabelos.",
       urlPath: "cabelos",
-      produtos: filtrarProdutosPopularesEAdicionarVerTodos(cabelosProducts, "Cabelos", "cabelos")
+      produtos: filtrarProdutosPopularesEAdicionarVerTodos(
+        cabelosProducts,
+        "Cabelos",
+        "cabelos"
+      ),
     },
     {
       id: 2,
       titulo: "Skin Care",
       descricao: "Descubra os melhores produtos para sua skin care.",
       urlPath: "skincare",
-      produtos: filtrarProdutosPopularesEAdicionarVerTodos(skincareProducts, "Skin Care", "skincare")
+      produtos: filtrarProdutosPopularesEAdicionarVerTodos(
+        skincareProducts,
+        "Skin Care",
+        "skincare"
+      ),
     },
     {
       id: 3,
       titulo: "Maquiagem",
       descricao: "Descubra os melhores produtos para sua maquiagem.",
       urlPath: "maquiagem",
-      produtos: filtrarProdutosPopularesEAdicionarVerTodos(maquiagemProducts, "Maquiagem", "maquiagem")
+      produtos: filtrarProdutosPopularesEAdicionarVerTodos(
+        maquiagemProducts,
+        "Maquiagem",
+        "maquiagem"
+      ),
     },
     {
       id: 4,
       titulo: "Perfumes",
       descricao: "Descubra os melhores perfumes.",
       urlPath: "perfumes",
-      produtos: filtrarProdutosPopularesEAdicionarVerTodos(perfumesProducts, "Perfumes", "perfumes")
+      produtos: filtrarProdutosPopularesEAdicionarVerTodos(
+        perfumesProducts,
+        "Perfumes",
+        "perfumes"
+      ),
     },
     {
       id: 5,
       titulo: "Corpo",
       descricao: "Descubra os melhores produtos para o seu corpo.",
       urlPath: "corpo",
-      produtos: filtrarProdutosPopularesEAdicionarVerTodos(corpoProducts, "Corpo", "corpo")
+      produtos: filtrarProdutosPopularesEAdicionarVerTodos(
+        corpoProducts,
+        "Corpo",
+        "corpo"
+      ),
     },
   ];
 
@@ -159,7 +184,11 @@ export default function Home() {
       {/* Banner de Promoção */}
       <div className="bg-[#ff69b4]/10 py-3 px-4 text-center text-gray-700 rounded-lg shadow-sm mb-8 transition-all hover:bg-[#ff69b4]/20">
         <p className="text-sm md:text-base">
-          Use o cupom <span className="font-mono bg-pink-100 text-[#ff69b4] px-1.5 py-0.5 rounded mx-1">PROMO10</span> e ganhe 10% OFF na sua compra em pagamento a vista ou pix!
+          Use o cupom{" "}
+          <span className="font-mono bg-pink-100 text-[ ] px-1.5 py-0.5 rounded mx-1">
+            PROMO10
+          </span>{" "}
+          e ganhe 10% OFF na sua compra em pagamento a vista ou pix!
         </p>
       </div>
 
@@ -175,7 +204,7 @@ export default function Home() {
                 {categoria.descricao}
               </p>
             </div>
-            
+
             <div className="relative">
               <div className="rounded-2xl overflow-hidden shadow-[0_10px_40px_-15px_rgba(255,105,180,0.3)] bg-white/40 p-8 border-2 border-[#ff69b4]/20 hover:shadow-[0_15px_50px_-12px_rgba(255,105,180,0.4)] transition-shadow duration-300">
                 <Carrossel
@@ -193,7 +222,7 @@ export default function Home() {
           </div>
         </div>
       ))}
-      
+
       <Footer />
     </div>
   );

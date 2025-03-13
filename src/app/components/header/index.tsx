@@ -1,15 +1,16 @@
 "use client";
 
-import Link from "next/link";
-import Navbar from "../navbar";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { Menu } from "lucide-react";
+
 import CarrinhoCompras from "../carrinhocompras/index";
+import Navbar from "../navbar";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768); // 768px is the mobile breakpoint
@@ -39,22 +40,26 @@ export default function Header() {
               </button>
             )}
           </div>
-          
+
           <div className="flex-1 flex justify-center items-center">
-            <Link 
-              href="/" 
+            <Link
+              href="/"
               className="text-xl sm:text-2xl font-bold text-[#ff69b4] hover:text-[#ff1493] transition-colors duration-300"
             >
               Saskia Cosméticos
             </Link>
           </div>
-          
+
           <div className="flex-1 flex justify-end items-center gap-1 sm:gap-3">
             <CarrinhoCompras />
           </div>
         </div>
 
-        <Navbar setIsMenuOpen={setIsMenuOpen} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+        <Navbar
+          setIsMenuOpen={setIsMenuOpen}
+          isMenuOpen={isMenuOpen}
+          toggleMenu={toggleMenu}
+        />
       </header>
     </>
   );
