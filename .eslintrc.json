@@ -1,0 +1,79 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint",
+    "import"
+  ],
+  "rules": {
+    // Detecta importações de módulos que não existem - elevado para 2 (error)
+    "import/no-unresolved": 2,
+    
+    // Previne importações circulares
+    "import/no-cycle": 2,
+    
+    // Exige que as importações sejam ordenadas
+    "import/order": [
+      "warn",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ],
+        "newlines-between": "always",
+        "alphabetize": { "order": "asc", "caseInsensitive": true }
+      }
+    ],
+    
+    // Evita importações não utilizadas - elevado para error
+    "import/no-unused-modules": 2,
+    
+    // Evita nomes duplicados nas exportações
+    "import/export": 2,
+    
+    // Força extensões de arquivo em importações
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "ts": "never",
+        "tsx": "never",
+        "js": "never",
+        "jsx": "never"
+      }
+    ],
+    
+    // Novas regras para detectar problemas de importação
+    "import/no-absolute-path": 2,
+    "import/no-self-import": 2,
+    "import/no-useless-path-segments": 2,
+    "import/first": 2,
+    "import/no-duplicates": 2,
+    "import/no-named-as-default": 1,
+    "import/no-named-as-default-member": 1
+  },
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": "./tsconfig.json"
+      },
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  }
+} 
