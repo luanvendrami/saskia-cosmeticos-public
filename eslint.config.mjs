@@ -10,6 +10,9 @@ const __dirname = dirname(__filename);
 
 const compat = new FlatCompat({
   baseDirectory: __dirname,
+  recommendedConfig: {
+    plugins: ["@typescript-eslint", "import"]
+  }
 });
 
 const eslintConfig = [
