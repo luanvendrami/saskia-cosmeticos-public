@@ -11,12 +11,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`antialiased bg-[#ffe1ff]`}
-      >
+      <body className={`antialiased bg-[#ffe1ff]`}>
         <CartProvider>
           <ToastProvider>
-            <Header/>
+            <Header />
             {children}
             <PromoModal />
           </ToastProvider>

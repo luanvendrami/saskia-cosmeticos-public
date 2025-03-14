@@ -25,6 +25,39 @@ const nextConfig = {
     
     return config;
   },
+  swcMinify: true,
+  images: {
+    domains: ["images.unsplash.com", "via.placeholder.com", "placehold.co"],
+  },
+  async redirects() {
+    return [
+      {
+        source: '/cabelos',
+        destination: '/features/cabelos',
+        permanent: true,
+      },
+      {
+        source: '/corpo',
+        destination: '/features/corpo',
+        permanent: true,
+      },
+      {
+        source: '/maquiagem',
+        destination: '/features/maquiagem',
+        permanent: true,
+      },
+      {
+        source: '/perfumes',
+        destination: '/features/perfumes',
+        permanent: true,
+      },
+      {
+        source: '/skincare',
+        destination: '/features/skincare',
+        permanent: true,
+      },
+    ];
+  },
 }
 
 module.exports = nextConfig 

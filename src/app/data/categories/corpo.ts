@@ -1,4 +1,4 @@
-import { CategoryProduct } from './index';
+import type { CategoryProduct } from "./index";
 
 export const corpoProducts: CategoryProduct[] = [
   {
@@ -13,25 +13,26 @@ export const corpoProducts: CategoryProduct[] = [
     topSell: true,
     promocao: true,
     descontoPromocao: 10,
-    cupom: "PROMO10"
+    cupom: "PROMO10",
   },
   {
     id: 502,
-    imageUrl: "/images/6fs55eT.jpeg", 
+    imageUrl: "/images/6fs55eT.jpeg",
     title: "Esfoliante Corporal",
     price: "R$ 49,90",
-    description: "Esfoliante para remoção de células mortas e renovação da pele.",
+    description:
+      "Esfoliante para remoção de células mortas e renovação da pele.",
     primeiroCarrossel: false,
     category: "Corpo",
     stockQuantity: 0,
     topSell: true,
     promocao: true,
     descontoPromocao: 10,
-    cupom: "PROMO10"
+    cupom: "PROMO10",
   },
   {
     id: 503,
-    imageUrl: "/images/6fs55eT.jpeg", 
+    imageUrl: "/images/6fs55eT.jpeg",
     title: "Óleo Corporal",
     price: "R$ 59,90",
     description: "Óleo nutritivo para pele seca e ressecada com vitamina E.",
@@ -41,11 +42,11 @@ export const corpoProducts: CategoryProduct[] = [
     topSell: true,
     promocao: true,
     descontoPromocao: 10,
-    cupom: "PROMO10"
+    cupom: "PROMO10",
   },
   {
     id: 504,
-    imageUrl: "/images/6fs55eT.jpeg", 
+    imageUrl: "/images/6fs55eT.jpeg",
     title: "Sabonete Líquido",
     price: "R$ 29,90",
     description: "Sabonete líquido para limpeza diária com fragrância suave.",
@@ -55,11 +56,11 @@ export const corpoProducts: CategoryProduct[] = [
     topSell: true,
     promocao: true,
     descontoPromocao: 10,
-    cupom: "PROMO10"
+    cupom: "PROMO10",
   },
   {
     id: 505,
-    imageUrl: "/images/6fs55eT.jpeg", 
+    imageUrl: "/images/6fs55eT.jpeg",
     title: "Loção Firmadora",
     price: "R$ 65,90",
     description: "Loção para firmeza da pele com colágeno e elastina.",
@@ -69,39 +70,41 @@ export const corpoProducts: CategoryProduct[] = [
     topSell: true,
     promocao: true,
     descontoPromocao: 10,
-    cupom: "PROMO10"
+    cupom: "PROMO10",
   },
   {
     id: 506,
-    imageUrl: "/images/6fs55eT.jpeg", 
+    imageUrl: "/images/6fs55eT.jpeg",
     title: "Creme para Mãos",
     price: "R$ 25,90",
-    description: "Creme hidratante para mãos ressecadas, ação rápida e duradoura.",
+    description:
+      "Creme hidratante para mãos ressecadas, ação rápida e duradoura.",
     primeiroCarrossel: false,
     category: "Corpo",
     stockQuantity: 0,
     topSell: true,
     promocao: true,
     descontoPromocao: 10,
-    cupom: "PROMO10"
+    cupom: "PROMO10",
   },
   {
     id: 507,
-    imageUrl: "/images/6fs55eT.jpeg", 
+    imageUrl: "/images/6fs55eT.jpeg",
     title: "Desodorante Roll-on",
     price: "R$ 19,90",
-    description: "Desodorante roll-on com 48h de proteção e sem manchas na roupa.",
+    description:
+      "Desodorante roll-on com 48h de proteção e sem manchas na roupa.",
     primeiroCarrossel: false,
     category: "Corpo",
     stockQuantity: 12,
     topSell: true,
     promocao: true,
     descontoPromocao: 10,
-    cupom: "PROMO10"
+    cupom: "PROMO10",
   },
   {
     id: 508,
-    imageUrl: "/images/6fs55eT.jpeg", 
+    imageUrl: "/images/6fs55eT.jpeg",
     title: "Protetor Solar Corporal",
     price: "R$ 69,90",
     description: "Protetor solar FPS 50 resistente à água para corpo e rosto.",
@@ -111,34 +114,36 @@ export const corpoProducts: CategoryProduct[] = [
     topSell: true,
     promocao: true,
     descontoPromocao: 10,
-    cupom: "PROMO10"
+    cupom: "PROMO10",
   },
   {
     id: 509,
-    imageUrl: "/images/6fs55eT.jpeg", 
+    imageUrl: "/images/6fs55eT.jpeg",
     title: "Creme Anticelulite",
     price: "R$ 75,90",
-    description: "Creme com ação anticelulite e modeladora para todos os tipos de pele.",
+    description:
+      "Creme com ação anticelulite e modeladora para todos os tipos de pele.",
     primeiroCarrossel: false,
     category: "Corpo",
     stockQuantity: 15,
     topSell: true,
     promocao: true,
     descontoPromocao: 10,
-    cupom: "PROMO10"
+    cupom: "PROMO10",
   },
   {
     id: 510,
-    imageUrl: "/images/6fs55eT.jpeg", 
+    imageUrl: "/images/6fs55eT.jpeg",
     title: "Gel de Banho",
     price: "R$ 35,90",
-    description: "Gel de banho com fragrância relaxante e hidratação prolongada.",
+    description:
+      "Gel de banho com fragrância relaxante e hidratação prolongada.",
     primeiroCarrossel: false,
     category: "Corpo",
     stockQuantity: 0,
     topSell: true,
     promocao: true,
     descontoPromocao: 10,
-    cupom: "PROMO10"
+    cupom: "PROMO10",
   },
-]; 
+];

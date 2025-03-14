@@ -1,4 +1,4 @@
-import { CategoryProduct } from './index';
+import type { CategoryProduct } from "./index";
 
 export const maquiagemProducts: CategoryProduct[] = [
   {
@@ -13,11 +13,11 @@ export const maquiagemProducts: CategoryProduct[] = [
     topSell: true,
     promocao: true,
     descontoPromocao: 10,
-    cupom: "PROMO10"
+    cupom: "PROMO10",
   },
   {
     id: 302,
-    imageUrl: "/images/6fs55eT.jpeg", 
+    imageUrl: "/images/6fs55eT.jpeg",
     title: "Pó Compacto",
     price: "R$ 49,90",
     description: "Pó compacto para controle de oleosidade e acabamento matte.",
@@ -27,11 +27,11 @@ export const maquiagemProducts: CategoryProduct[] = [
     topSell: true,
     promocao: true,
     descontoPromocao: 10,
-    cupom: "PROMO10"
+    cupom: "PROMO10",
   },
   {
     id: 303,
-    imageUrl: "/images/6fs55eT.jpeg", 
+    imageUrl: "/images/6fs55eT.jpeg",
     title: "Corretivo Líquido",
     price: "R$ 39,90",
     description: "Corretivo de alta cobertura para imperfeições da pele.",
@@ -41,11 +41,11 @@ export const maquiagemProducts: CategoryProduct[] = [
     topSell: true,
     promocao: true,
     descontoPromocao: 10,
-    cupom: "PROMO10"
+    cupom: "PROMO10",
   },
   {
     id: 304,
-    imageUrl: "/images/6fs55eT.jpeg", 
+    imageUrl: "/images/6fs55eT.jpeg",
     title: "Batom Matte",
     price: "R$ 29,90",
     description: "Batom com acabamento matte de longa duração.",
@@ -55,11 +55,11 @@ export const maquiagemProducts: CategoryProduct[] = [
     topSell: true,
     promocao: true,
     descontoPromocao: 10,
-    cupom: "PROMO10"
+    cupom: "PROMO10",
   },
   {
     id: 305,
-    imageUrl: "/images/6fs55eT.jpeg", 
+    imageUrl: "/images/6fs55eT.jpeg",
     title: "Máscara de Cílios",
     price: "R$ 45,90",
     description: "Máscara para cílios com efeito volume e alongamento.",
@@ -69,11 +69,11 @@ export const maquiagemProducts: CategoryProduct[] = [
     topSell: true,
     promocao: true,
     descontoPromocao: 10,
-    cupom: "PROMO10"
+    cupom: "PROMO10",
   },
   {
     id: 306,
-    imageUrl: "/images/6fs55eT.jpeg", 
+    imageUrl: "/images/6fs55eT.jpeg",
     title: "Iluminador Facial",
     price: "R$ 49,90",
     description: "Iluminador em pó para um brilho natural na pele.",
@@ -83,11 +83,11 @@ export const maquiagemProducts: CategoryProduct[] = [
     topSell: true,
     promocao: true,
     descontoPromocao: 10,
-    cupom: "PROMO10"
+    cupom: "PROMO10",
   },
   {
     id: 307,
-    imageUrl: "/images/6fs55eT.jpeg", 
+    imageUrl: "/images/6fs55eT.jpeg",
     title: "Delineador Líquido",
     price: "R$ 35,90",
     description: "Delineador líquido de alta precisão e longa duração.",
@@ -97,11 +97,11 @@ export const maquiagemProducts: CategoryProduct[] = [
     topSell: true,
     promocao: true,
     descontoPromocao: 10,
-    cupom: "PROMO10"
+    cupom: "PROMO10",
   },
   {
     id: 308,
-    imageUrl: "/images/6fs55eT.jpeg", 
+    imageUrl: "/images/6fs55eT.jpeg",
     title: "Paleta de Sombras",
     price: "R$ 89,90",
     description: "Paleta com 12 cores de sombras matte e cintilantes.",
@@ -111,11 +111,11 @@ export const maquiagemProducts: CategoryProduct[] = [
     topSell: false,
     promocao: true,
     descontoPromocao: 10,
-    cupom: "PROMO10"
+    cupom: "PROMO10",
   },
   {
     id: 309,
-    imageUrl: "/images/6fs55eT.jpeg", 
+    imageUrl: "/images/6fs55eT.jpeg",
     title: "Blush Cremoso",
     price: "R$ 42,90",
     description: "Blush cremoso de fácil aplicação para um acabamento natural.",
@@ -125,11 +125,11 @@ export const maquiagemProducts: CategoryProduct[] = [
     topSell: false,
     promocao: true,
     descontoPromocao: 10,
-    cupom: "PROMO10"
+    cupom: "PROMO10",
   },
   {
     id: 310,
-    imageUrl: "/images/6fs55eT.jpeg", 
+    imageUrl: "/images/6fs55eT.jpeg",
     title: "Bronzer",
     price: "R$ 52,90",
     description: "Bronzer para contorno e definição facial.",
@@ -139,6 +139,6 @@ export const maquiagemProducts: CategoryProduct[] = [
     topSell: false,
     promocao: true,
     descontoPromocao: 10,
-    cupom: "PROMO10"
+    cupom: "PROMO10",
   },
-]; 
+];

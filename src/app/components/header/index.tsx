@@ -2,10 +2,12 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu } from "lucide-react";
 
 import Cart from "../cart";
 import Navbar from "../navbar";
+import "../../styles/elegant-title.css";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -42,12 +44,30 @@ export default function Header() {
           </div>
 
           <div className="flex-1 flex justify-center items-center">
-            <Link
-              href="/"
-              className="text-xl sm:text-2xl font-bold text-[#ff69b4] hover:text-[#ff1493] transition-colors duration-300"
-            >
-              Saskia Cosméticos
-            </Link>
+            <div className="no-underline-wrapper">
+              <Link
+                href="/"
+                className="elegant-title-container"
+                style={{ textDecoration: "none" }}
+              >
+                <div className="elegant-title-wrapper">
+                  <div className="elegant-title">
+                    <Image
+                      src="/svg/lipstick.png"
+                      alt="Lipstick icon"
+                      width={28}
+                      height={28}
+                      className="makeup-icon-img"
+                    />
+                    <div className="title-container">
+                      <span className="title-text-main">Saskia</span>
+                      <span className="title-text-secondary">Cosméticos</span>
+                    </div>
+                  </div>
+                  <div className="elegant-glow"></div>
+                </div>
+              </Link>
+            </div>
           </div>
 
           <div className="flex-1 flex justify-end items-center gap-1 sm:gap-3">

@@ -23,7 +23,8 @@ export default function Carrossel({
   breakpoints,
   centeredSlides,
 }: CarouselProps) {
-  const [isNavigationEnabled, setIsNavigationEnabled] = useState(navigationEnabled);
+  const [isNavigationEnabled, setIsNavigationEnabled] =
+    useState(navigationEnabled);
 
   useEffect(() => {
     const updateNavigation = () => {
@@ -47,12 +48,16 @@ export default function Carrossel({
             `<span class="${className} ${styles.customBullet}"></span>`,
         }}
         loop={loop}
-        autoplay={autoplayDelay ? { 
-          delay: autoplayDelay, 
-          disableOnInteraction: false,
-          pauseOnMouseEnter: true,
-          waitForTransition: true
-        } : false}
+        autoplay={
+          autoplayDelay
+            ? {
+                delay: autoplayDelay,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+                waitForTransition: true,
+              }
+            : false
+        }
         slidesPerView={slidesPerView}
         spaceBetween={spaceBetween}
         className={swiperClassName}

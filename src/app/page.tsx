@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * @fileoverview Página inicial da loja
  * Exibe carrosséis de produtos populares por categoria e banner promocional
@@ -5,6 +7,8 @@
 
 import Carrossel from "./components/carrossel";
 import Footer from "./components/Footer";
+import PromocionalBanner from "./components/PromocionalBanner";
+import { CategoryHeader } from "./components/categories";
 import {
   heroProducts,
   cabelosProducts,
@@ -72,11 +76,12 @@ export default function Home() {
   };
 
   /**
-   * Filtra produtos populares e adiciona slide "Ver Todos" no final
+   * Adiciona um slide "Ver Todos" ao final de um array de produtos
+   * e filtra apenas os produtos marcados como populares
    *
-   * @param produtos - Lista de produtos da categoria
-   * @param category - Nome da categoria para exibição
-   * @param urlPath - Caminho da URL para a página "Ver Todos"
+   * @param produtos Array de produtos da categoria
+   * @param category Nome da categoria
+   * @param urlPath Caminho da URL para a página da categoria
    * @returns Array de produtos filtrados com slide "Ver Todos" no final
    */
   const filtrarProdutosPopularesEAdicionarVerTodos = (
@@ -102,7 +107,7 @@ export default function Home() {
       primeiroCarrossel: false,
       category,
       isViewAllSlide: true,
-      viewAllUrl: `/${urlPath}`,
+      viewAllUrl: `/features/${urlPath}`,
       promocao: false,
       descontoPromocao: 0,
       cupom: "",
@@ -172,6 +177,150 @@ export default function Home() {
 
   return (
     <div className="bg-[#ffe1ff] min-h-screen">
+      {/* Add new animation keyframes for our dynamic elements */}
+      <style jsx global>{`
+        @keyframes ping-slow {
+          0% {
+            transform: scale(1);
+            opacity: 1;
+          }
+          50% {
+            transform: scale(1.8);
+            opacity: 0.5;
+          }
+          100% {
+            transform: scale(1);
+            opacity: 1;
+          }
+        }
+        @keyframes float {
+          0% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-15px);
+          }
+          100% {
+            transform: translateY(0px);
+          }
+        }
+        @keyframes bounce-slow {
+          0%,
+          100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-10px);
+          }
+        }
+        @keyframes slide-in-right {
+          0% {
+            transform: translateX(100px);
+            opacity: 0;
+          }
+          100% {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+        @keyframes slide-in-left {
+          0% {
+            transform: translateX(-100px);
+            opacity: 0;
+          }
+          100% {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+        @keyframes slide-in-top {
+          0% {
+            transform: translateY(-50px);
+            opacity: 0;
+          }
+          100% {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+        @keyframes slide-in-bottom {
+          0% {
+            transform: translateY(50px);
+            opacity: 0;
+          }
+          100% {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+        @keyframes expand {
+          0% {
+            transform: scale(0);
+            opacity: 0;
+          }
+          100% {
+            transform: scale(1);
+            opacity: 1;
+          }
+        }
+        @keyframes rotate-pulse {
+          0% {
+            transform: rotate(0deg) scale(1);
+          }
+          50% {
+            transform: rotate(180deg) scale(1.2);
+          }
+          100% {
+            transform: rotate(360deg) scale(1);
+          }
+        }
+        .animate-ping-slow {
+          animation: ping-slow 3s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+        .animate-bounce-slow {
+          animation: bounce-slow 2s infinite;
+        }
+        .animate-slide-in-right {
+          animation: slide-in-right 1s forwards;
+        }
+        .animate-slide-in-left {
+          animation: slide-in-left 1s forwards;
+        }
+        .animate-slide-in-top {
+          animation: slide-in-top 1s forwards;
+        }
+        .animate-slide-in-bottom {
+          animation: slide-in-bottom 1s forwards;
+        }
+        .animate-expand {
+          animation: expand 1s forwards;
+        }
+        .animate-rotate-pulse {
+          animation: rotate-pulse 8s infinite;
+        }
+        .delay-100 {
+          animation-delay: 0.1s;
+        }
+        .delay-300 {
+          animation-delay: 0.3s;
+        }
+        .delay-500 {
+          animation-delay: 0.5s;
+        }
+        .delay-700 {
+          animation-delay: 0.7s;
+        }
+        .delay-900 {
+          animation-delay: 0.9s;
+        }
+        .delay-1100 {
+          animation-delay: 1.1s;
+        }
+      `}</style>
+
       <Carrossel
         items={heroProducts}
         slidesPerView={1}
@@ -181,29 +330,18 @@ export default function Home() {
         swiperClassName="w-full max-w-[1920px] mx-auto h-[400px] md:h-[400px] lg:h-[500px]"
       />
 
-      {/* Banner de Promoção */}
-      <div className="bg-[#ff69b4]/10 py-3 px-4 text-center text-gray-700 rounded-lg shadow-sm mb-8 transition-all hover:bg-[#ff69b4]/20">
-        <p className="text-sm md:text-base">
-          Use o cupom{" "}
-          <span className="font-mono bg-pink-100 text-[ ] px-1.5 py-0.5 rounded mx-1">
-            PROMO10
-          </span>{" "}
-          e ganhe 10% OFF na sua compra em pagamento a vista ou pix!
-        </p>
-      </div>
+      {/* Banner Promocional */}
+      <PromocionalBanner />
 
       {categorias.map((categoria) => (
         <div key={categoria.id} className="py-12 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#ff69b4] mb-4 tracking-tight animate-modal-slide-up">
-                {categoria.titulo}
-              </h2>
-              <div className="w-32 h-1.5 bg-gradient-to-r from-[#ff69b4] to-[#ff1493] mx-auto mb-6 rounded-full shadow-lg"></div>
-              <p className="text-lg md:text-xl text-[#ff69b4]/90 max-w-2xl mx-auto leading-relaxed font-medium">
-                {categoria.descricao}
-              </p>
-            </div>
+            {/* Use the CategoryHeader component */}
+            <CategoryHeader
+              title={categoria.titulo}
+              description={categoria.descricao}
+              categoryId={categoria.id}
+            />
 
             <div className="relative">
               <div className="rounded-2xl overflow-hidden shadow-[0_10px_40px_-15px_rgba(255,105,180,0.3)] bg-white/40 p-8 border-2 border-[#ff69b4]/20 hover:shadow-[0_15px_50px_-12px_rgba(255,105,180,0.4)] transition-shadow duration-300">
