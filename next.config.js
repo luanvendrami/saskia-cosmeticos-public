@@ -25,7 +25,6 @@ const nextConfig = {
     
     return config;
   },
-  swcMinify: true,
   images: {
     domains: ["images.unsplash.com", "via.placeholder.com", "placehold.co"],
   },

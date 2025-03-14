@@ -1,80 +1,47 @@
-/* Estilos para o título elegante no header */
+/* Essential styles for the title in header */
 
-/* Estilos globais para remover sublinhados */
+/* Remove text decoration from links */
 a {
   text-decoration: none !important;
 }
-a:hover {
-  text-decoration: none !important;
-}
 
-.no-underline-wrapper a,
-.no-underline-wrapper a:hover,
-.no-underline-wrapper a:focus,
-.no-underline-wrapper a:active {
+.no-underline-wrapper a {
   text-decoration: none !important;
   border-bottom: none !important;
   box-shadow: none !important;
   outline: none !important;
 }
 
+/* Container styling */
 .elegant-title-container {
   position: relative;
   display: inline-block;
-  padding: 8px 12px;
-  overflow: visible;
+  padding: 8px 14px;
   text-decoration: none !important;
-  border-bottom: none !important;
-  transition: all 0.3s ease;
 }
 
-.elegant-title-container::after {
-  display: none !important;
-}
-
-.elegant-title-container:hover {
-  text-decoration: none !important;
-  border-bottom: none !important;
-  transform: translateY(-2px);
-}
-
+/* Title wrapper styling */
 .elegant-title-wrapper {
   position: relative;
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  text-decoration: none !important;
-  border-bottom: none !important;
+  transition: transform 0.3s ease;
 }
 
-.elegant-title-container:hover .elegant-title-wrapper {
-  transform: scale(1.05);
-  text-decoration: none !important;
-  border-bottom: none !important;
-}
-
+/* Main title layout */
 .elegant-title {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
   font-weight: 800;
   color: #ff69b4;
   letter-spacing: 0.5px;
-  position: relative;
-  z-index: 2;
-  border-bottom: none !important;
-  text-decoration: none !important;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 25px; /* Moderate gap between icon and text - reduced from 50px */
   text-shadow: 0 0 2px rgba(255, 105, 180, 0.3);
+  margin-right: 22px;
 }
 
-.elegant-title::after,
-.elegant-title::before {
-  display: none !important;
-}
-
-.elegant-title-container:hover .elegant-title {
-  text-decoration: none !important;
-  border-bottom: none !important;
+/* Font size responsiveness */
+.elegant-title {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
 }
 
 @media (min-width: 640px) {
@@ -88,111 +55,22 @@ a:hover {
   .elegant-title {
     font-size: 1.875rem;
     line-height: 2.25rem;
+    gap: 15px; /* Smaller gap on larger screens */
   }
 }
 
-.elegant-glow {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(255, 105, 180, 0.1) 0%,
-    rgba(200, 129, 210, 0.1) 50%,
-    rgba(255, 175, 209, 0.05) 75%,
-    rgba(255, 105, 180, 0) 100%
-  );
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  filter: blur(10px);
-  border-radius: 50%;
-  transform: scale(1.2);
-  z-index: 1;
-  animation: none;
-}
-
-.elegant-title-container:hover .elegant-glow {
-  opacity: 0.8;
-}
-
-.elegant-particles {
-  position: absolute;
-  top: -10px;
-  left: -20px;
-  right: -20px;
-  bottom: -10px;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.3;
-  background-image: 
-    radial-gradient(circle at 15% 25%, #ffcce0 1px, transparent 1px),
-    radial-gradient(circle at 30% 75%, #e2b0ea 2px, transparent 2px),
-    radial-gradient(circle at 50% 15%, #ffcce0 1px, transparent 1px),
-    radial-gradient(circle at 70% 85%, #e2b0ea 1px, transparent 1px),
-    radial-gradient(circle at 85% 30%, #ffcce0 2px, transparent 2px);
-  filter: blur(0.6px);
-  transition: opacity 0.4s ease;
-}
-
-.elegant-title-container::after {
-  content: '';
-  position: absolute;
-  width: 120%;
-  height: 30px;
-  top: 50%;
-  left: -10%;
-  transform: translateY(-50%);
-  background: linear-gradient(90deg, 
-    rgba(255, 255, 255, 0) 0%, 
-    rgba(255, 255, 255, 0.2) 50%, 
-    rgba(255, 255, 255, 0) 100%);
-  opacity: 0;
-  filter: blur(3px);
-  animation: gentleShine 6s infinite;
-  z-index: 3;
-  pointer-events: none;
-}
-
-.elegant-title-container:hover .elegant-particles {
-  opacity: 0.6;
-  animation: particleGlow 2s infinite alternate;
-}
-
-/* Animações */
-@keyframes gradientFlow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes gentleShine {
-  0% { transform: translateY(-50%) translateX(-100%); opacity: 0; }
-  10% { opacity: 0.5; }
-  50% { opacity: 0; }
-  100% { transform: translateY(-50%) translateX(100%); opacity: 0; }
-}
-
-@keyframes particleGlow {
-  0% { opacity: 0.3; }
-  100% { opacity: 0.6; }
-}
-
-/* Title Container Styling */
+/* Title text container */
 .title-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-left: -15px; /* Move title a bit to the left */
 }
 
-/* Title Text Styling - Single solid color */
+/* Title text styling */
 .title-text-main {
   font-size: 1.1em;
   color: #ff69b4;
-  position: relative;
   display: block;
   line-height: 1;
   font-weight: 800;
@@ -202,7 +80,6 @@ a:hover {
 .title-text-secondary {
   font-size: 0.75em;
   color: #ff69b4;
-  position: relative;
   display: block;
   line-height: 1.2;
   letter-spacing: 0.05em;
@@ -210,20 +87,17 @@ a:hover {
   text-shadow: 0 0 3px rgba(255, 105, 180, 0.3);
 }
 
-/* Image Icon Styling - Match solid color title */
+/* Lipstick icon styling */
 .makeup-icon-img {
   display: inline-block;
   filter: drop-shadow(0 0 3px rgba(255, 105, 180, 0.4));
   transition: all 0.3s ease;
   object-fit: contain;
   height: auto;
+  margin-right: -25px; /* Small additional margin */
 }
 
-.elegant-title-container:hover .makeup-icon-img {
-  transform: translateY(-1px);
-}
-
-@keyframes glowPulse {
-  0% { filter: blur(10px); transform: scale(1.2); }
-  100% { filter: blur(12px); transform: scale(1.3); }
+/* Simple hover effect */
+.elegant-title-container:hover .elegant-title-wrapper {
+  transform: scale(1.05);
 } 
