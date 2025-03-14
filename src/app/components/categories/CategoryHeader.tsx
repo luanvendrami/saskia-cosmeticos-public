@@ -19,9 +19,8 @@ const CategoryHeader: React.FC<CategoryHeaderProps> = ({
   categoryId,
 }) => {
   // Site palette colors
-  const textColor = "text-purple-700";
-  const accentColor = "bg-purple-400";
-  const buttonBgColor = "bg-purple-100";
+  const textColor = "text-purple-500";
+  const accentColor = "bg-purple-500";
 
   return (
     <div className="relative mb-0">
