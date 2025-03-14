@@ -94,7 +94,16 @@ a {
   transition: all 0.3s ease;
   object-fit: contain;
   height: auto;
-  margin-right: -25px; /* Small additional margin */
+  margin-right: -17px; /* Small additional margin */
+}
+
+@media (max-width: 767px) {
+  .makeup-icon-img {
+    width: 24px;
+    height: 24px;
+    margin-right: -25px;
+    filter: drop-shadow(0 0 2px rgba(255, 105, 180, 0.3));
+  }
 }
 
 /* Simple hover effect */
