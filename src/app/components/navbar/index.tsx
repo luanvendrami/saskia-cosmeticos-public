@@ -16,10 +16,14 @@ const MENU_ITEMS = [
   { href: "/skincare", label: "Skincare" },
   { href: "/maquiagem", label: "Maquiagem" },
   { href: "/perfumes", label: "Perfumes" },
-  { href: "/corpo", label: "Corpo" }
+  { href: "/corpo", label: "Corpo" },
 ];
 
-export default function Navbar({ setIsMenuOpen, isMenuOpen, toggleMenu }: NavbarProps) {
+export default function Navbar({
+  setIsMenuOpen,
+  isMenuOpen,
+  toggleMenu,
+}: NavbarProps) {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -44,6 +48,19 @@ export default function Navbar({ setIsMenuOpen, isMenuOpen, toggleMenu }: Navbar
     return () => document.removeEventListener("click", handleClickOutside);
   }, [isMenuOpen, setIsMenuOpen]);
 
+  // Prevent scrolling when mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen && isMobile) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMenuOpen, isMobile]);
+
   const renderMenuItem = (href: string, label: string) => (
     <Link
       key={href}
@@ -61,7 +78,11 @@ export default function Navbar({ setIsMenuOpen, isMenuOpen, toggleMenu }: Navbar
       <div className="fixed top-0 left-0 h-full w-72 bg-[#ffe1ff] shadow-2xl z-[101] transform transition-transform duration-300 ease-in-out">
         <div className="flex flex-col h-full">
           <div className="flex items-center justify-between p-4 border-b border-pink-200">
-            <Link href="/" className="text-xl font-bold text-[#ff69b4]" onClick={toggleMenu}>
+            <Link
+              href="/"
+              className="text-xl font-bold text-[#ff69b4]"
+              onClick={toggleMenu}
+            >
               Saskia Cosméticos
             </Link>
             <button
@@ -71,8 +92,8 @@ export default function Navbar({ setIsMenuOpen, isMenuOpen, toggleMenu }: Navbar
               <X className="w-6 h-6 text-[#ff69b4]" />
             </button>
           </div>
-          
-          <nav className="flex-1 px-4 py-6">
+
+          <nav className="flex-1 px-4 py-6 overflow-y-auto">
             <ul className="space-y-4">
               {MENU_ITEMS.map(({ href, label }) => (
                 <li key={href}>
@@ -87,7 +108,7 @@ export default function Navbar({ setIsMenuOpen, isMenuOpen, toggleMenu }: Navbar
               ))}
             </ul>
           </nav>
-          
+
           <div className="p-4 border-t border-pink-200">
             <p className="text-sm text-[#ff69b4] text-center">
               © 2024 Saskia Cosméticos

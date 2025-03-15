@@ -5,7 +5,9 @@ import { FiX, FiShoppingCart, FiTag } from "react-icons/fi";
 
 import { useCart } from "../../context/CartContext";
 import { CartService } from "../../services";
+import { DeliveryInfo } from "../../interfaces/delivery";
 import CartItem from "../cartItem/index";
+import DeliveryModal from "../deliveryModal";
 
 /**
  * Cart Component
@@ -20,6 +22,7 @@ export default function Cart() {
   const [codigoCupom, setCodigoCupom] = useState("");
   const [erroCupom, setErroCupom] = useState("");
   const [descontoAplicado, setDescontoAplicado] = useState(0);
+  const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false);
 
   useEffect(() => {
     /**
@@ -40,11 +43,18 @@ export default function Cart() {
     // Add event listener to document when cart is open
     if (isCartOpen) {
       document.addEventListener("mousedown", handleOutsideClick);
+
+      // Prevent body scrolling when cart is open
+      document.body.style.overflow = "hidden";
+    } else {
+      // Restore body scrolling when cart is closed
+      document.body.style.overflow = "";
     }
 
     // Remove listener when component is unmounted or cart closes
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
+      document.body.style.overflow = "";
     };
   }, [isCartOpen, toggleCart]);
 
@@ -75,13 +85,32 @@ export default function Cart() {
   };
 
   /**
-   * Finalizes purchase by opening WhatsApp with the order
+   * Opens the checkout modal
    */
-  const finalizarCompra = () => {
+  const openCheckoutModal = () => {
+    if (cartItems.length === 0) return;
+    setIsCheckoutModalOpen(true);
+  };
+
+  /**
+   * Handles checkout with delivery information
+   */
+  const handleCheckout = (deliveryInfo: DeliveryInfo) => {
     if (cartItems.length === 0) return;
 
-    // Use CartService to handle checkout
-    CartService.checkoutViaWhatsApp(cartItems, cartTotal, descontoAplicado);
+    // Use CartService to handle checkout with delivery info
+    CartService.checkoutViaWhatsApp(
+      cartItems,
+      cartTotal,
+      descontoAplicado,
+      deliveryInfo
+    );
+
+    // Close the checkout modal
+    setIsCheckoutModalOpen(false);
+
+    // Close the cart
+    toggleCart();
   };
 
   // Calculate total after discount
@@ -92,7 +121,7 @@ export default function Cart() {
       {/* Cart button in header */}
       <button
         onClick={toggleCart}
-        className="relative p-2 rounded-lg text-[#ff69b4] hover:bg-pink-100 transition-colors"
+        className="relative p-2 rounded-lg text-[#ff69b4] hover:bg-pink-100 transition-colors z-10"
         aria-label="Open cart"
       >
         <FiShoppingCart className="w-6 h-6" />
@@ -105,7 +134,7 @@ export default function Cart() {
 
       {/* Cart modal - only shows when open */}
       {isCartOpen && (
-        <div className="fixed inset-0 z-50 flex justify-end">
+        <div className="fixed inset-0 z-[100] flex justify-end">
           {/* Darkened background */}
           <div
             className="absolute inset-0 bg-black/25 backdrop-blur-sm transition-opacity"
@@ -227,7 +256,7 @@ export default function Cart() {
 
                   {/* Checkout button */}
                   <button
-                    onClick={finalizarCompra}
+                    onClick={openCheckoutModal}
                     className="w-full bg-[#ff69b4] border border-transparent rounded-md py-3 px-4 font-medium text-white hover:bg-[#ff4dab] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition-colors"
                   >
                     Finalizar Compra via WhatsApp
@@ -238,6 +267,13 @@ export default function Cart() {
           </div>
         </div>
       )}
+
+      {/* Checkout Modal */}
+      <DeliveryModal
+        isOpen={isCheckoutModalOpen}
+        onClose={() => setIsCheckoutModalOpen(false)}
+        onCheckout={handleCheckout}
+      />
     </>
   );
 }

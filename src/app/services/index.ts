@@ -4,7 +4,8 @@
  */
 
 // Re-export all services
-export { default as ProductService } from './ProductService';
-export { default as WhatsAppService, WhatsAppConfig } from './WhatsAppService';
-export { default as CartService } from './CartService';
-export { default as DataService } from './DataService'; 
+export { default as ProductService } from "./ProductService";
+export { default as WhatsAppService, WhatsAppConfig } from "./WhatsAppService";
+export { default as CartService } from "./CartService";
+export { default as DataService } from "./DataService";
+export { ViaCepService } from "./ViaCepService";
