@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { FiSearch } from "react-icons/fi";
+import { TextField, InputAdornment } from "@mui/material";
 import ProductCard from "../productCard";
 import { Product } from "../../interfaces/product";
 import { CategoryPageProps } from "../../interfaces/category";
@@ -36,24 +37,43 @@ export default function CategoryPage({
 
   return (
     <>
-      <div className="container mx-auto px-4 py-8">
+      {/* Div para dar espaço para o header fixo */}
+      <div className="h-16 md:h-32"></div>
+
+      <div className="container mx-auto px-4 py-4 md:py-8">
         {/* Cabeçalho da página com pesquisa */}
-        <div className="mb-4">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
+        <div className="mb-6 md:mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 md:mb-6">
             <h1 className="text-3xl font-bold text-[var(--primary-color)] mb-4 sm:mb-0 slide-in-left">
               {nomeExibicao}
             </h1>
 
-            <div className="relative fade-in">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <FiSearch className="text-[var(--text-secondary)]" />
-              </div>
-              <input
-                type="text"
+            <div className="w-full sm:w-96 fade-in">
+              <TextField
+                fullWidth
                 value={termoPesquisa}
                 onChange={(e) => setTermoPesquisa(e.target.value)}
                 placeholder={`Buscar em ${nomeExibicao}...`}
-                className="block w-full pl-10 pr-4 py-2 border border-[var(--border-color)] rounded-lg search-input-focus"
+                variant="outlined"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <FiSearch className="text-[var(--text-secondary)]" />
+                    </InputAdornment>
+                  ),
+                  sx: {
+                    "&:hover": {
+                      "& .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "var(--primary-color)",
+                      },
+                    },
+                    "&.Mui-focused": {
+                      "& .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "var(--primary-color)",
+                      },
+                    },
+                  },
+                }}
               />
             </div>
           </div>
@@ -68,11 +88,11 @@ export default function CategoryPage({
 
         {/* Grid de produtos */}
         {produtosFiltrados.length > 0 ? (
-          <div className="product-card-container">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
             {produtosFiltrados.map((produto, index) => (
               <div
                 key={produto.id}
-                className="animate-fade-in"
+                className="animate-fade-in flex justify-center sm:justify-start"
                 style={{ animationDelay: `${index * 0.05}s` }}
               >
                 <ProductCard
@@ -82,7 +102,7 @@ export default function CategoryPage({
                   description={produto.description}
                   price={`R$ ${produto.price.toFixed(2).replace(".", ",")}`}
                   category={nomeExibicao}
-                  hideViewAll={true} // Oculta "Ver Todos" quando já estiver na página da categoria
+                  hideViewAll={true}
                   stockQuantity={produto.stockQuantity}
                   promocao={produto.promocao}
                   descontoPromocao={produto.descontoPromocao}
