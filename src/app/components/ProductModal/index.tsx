@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, TouchEvent } from "react";
 import { createPortal } from "react-dom";
 import {
   FiShoppingCart,
@@ -11,6 +11,8 @@ import {
   FiCheckCircle,
   FiXCircle,
   FiX,
+  FiChevronLeft,
+  FiChevronRight,
 } from "react-icons/fi";
 import { FaWhatsapp, FaThumbsUp } from "react-icons/fa";
 import { ProductModalProps } from "../../interfaces/modal";
@@ -23,6 +25,7 @@ import { ProductService, WhatsAppService } from "../../services";
  * @param isOpen - Indica se o modal está aberto
  * @param onClose - Função para fechar o modal
  * @param imageUrl - URL da imagem do produto
+ * @param images - Array de URLs das imagens do produto
  * @param title - Título do produto
  * @param description - Descrição do produto
  * @param price - Preço do produto
@@ -38,6 +41,7 @@ export default function ModalProduto({
   isOpen,
   onClose,
   imageUrl,
+  images,
   title,
   description,
   price,
@@ -52,6 +56,93 @@ export default function ModalProduto({
   // State for the in-modal notification
   const [showAddedNotification, setShowAddedNotification] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Touch handling state
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  // Minimum swipe distance (in px)
+  const minSwipeDistance = 50;
+
+  // Create an array of images from the props
+  const imageArray =
+    images && images.length > 0 ? images : imageUrl ? [imageUrl] : [];
+
+  console.log("ProductModal - Images:", {
+    images,
+    imageUrl,
+    imageArray,
+    imageArrayLength: imageArray.length,
+  });
+
+  // Handle touch start
+  const handleTouchStart = (e: TouchEvent) => {
+    setTouchEnd(null); // Reset touch end
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  // Handle touch move
+  const handleTouchMove = (e: TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  // Handle touch end
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe && imageArray.length > 1) {
+      // Swipe left - go to next image
+      if (currentImageIndex < imageArray.length - 1) {
+        setCurrentImageIndex(currentImageIndex + 1);
+      } else {
+        setCurrentImageIndex(0);
+      }
+    }
+
+    if (isRightSwipe && imageArray.length > 1) {
+      // Swipe right - go to previous image
+      if (currentImageIndex > 0) {
+        setCurrentImageIndex(currentImageIndex - 1);
+      } else {
+        setCurrentImageIndex(imageArray.length - 1);
+      }
+    }
+
+    // Reset touch states
+    setTouchStart(null);
+    setTouchEnd(null);
+  };
+
+  // Navigate to the previous image
+  const navigateToPrevImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    console.log("Navigating to previous image", {
+      currentIndex: currentImageIndex,
+      arrayLength: imageArray.length,
+    });
+    // Simplify logic to test
+    if (currentImageIndex > 0) {
+      setCurrentImageIndex(currentImageIndex - 1);
+    } else {
+      setCurrentImageIndex(imageArray.length - 1);
+    }
+  };
+
+  // Navigate to the next image
+  const navigateToNextImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    // Simplify logic to test
+    if (currentImageIndex < imageArray.length - 1) {
+      setCurrentImageIndex(currentImageIndex + 1);
+    } else {
+      setCurrentImageIndex(0);
+    }
+  };
 
   useEffect(() => {
     /**
@@ -201,23 +292,72 @@ export default function ModalProduto({
           )}
 
           {/* Image */}
-          <div className="relative w-full flex justify-center items-center overflow-hidden bg-gray-50 p-2">
+          <div
+            className="relative w-full flex justify-center items-center overflow-hidden bg-gray-50 p-2"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
             <div
               className="w-full flex justify-center items-center"
               style={{ aspectRatio: "1/1", maxHeight: "280px" }}
             >
-              <Image
-                src={imageUrl}
-                alt={title}
-                width={500}
-                height={500}
-                className={`w-auto h-auto max-w-full max-h-[200px] sm:max-h-[280px] object-contain ${
-                  stockQuantity === 0 ? "grayscale" : ""
-                }`}
-                sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, 1024px"
-                priority
-              />
+              {imageArray.length > 0 && (
+                <Image
+                  src={imageArray[currentImageIndex]}
+                  alt={title}
+                  width={500}
+                  height={500}
+                  className={`w-auto h-auto max-w-full max-h-[200px] sm:max-h-[280px] object-contain ${
+                    stockQuantity === 0 ? "grayscale" : ""
+                  }`}
+                  sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, 1024px"
+                  priority
+                />
+              )}
             </div>
+
+            {/* Image navigation controls - visible only on desktop */}
+            {imageArray.length > 1 && (
+              <>
+                <button
+                  onClick={navigateToPrevImage}
+                  className="hidden md:block absolute left-2 top-1/2 -translate-y-1/2 bg-pink-500 hover:bg-pink-600 p-3 rounded-full shadow-md transition-colors z-10"
+                  aria-label="Previous image"
+                >
+                  <FiChevronLeft className="w-6 h-6 text-white" />
+                </button>
+                <button
+                  onClick={navigateToNextImage}
+                  className="hidden md:block absolute right-2 top-1/2 -translate-y-1/2 bg-pink-500 hover:bg-pink-600 p-3 rounded-full shadow-md transition-colors z-10"
+                  aria-label="Next image"
+                >
+                  <FiChevronRight className="w-6 h-6 text-white" />
+                </button>
+                <div className="absolute bottom-8 left-0 right-0 flex justify-center gap-1.5">
+                  <div className="bg-black/70 text-white px-3 py-1 rounded-full text-xs">
+                    {currentImageIndex + 1} / {imageArray.length}
+                  </div>
+                </div>
+                <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-1.5">
+                  {imageArray.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCurrentImageIndex(index);
+                      }}
+                      className={`w-2 h-2 rounded-full transition-all ${
+                        index === currentImageIndex
+                          ? "bg-[#ff69b4] w-3"
+                          : "bg-gray-300 hover:bg-gray-400"
+                      }`}
+                      aria-label={`Go to image ${index + 1}`}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
 
             {/* Out of Stock Overlay */}
             {stockQuantity === 0 && (

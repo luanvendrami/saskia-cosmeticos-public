@@ -26,6 +26,7 @@ export class DataService {
         categoryProduct.price.replace("R$ ", "").replace(",", ".")
       ),
       image: categoryProduct.imageUrl,
+      images: categoryProduct.images,
       description: categoryProduct.description,
       category: categoryProduct.category,
       promocao: categoryProduct.promocao,

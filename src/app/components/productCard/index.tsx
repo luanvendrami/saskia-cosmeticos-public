@@ -20,6 +20,7 @@ import { ProductService } from "../../services";
  *
  * @param id - Identificador único do produto
  * @param imageUrl - URL da imagem do produto
+ * @param images - Array de URLs das imagens do produto
  * @param title - Título do produto
  * @param description - Descrição do produto
  * @param link - Link opcional para navegação
@@ -33,6 +34,7 @@ import { ProductService } from "../../services";
 export default function ProductCard({
   id,
   imageUrl,
+  images,
   title,
   description,
   price,
@@ -264,21 +266,24 @@ export default function ProductCard({
         )}
       </div>
 
-      <ProductModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        imageUrl={imageUrl}
-        title={title}
-        description={description}
-        price={price}
-        category={category}
-        hideViewAll={hideViewAll || isViewAllSlide}
-        onAddToCart={aoAdicionarAoCarrinho}
-        stockQuantity={stockQuantity}
-        promocao={promocao}
-        descontoPromocao={descontoPromocao}
-        cupom={cupom}
-      />
+      {isModalOpen && (
+        <ProductModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          imageUrl={imageUrl}
+          images={images}
+          title={title}
+          description={description}
+          price={price}
+          category={category}
+          hideViewAll={hideViewAll || isViewAllSlide}
+          onAddToCart={aoAdicionarAoCarrinho}
+          stockQuantity={stockQuantity}
+          promocao={promocao}
+          descontoPromocao={descontoPromocao}
+          cupom={cupom}
+        />
+      )}
     </>
   );
 }

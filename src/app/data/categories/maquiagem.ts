@@ -141,4 +141,25 @@ export const maquiagemProducts: CategoryProduct[] = [
     descontoPromocao: 10,
     cupom: "PROMO10",
   },
+  {
+    id: 311,
+    imageUrl: "/images/6fs55eT.jpeg",
+    images: [
+      "/images/6fs55eT.jpeg",
+      "/images/6fs55eT.jpeg?v=1",
+      "/images/6fs55eT.jpeg?v=2",
+      "/images/6fs55eT.jpeg?v=3",
+    ],
+    title: "Kit de Pincéis Profissionais",
+    price: "R$ 129,90",
+    description:
+      "Kit completo com 12 pincéis profissionais para maquiagem. Inclui pincéis para base, pó, blush, sombra e delineador.",
+    primeiroCarrossel: true,
+    category: "Maquiagem",
+    stockQuantity: 8,
+    topSell: true,
+    promocao: true,
+    descontoPromocao: 15,
+    cupom: "KITPROMO15",
+  },
 ];

@@ -98,6 +98,7 @@ export default function CategoryPage({
                 <ProductCard
                   id={produto.id}
                   imageUrl={produto.image}
+                  images={produto.images}
                   title={produto.name}
                   description={produto.description}
                   price={`R$ ${produto.price.toFixed(2).replace(".", ",")}`}

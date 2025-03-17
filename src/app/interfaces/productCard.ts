@@ -6,6 +6,7 @@ import { MouseEvent } from "react";
 export interface ProductCardProps {
   id: number; // Product unique identifier
   imageUrl: string; // URL of the product image
+  images?: string[]; // Array of product image URLs for multiple images
   title: string; // Product title
   description: string; // Product description
   link?: string; // Optional navigation link

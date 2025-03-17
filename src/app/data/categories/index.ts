@@ -20,6 +20,7 @@ import { cabelosProducts } from "./cabelos";
 export interface CategoryProduct {
   id: number; // Identificador único do produto
   imageUrl: string; // URL da imagem do produto
+  images?: string[]; // Array de URLs das imagens do produto (para produtos com múltiplas imagens)
   title: string; // Título/nome do produto
   price: string; // Preço em formato brasileiro (ex: "R$ 99,90")
   description: string; // Descrição detalhada do produto
@@ -44,6 +45,7 @@ export interface Product {
   name: string; // Nome do produto
   price: number; // Preço em formato numérico
   image: string; // URL da imagem do produto
+  images?: string[]; // Array de URLs das imagens do produto (para produtos com múltiplas imagens)
   description: string; // Descrição detalhada do produto
   category: string; // Nome da categoria
   promocao: boolean; // Indica se o produto está em promoção
@@ -80,6 +82,7 @@ export function convertCategoryProductToProduct(
       categoryProduct.price.replace("R$ ", "").replace(",", ".")
     ),
     image: categoryProduct.imageUrl,
+    images: categoryProduct.images,
     description: categoryProduct.description,
     category: categoryProduct.category,
     promocao: categoryProduct.promocao,

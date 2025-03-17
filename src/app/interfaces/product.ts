@@ -9,6 +9,7 @@
 export interface CategoryProduct {
   id: number; // Unique product identifier
   imageUrl: string; // Product image URL
+  images?: string[]; // Array of product image URLs (for multiple images)
   title: string; // Product title/name
   price: string; // Price in Brazilian format (e.g., "R$ 99,90")
   description: string; // Detailed product description
@@ -33,6 +34,7 @@ export interface Product {
   name: string; // Product name
   price: number; // Price in numeric format
   image: string; // Product image URL
+  images?: string[]; // Array of product image URLs (for multiple images)
   description: string; // Detailed product description
   category: string; // Category name
   promocao: boolean; // Indicates if the product is on sale
@@ -61,6 +63,7 @@ export interface HeroProduct {
 export interface CarouselItem {
   id: number;
   imageUrl: string;
+  images?: string[]; // Array of product image URLs (for multiple images)
   title: string;
   price: string;
   description: string;

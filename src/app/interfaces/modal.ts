@@ -9,6 +9,7 @@ export interface ProductModalProps {
   isOpen: boolean; // Indicates if the modal is open
   onClose: () => void; // Function to close the modal
   imageUrl: string; // Product image URL
+  images?: string[]; // Product image URLs array (for multiple images)
   title: string; // Product title
   description: string; // Product description
   price?: string; // Product price (optional)
