@@ -25,17 +25,43 @@ export default function Carrossel({
 }: CarouselProps) {
   const [isNavigationEnabled, setIsNavigationEnabled] =
     useState(navigationEnabled);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    const updateNavigation = () => {
-      setIsNavigationEnabled(window.innerWidth >= 768);
+    setIsClient(true);
+
+    const updateScreenState = () => {
+      const width = window.innerWidth;
+      const isMobileScreen = width < 768;
+      setIsMobile(isMobileScreen);
+      setIsNavigationEnabled(navigationEnabled && width >= 768);
     };
-    updateNavigation();
-    window.addEventListener("resize", updateNavigation);
+
+    updateScreenState();
+    window.addEventListener("resize", updateScreenState);
     return () => {
-      window.removeEventListener("resize", updateNavigation);
+      window.removeEventListener("resize", updateScreenState);
     };
-  }, []);
+  }, [navigationEnabled]);
+
+  // If we're not on the client yet, return a placeholder
+  if (!isClient) {
+    return (
+      <div
+        className={`relative mx-auto ${styles.paginationOverride} min-h-[300px] bg-gray-100`}
+      ></div>
+    );
+  }
+
+  // Filter items based on device type
+  const filteredItems = items.filter((item) => {
+    // If it's not a hero carousel item, include it regardless
+    if (!item.primeiroCarrossel) return true;
+
+    // For hero carousel items, filter based on isMobile flag
+    return item.isMobile === isMobile;
+  });
 
   return (
     <div className={`relative mx-auto ${styles.paginationOverride}`}>
@@ -64,7 +90,7 @@ export default function Carrossel({
         breakpoints={breakpoints}
         centeredSlides={centeredSlides}
       >
-        {items.map((item) => (
+        {filteredItems.map((item) => (
           <SwiperSlide key={item.id}>
             {!item.primeiroCarrossel ? (
               <ProductCard
@@ -83,7 +109,11 @@ export default function Carrossel({
                 cupom={item.cupom}
               />
             ) : (
-              <CarrosselImagens imageUrl={item.imageUrl} />
+              <CarrosselImagens
+                imageUrl={item.imageUrl}
+                backupImageUrl={item.backupImageUrl}
+                alt={item.title}
+              />
             )}
           </SwiperSlide>
         ))}

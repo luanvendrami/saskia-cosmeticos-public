@@ -2,7 +2,7 @@
  * @fileoverview Carousel-related interfaces for the application
  */
 
-import { CarouselItem } from './product';
+import { CarouselItem } from "./product";
 
 /**
  * Type definition for Swiper breakpoints
@@ -35,5 +35,6 @@ export interface CarouselProps {
  */
 export interface CarouselImagesProps {
   imageUrl: string;
+  backupImageUrl?: string;
   alt?: string;
-} 
+}

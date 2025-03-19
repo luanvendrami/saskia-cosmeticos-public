@@ -55,6 +55,7 @@ export interface HeroProduct {
   price: string; // Price in string format
   description: string; // Detailed product description
   primeiroCarrossel: boolean; // Indicates if the product appears in the first carousel
+  isMobile: boolean; // Flag to determine if this item should appear on mobile devices
 }
 
 /**
@@ -63,6 +64,7 @@ export interface HeroProduct {
 export interface CarouselItem {
   id: number;
   imageUrl: string;
+  backupImageUrl?: string; // Backup image URL for videos
   images?: string[]; // Array of product image URLs (for multiple images)
   title: string;
   price: string;
@@ -76,6 +78,7 @@ export interface CarouselItem {
   promocao?: boolean;
   descontoPromocao?: number;
   cupom?: string;
+  isMobile?: boolean; // Flag to determine if this item should appear on mobile devices
 }
 
 // Removed ProductCardProps interface to avoid duplication
