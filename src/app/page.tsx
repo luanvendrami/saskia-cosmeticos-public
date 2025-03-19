@@ -185,7 +185,7 @@ export default function Home() {
           spaceBetween={0}
           autoplayDelay={5000}
           loop
-          swiperClassName="w-full max-w-[1200px] mx-auto h-[350px] sm:h-[350px] md:h-[400px] lg:h-[450px] xl:h-[450px] 2xl:h-[450px] relative"
+          swiperClassName="w-full max-w-[1270px] mx-auto h-[350px] sm:h-[350px] md:h-[400px] lg:h-[450px] xl:h-[450px] 2xl:h-[450px] relative"
         />
       </div>
 

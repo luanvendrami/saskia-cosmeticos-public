@@ -55,13 +55,23 @@ export default function Carrossel({
   }
 
   // Filter items based on device type
-  const filteredItems = items.filter((item) => {
+  let filteredItems = items.filter((item) => {
     // If it's not a hero carousel item, include it regardless
     if (!item.primeiroCarrossel) return true;
 
     // For hero carousel items, filter based on isMobile flag
     return item.isMobile === isMobile;
   });
+
+  // If we have only one item and loop is enabled, duplicate it to ensure looping works
+  if (filteredItems.length === 1 && loop) {
+    // Clone the item and assign a new id to ensure React doesn't complain about duplicate keys
+    const clonedItem = {
+      ...filteredItems[0],
+      id: filteredItems[0].id + 100000,
+    };
+    filteredItems = [filteredItems[0], clonedItem];
+  }
 
   return (
     <div className={`relative mx-auto ${styles.paginationOverride}`}>
@@ -73,13 +83,19 @@ export default function Carrossel({
           renderBullet: (index, className) =>
             `<span class="${className} ${styles.customBullet}"></span>`,
         }}
-        loop={loop}
+        loop={filteredItems.length > 1 && loop}
+        speed={1000}
+        loopAdditionalSlides={2}
+        watchSlidesProgress={true}
+        observer={true}
+        observeParents={true}
         autoplay={
-          autoplayDelay
+          autoplayDelay && filteredItems.length > 1
             ? {
                 delay: autoplayDelay,
                 disableOnInteraction: false,
-                pauseOnMouseEnter: true,
+                pauseOnMouseEnter: false,
+                stopOnLastSlide: false,
                 waitForTransition: true,
               }
             : false
