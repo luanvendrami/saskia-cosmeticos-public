@@ -1,15 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { 
-  FiMail, 
-  FiPhone, 
-  FiMapPin, 
-  FiClock, 
-  FiFacebook, 
-  FiInstagram, 
-  FiTwitter, 
-  FiYoutube 
+import {
+  FiMail,
+  FiPhone,
+  FiMapPin,
+  FiClock,
+  FiFacebook,
+  FiInstagram,
+  FiTwitter,
+  FiYoutube,
 } from "react-icons/fi";
 
 /**
@@ -36,7 +36,7 @@ const linksAtendimento = [
 
 /**
  * Componente de Rodapé
- * 
+ *
  * Exibe informações de contato, navegação por categorias
  * e links úteis para atendimento ao cliente
  */
@@ -48,11 +48,15 @@ export default function Rodape() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Informações da Empresa */}
           <div className="flex flex-col items-center md:items-start">
-            <h4 className="text-lg font-semibold text-gray-800 mb-4 text-center md:text-left">Saskia Cosméticos</h4>
+            <h4 className="text-lg font-semibold text-gray-800 mb-4 text-center md:text-left">
+              Saskia Cosméticos
+            </h4>
             <ul className="space-y-3 w-full">
               <li className="flex items-center justify-center md:justify-start">
                 <FiMapPin className="text-[#ff69b4] mr-2 flex-shrink-0" />
-                <span className="text-sm">Av. da Beleza, 123, São Paulo, Brasil</span>
+                <span className="text-sm">
+                  Av. da Beleza, 123, São Paulo, Brasil
+                </span>
               </li>
               <li className="flex items-center justify-center md:justify-start">
                 <FiPhone className="text-[#ff69b4] mr-2 flex-shrink-0" />
@@ -67,31 +71,49 @@ export default function Rodape() {
                 <span>Seg-Sex: 9h - 18h</span>
               </li>
             </ul>
-            
+
             {/* Mídias Sociais */}
             <div className="mt-6 flex justify-center md:justify-start space-x-4 w-full">
-              <a href="#" className="text-gray-500 hover:text-[#ff69b4] transition-colors" aria-label="Facebook">
+              <a
+                href="#"
+                className="text-gray-500 hover:text-[#ff69b4] transition-colors"
+                aria-label="Facebook"
+              >
                 <FiFacebook size={20} />
               </a>
-              <a href="#" className="text-gray-500 hover:text-[#ff69b4] transition-colors" aria-label="Instagram">
+              <a
+                href="#"
+                className="text-gray-500 hover:text-[#ff69b4] transition-colors"
+                aria-label="Instagram"
+              >
                 <FiInstagram size={20} />
               </a>
-              <a href="#" className="text-gray-500 hover:text-[#ff69b4] transition-colors" aria-label="Twitter">
+              <a
+                href="#"
+                className="text-gray-500 hover:text-[#ff69b4] transition-colors"
+                aria-label="Twitter"
+              >
                 <FiTwitter size={20} />
               </a>
-              <a href="#" className="text-gray-500 hover:text-[#ff69b4] transition-colors" aria-label="YouTube">
+              <a
+                href="#"
+                className="text-gray-500 hover:text-[#ff69b4] transition-colors"
+                aria-label="YouTube"
+              >
                 <FiYoutube size={20} />
               </a>
             </div>
           </div>
-          
+
           {/* Categorias */}
           <div className="flex flex-col items-center">
-            <h4 className="text-lg font-semibold text-gray-800 mb-4 text-center">Categorias</h4>
+            <h4 className="text-lg font-semibold text-gray-800 mb-4 text-center">
+              Categorias
+            </h4>
             <ul className="space-y-2 w-full flex flex-col items-center">
               {categorias.map((categoria) => (
                 <li key={categoria.name}>
-                  <Link 
+                  <Link
                     href={categoria.href}
                     className="hover:text-[#ff69b4] transition-colors"
                   >
@@ -101,34 +123,20 @@ export default function Rodape() {
               ))}
             </ul>
           </div>
-          
-          {/* Atendimento ao Cliente */}
-          <div className="flex flex-col items-center md:items-end">
-            <h4 className="text-lg font-semibold text-gray-800 mb-4 text-center md:text-right">Atendimento ao Cliente</h4>
-            <ul className="space-y-2 w-full flex flex-col items-center md:items-end">
-              {linksAtendimento.map((item) => (
-                <li key={item.name}>
-                  <Link 
-                    href={item.href}
-                    className="hover:text-[#ff69b4] transition-colors"
-                  >
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
-        
+
         {/* Divisor */}
         <hr className="my-8 border-gray-200" />
-        
+
         {/* Direitos Autorais */}
         <div className="text-sm text-gray-500 text-center">
-          <p>&copy; {new Date().getFullYear()} Saskia Cosméticos. Todos os direitos reservados.</p>
+          <p>
+            &copy; {new Date().getFullYear()} Saskia Cosméticos. Todos os
+            direitos reservados.
+          </p>
           <p className="mt-1">Desenvolvido com ❤️ para amantes da beleza</p>
         </div>
       </div>
     </footer>
   );
-} 
+}
