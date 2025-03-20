@@ -17,47 +17,51 @@ export default function CarrosselImagens({
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [videoError, setVideoError] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
-  // Load the video and prepare it
   useEffect(() => {
-    if (!isVideo || !videoRef.current) return;
-
     // Log for debugging
-    console.log("Setting up video:", imageUrl);
+    if (isVideo) {
+      console.log("Attempting to load video:", imageUrl);
+    }
+  }, [isVideo, imageUrl]);
 
-    // Preload the video
-    videoRef.current.load();
+  // Set up intersection observer to detect when video is visible
+  useEffect(() => {
+    if (!isVideo || !containerRef.current) return;
 
-    // Set up event listeners for the video
-    const videoElement = videoRef.current;
-
-    const handleCanPlay = () => {
-      setIsLoaded(true);
-      console.log("Video can play now:", imageUrl);
+    const options = {
+      root: null, // viewport
+      rootMargin: "0px",
+      threshold: 0.5, // 50% of the element must be visible
     };
 
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === "visible" && videoElement) {
-        // When tab becomes visible, reset and play video
-        videoElement.currentTime = 0;
-        videoElement
-          .play()
-          .catch((e) => console.warn("Couldn't play video:", e));
-      }
-    };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        // When the video becomes visible
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          if (videoRef.current) {
+            // Reset the video to the beginning and play
+            videoRef.current.currentTime = 0;
+            videoRef.current.play();
+          }
+        } else {
+          setIsVisible(false);
+          // Optionally pause when not visible
+          if (videoRef.current) {
+            videoRef.current.pause();
+          }
+        }
+      });
+    }, options);
 
-    // Listen for when the video is ready to play
-    videoElement.addEventListener("canplay", handleCanPlay);
-
-    // Handle tab visibility changes
-    document.addEventListener("visibilitychange", handleVisibilityChange);
+    observer.observe(containerRef.current);
 
     return () => {
-      videoElement.removeEventListener("canplay", handleCanPlay);
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      observer.disconnect();
     };
-  }, [isVideo, imageUrl]);
+  }, [isVideo]);
 
   const handleVideoError = () => {
     console.error("Error loading video:", imageUrl);
@@ -68,16 +72,15 @@ export default function CarrosselImagens({
   const fallbackImage = backupImageUrl || "/images/6fs55eT.jpeg";
 
   return (
-    <div ref={containerRef} className="relative w-full h-full aspect-square">
+    <div ref={containerRef} className="relative w-full h-full">
       {isVideo && !videoError ? (
         <video
           ref={videoRef}
           className="w-full h-full object-cover"
-          autoPlay
+          autoPlay={isVisible}
           muted
           loop
           playsInline
-          preload="auto"
           onError={handleVideoError}
         >
           <source src={imageUrl} type={`video/${imageUrl.split(".").pop()}`} />
