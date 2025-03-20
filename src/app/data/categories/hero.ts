@@ -13,7 +13,7 @@ export interface HeroProduct {
 export const heroProducts: HeroProduct[] = [
   {
     id: 1,
-    imageUrl: "/images/banner1.png",
+    imageUrl: "/images/banner1.jpg",
     title: "Novidade 1",
     price: "",
     description: "Descrição da novidade 1",
