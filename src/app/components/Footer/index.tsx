@@ -10,6 +10,7 @@ import {
   FiInstagram,
   FiTwitter,
   FiYoutube,
+  FiLinkedin,
 } from "react-icons/fi";
 
 /**
@@ -52,55 +53,40 @@ export default function Rodape() {
               Saskia Cosméticos
             </h4>
             <ul className="space-y-3 w-full">
-              <li className="flex items-center justify-center md:justify-start">
+              <li className="flex items-center justify-center">
                 <FiMapPin className="text-[#ff69b4] mr-2 flex-shrink-0" />
-                <span className="text-sm">
-                  Av. da Beleza, 123, São Paulo, Brasil
+                <span className="text-sm text-center">
+                  Rua Luigui Sardagna, 100, Rodeio, SC
                 </span>
               </li>
-              <li className="flex items-center justify-center md:justify-start">
-                <FiPhone className="text-[#ff69b4] mr-2 flex-shrink-0" />
-                <span>+55 (11) 1234-5678</span>
-              </li>
-              <li className="flex items-center justify-center md:justify-start">
-                <FiMail className="text-[#ff69b4] mr-2 flex-shrink-0" />
-                <span>contato@saskiacosmeticos.com</span>
-              </li>
-              <li className="flex items-center justify-center md:justify-start">
-                <FiClock className="text-[#ff69b4] mr-2 flex-shrink-0" />
-                <span>Seg-Sex: 9h - 18h</span>
+              <li className="flex flex-col items-center md:items-start">
+                <div className="flex items-center">
+                  <FiClock className="text-[#ff69b4] mr-2 flex-shrink-0" />
+                  <span>Seg-Sex: 11h - 18:30h</span>
+                </div>
+                <span className="ml-6 md:ml-6">Sab: 08h - 12h</span>
               </li>
             </ul>
 
             {/* Mídias Sociais */}
             <div className="mt-6 flex justify-center md:justify-start space-x-4 w-full">
               <a
-                href="#"
-                className="text-gray-500 hover:text-[#ff69b4] transition-colors"
-                aria-label="Facebook"
-              >
-                <FiFacebook size={20} />
-              </a>
-              <a
-                href="#"
+                href="https://www.instagram.com/saskiacosmeticos"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-500 hover:text-[#ff69b4] transition-colors"
                 aria-label="Instagram"
               >
                 <FiInstagram size={20} />
               </a>
               <a
-                href="#"
+                href="https://wa.me/5547997273738"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-500 hover:text-[#ff69b4] transition-colors"
-                aria-label="Twitter"
+                aria-label="WhatsApp"
               >
-                <FiTwitter size={20} />
-              </a>
-              <a
-                href="#"
-                className="text-gray-500 hover:text-[#ff69b4] transition-colors"
-                aria-label="YouTube"
-              >
-                <FiYoutube size={20} />
+                <FiPhone size={20} />
               </a>
             </div>
           </div>
@@ -134,7 +120,17 @@ export default function Rodape() {
             &copy; {new Date().getFullYear()} Saskia Cosméticos. Todos os
             direitos reservados.
           </p>
-          <p className="mt-1">Desenvolvido com ❤️ para amantes da beleza</p>
+          <p className="mt-2">
+            <a
+              href="https://www.linkedin.com/in/luan-vendrami"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center font-medium hover:text-[#ff69b4] transition-colors"
+            >
+              Desenvolvido por Luan Vendrami{" "}
+              <FiLinkedin className="ml-1 text-blue-600" size={18} />
+            </a>
+          </p>
         </div>
       </div>
     </footer>

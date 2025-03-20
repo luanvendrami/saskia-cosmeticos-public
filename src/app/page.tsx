@@ -193,7 +193,7 @@ export default function Home() {
       <PromocionalBanner />
 
       {categorias.map((categoria) => (
-        <div key={categoria.id} className="py-12 px-4 sm:px-6 lg:px-8">
+        <div key={categoria.id} className="py-6 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
             {/* Use the CategoryHeader component */}
             <CategoryHeader
@@ -202,7 +202,7 @@ export default function Home() {
               categoryId={categoria.id}
             />
 
-            <div className="relative">
+            <div className="relative mt-2">
               <div className="rounded-2xl overflow-hidden shadow-[0_10px_40px_-15px_rgba(255,105,180,0.3)] bg-white/40 p-8 border-2 border-[#ff69b4]/20 hover:shadow-[0_15px_50px_-12px_rgba(255,105,180,0.4)] transition-shadow duration-300">
                 <Carrossel
                   items={convertToCarouselItems(categoria.produtos)}
