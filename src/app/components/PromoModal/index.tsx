@@ -1,183 +1,349 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import Image from 'next/image';
-import { FiX, FiStar, FiGift } from 'react-icons/fi';
+import { useState, useEffect } from "react";
+import {
+  Dialog,
+  DialogContent,
+  IconButton,
+  Typography,
+  Box,
+  Fade,
+  Chip,
+  Button,
+  ThemeProvider,
+  createTheme,
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import LocalOfferIcon from "@mui/icons-material/LocalOffer";
+import StarIcon from "@mui/icons-material/Star";
+
+// Create a refined theme
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#ff69b4",
+      light: "#ffeef6",
+    },
+    background: {
+      default: "#ffffff",
+    },
+    text: {
+      primary: "#333333",
+      secondary: "#666666",
+    },
+  },
+  typography: {
+    fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
+    button: {
+      textTransform: "none",
+      fontWeight: 600,
+    },
+    h6: {
+      letterSpacing: "0.5px",
+    },
+  },
+  components: {
+    MuiDialog: {
+      styleOverrides: {
+        paper: {
+          borderRadius: 20,
+          overflow: "hidden",
+          boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 30,
+          boxShadow: "0 4px 12px rgba(255, 105, 180, 0.3)",
+          transition: "all 0.3s ease",
+          "&:hover": {
+            transform: "translateY(-2px)",
+            boxShadow: "0 6px 15px rgba(255, 105, 180, 0.4)",
+          },
+        },
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          borderRadius: 4,
+          padding: "0 4px",
+        },
+      },
+    },
+  },
+});
 
 /**
- * Componente que exibe um modal promocional
- * 
+ * Componente de modal promocional elegante
+ *
  * Mostra uma oferta especial com cupom de desconto para o usuário
- * Aparece uma vez por sessão para novos visitantes
+ * Aparece a cada 24 horas quando o usuário retorna ao site
  */
 export default function ModalPromocional() {
-  const [visivel, setVisivel] = useState(false);
-  const [montado, setMontado] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Marcando que o componente foi montado no cliente
-    setMontado(true);
-    
+    setMounted(true);
+
     try {
-      // Verificar se é a primeira visita (usando localStorage)
-      const jaViuPromocao = localStorage.getItem('hasSeenPromo');
-      
-      if (!jaViuPromocao) {
-        // Se for a primeira visita, mostrar o modal após um pequeno delay
+      const lastVisit = localStorage.getItem("lastVisitTime");
+      const currentTime = new Date().getTime();
+
+      if (
+        !lastVisit ||
+        currentTime - parseInt(lastVisit) > 24 * 60 * 60 * 1000
+      ) {
         const timer = setTimeout(() => {
-          setVisivel(true);
-          // Registrar que o usuário já viu a promoção
-          localStorage.setItem('hasSeenPromo', 'true');
-          
-          // Definir um tempo para expirar (24 horas)
-          const expirationTime = new Date().getTime() + (24 * 60 * 60 * 1000);
-          localStorage.setItem('promoExpiration', expirationTime.toString());
-        }, 3000); // 3 segundos de atraso
-        
+          setOpen(true);
+          localStorage.setItem("lastVisitTime", currentTime.toString());
+        }, 1500);
+
         return () => clearTimeout(timer);
-      } else {
-        // Verificar se o tempo expirou
-        const expirationTime = localStorage.getItem('promoExpiration');
-        
-        if (expirationTime && new Date().getTime() > parseInt(expirationTime)) {
-          // Reset se o tempo expirou
-          resetarPromocao();
-        }
       }
     } catch (error) {
-      // Tratamento para caso o localStorage não esteja disponível (ex: navegação privada)
-      console.error('Erro ao acessar localStorage', error);
+      console.error("Erro ao acessar localStorage", error);
     }
   }, []);
 
-  /**
-   * Fecha o modal promocional
-   */
-  const fecharModal = () => {
-    setVisivel(false);
+  const handleClose = () => {
+    setOpen(false);
   };
 
-  /**
-   * Reseta o estado da promoção, permitindo que ela seja exibida novamente
-   */
-  const resetarPromocao = () => {
-    try {
-      localStorage.removeItem('hasSeenPromo');
-      localStorage.removeItem('promoExpiration');
-    } catch (error) {
-      console.error('Erro ao resetar promoção', error);
-    }
-  };
-
-  // Não renderizar nada durante a renderização do servidor ou se o componente não estiver montado
-  if (!montado) return null;
-  
-  // Não renderizar se o modal não estiver visível
-  if (!visivel) return null;
+  if (!mounted) return null;
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-0">
-      {/* Overlay com blur */}
-      <div 
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-fade-in"
-        onClick={fecharModal}
-      />
-
-      {/* Modal */}
-      <div className="relative w-full max-w-lg mx-auto bg-white rounded-2xl overflow-hidden shadow-2xl animate-modal-slide-in">
-        {/* Elementos decorativos */}
-        <div className="absolute -left-6 -top-6 w-20 h-20 bg-pink-500 rounded-full opacity-20"></div>
-        <div className="absolute -right-6 -bottom-6 w-20 h-20 bg-purple-500 rounded-full opacity-20"></div>
-        
-        {/* Banner "10% OFF" */}
-        <div className="absolute top-0 right-0 bg-gradient-to-r from-pink-500 to-red-500 text-white py-1 px-4 transform rotate-12 translate-x-2 -translate-y-2 rounded-sm text-sm font-bold shadow-lg">
-          10% OFF
-        </div>
-
-        {/* Botão de fechar */}
-        <button 
-          onClick={fecharModal}
-          className="absolute right-3 top-3 z-10 bg-white/80 rounded-full p-1 shadow-md hover:bg-white transition-colors"
-          aria-label="Fechar modal promocional"
+    <ThemeProvider theme={theme}>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        maxWidth="xs"
+        fullWidth
+        TransitionComponent={Fade}
+        TransitionProps={{ timeout: 300 }}
+      >
+        <IconButton
+          onClick={handleClose}
+          aria-label="close"
+          sx={{
+            position: "absolute",
+            right: 12,
+            top: 12,
+            color: "rgba(0,0,0,0.4)",
+            zIndex: 9999,
+            bgcolor: "rgba(255,255,255,0.6)",
+            backdropFilter: "blur(8px)",
+            "&:hover": {
+              bgcolor: "rgba(255,255,255,0.8)",
+            },
+            padding: "8px",
+            cursor: "pointer",
+          }}
         >
-          <FiX className="w-6 h-6 text-gray-700" />
-        </button>
+          <CloseIcon fontSize="small" />
+        </IconButton>
 
-        {/* Conteúdo do modal */}
-        <div className="flex flex-col md:flex-row">
-          {/* Imagem (ocupa 100% em mobile, 50% em desktop) */}
-          <div className="relative w-full md:w-1/2 h-52 md:h-auto">
-            <Image
-              src="https://images.unsplash.com/photo-1597586124394-fbd6ef244026?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.0.3"
-              alt="Mulher surpresa com oferta promocional"
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
-              priority
+        {/* Decorative elements */}
+        <Box
+          sx={{
+            position: "absolute",
+            top: -18,
+            right: -18,
+            width: 100,
+            height: 100,
+            background: "linear-gradient(45deg, #ff69b4, #ff8dc7)",
+            borderRadius: "50%",
+            opacity: 0.1,
+            zIndex: 0,
+          }}
+        />
+        <Box
+          sx={{
+            position: "absolute",
+            bottom: -15,
+            left: -15,
+            width: 70,
+            height: 70,
+            background: "linear-gradient(45deg, #ff69b4, #ff8dc7)",
+            borderRadius: "50%",
+            opacity: 0.1,
+            zIndex: 0,
+          }}
+        />
+
+        <DialogContent
+          sx={{
+            py: 5,
+            px: 3.5,
+            textAlign: "center",
+            background:
+              "linear-gradient(180deg, rgba(255, 239, 246, 0.5) 0%, rgba(255, 255, 255, 1) 100%)",
+            position: "relative",
+            zIndex: 1,
+          }}
+        >
+          <Box sx={{ position: "relative", mb: 1 }}>
+            <Chip
+              icon={<StarIcon fontSize="small" />}
+              label="OFERTA ESPECIAL"
+              color="primary"
+              size="small"
+              sx={{
+                mb: 2,
+                fontWeight: 500,
+                px: 1,
+                backgroundColor: "rgba(255, 105, 180, 0.15)",
+                color: "#ff4bac",
+                border: "1px solid rgba(255, 105, 180, 0.3)",
+                "& .MuiChip-icon": {
+                  color: "#ff4bac",
+                },
+              }}
             />
-            {/* Overlay gradiente na imagem */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent md:bg-gradient-to-r"></div>
-            
-            {/* Texto sobreposto na imagem apenas em mobile */}
-            <div className="absolute bottom-4 left-4 right-4 text-white md:hidden">
-              <div className="flex items-center mb-1">
-                <FiStar className="text-yellow-300 mr-1" />
-                <span className="text-xs font-bold tracking-wider">OFERTA EXCLUSIVA</span>
-              </div>
-              <h3 className="text-xl font-extrabold drop-shadow-md">
-                10% OFF EM TUDO NO PAGAMENTO A VISTA OU PIX!
-              </h3>
-            </div>
-          </div>
+          </Box>
 
-          {/* Texto promocional */}
-          <div className="w-full md:w-1/2 p-6 md:p-8 bg-gradient-to-br from-pink-50 to-purple-50 flex flex-col justify-center">
-            {/* Tag de oferta - visível apenas no desktop */}
-            <div className="hidden md:block bg-[#ff69b4]/10 rounded-full py-1 px-3 inline-flex items-center mb-3 self-start">
-              <FiStar className="text-[#ff69b4] mr-1" />
-              <span className="text-sm font-semibold text-[#ff69b4]">OFERTA ESPECIAL</span>
-            </div>
-            
-            {/* Título - visível apenas no desktop */}
-            <h2 className="hidden md:block text-2xl md:text-3xl font-bold text-gray-800 mb-3">
-              GANHE 10% OFF EM TODO O SITE NO PAGAMENTO A VISTA OU PIX!
-            </h2>
-            
-            <p className="text-sm md:text-base text-gray-600 mb-5 md:mb-6">
-              Estamos super animados para oferecer esta promoção especial para
-              novos clientes! Use o cupom abaixo em sua primeira compra e ganhe 10% de desconto em qualquer produto.
-            </p>
-            
-            {/* Código do cupom */}
-            <div className="bg-[#ff69b4] text-2xl md:text-3xl font-bold text-white py-2 px-4 rounded-lg mx-auto md:mx-0 transform rotate-2 shadow-lg animate-pulse-shadow">
-              PROMO10
-            </div>
-            
-            <p className="mt-4 text-xs text-gray-500">
-              *Use o cupom acima no carrinho de compras. Válido até o fim do mês.
-            </p>
-          </div>
-        </div>
-
-        {/* Botão para aproveitar a promoção */}
-        <button
-          onClick={fecharModal}
-          className="w-full py-4 bg-[#ff69b4] hover:bg-[#ff1493] text-white text-lg font-bold transition-colors duration-300 flex items-center justify-center"
-        >
-          <FiGift className="mr-2" />
-          APROVEITAR AGORA!
-        </button>
-        
-        {/* Botão para resetar o modal (apenas durante o desenvolvimento) */}
-        {process.env.NODE_ENV === 'development' && (
-          <button
-            onClick={resetarPromocao}
-            className="absolute left-3 top-3 z-10 bg-gray-100 text-xs text-gray-500 rounded p-1 opacity-50 hover:opacity-100"
+          <Typography
+            variant="h6"
+            color="text.primary"
+            fontWeight="bold"
+            sx={{
+              mb: 2.5,
+              fontSize: "1.4rem",
+              letterSpacing: "0.3px",
+              textTransform: "uppercase",
+              background: "linear-gradient(90deg, #ff69b4, #ff1493)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              maxWidth: "280px",
+              mx: "auto",
+              lineHeight: 1.3,
+            }}
           >
-            Reset (dev)
-          </button>
-        )}
-      </div>
-    </div>
+            10% de desconto em toda a loja
+          </Typography>
+
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{
+              mb: 3.5,
+              maxWidth: "260px",
+              mx: "auto",
+              lineHeight: 1.5,
+              fontSize: "0.9rem",
+            }}
+          >
+            Utilize o código abaixo em qualquer compra com pagamento via PIX ou
+            à vista
+          </Typography>
+
+          {/* Coupon code */}
+          <Box
+            sx={{
+              p: 2,
+              mx: "auto",
+              maxWidth: "200px",
+              borderRadius: 3,
+              background: "linear-gradient(145deg, #ffffff, #f5f5f5)",
+              border: "1px solid",
+              borderColor: "rgba(255, 105, 180, 0.3)",
+              mb: 3.5,
+              boxShadow: "0 4px 15px rgba(0, 0, 0, 0.03)",
+              position: "relative",
+              "&::before": {
+                content: '""',
+                position: "absolute",
+                top: -1,
+                left: -1,
+                right: -1,
+                bottom: -1,
+                borderRadius: 3,
+                padding: "1px",
+                background:
+                  "linear-gradient(45deg, rgba(255, 105, 180, 0.5), rgba(255, 255, 255, 0), rgba(255, 105, 180, 0.3), rgba(255, 255, 255, 0))",
+                WebkitMask:
+                  "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+                WebkitMaskComposite: "xor",
+                maskComposite: "exclude",
+              },
+            }}
+          >
+            <Typography
+              variant="h6"
+              color="primary"
+              fontWeight="bold"
+              letterSpacing={3}
+              sx={{
+                fontFamily: "monospace",
+                fontSize: "1.3rem",
+              }}
+            >
+              PROMO10
+            </Typography>
+          </Box>
+
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            onClick={handleClose}
+            startIcon={<LocalOfferIcon />}
+            sx={{
+              py: 1.5,
+              fontWeight: "bold",
+              fontSize: "0.95rem",
+              letterSpacing: "0.5px",
+            }}
+          >
+            Aproveitar Agora
+          </Button>
+
+          <Typography
+            variant="caption"
+            color="text.secondary"
+            sx={{
+              mt: 2,
+              display: "block",
+              fontSize: "0.75rem",
+              opacity: 0.7,
+            }}
+          >
+            *Válido por tempo limitado
+          </Typography>
+        </DialogContent>
+      </Dialog>
+
+      {/* Dev testing button */}
+      {process.env.NODE_ENV === "development" && (
+        <Box
+          sx={{
+            position: "fixed",
+            left: 16,
+            bottom: 16,
+            zIndex: 10000,
+          }}
+        >
+          <Button
+            size="small"
+            variant="outlined"
+            color="inherit"
+            onClick={() => {
+              localStorage.removeItem("lastVisitTime");
+              setOpen(false);
+              setTimeout(() => window.location.reload(), 500);
+            }}
+            sx={{
+              bgcolor: "background.default",
+              fontSize: "0.7rem",
+            }}
+          >
+            Reset Timer (Dev)
+          </Button>
+        </Box>
+      )}
+    </ThemeProvider>
   );
-} 
+}
