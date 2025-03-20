@@ -251,41 +251,35 @@ export default function ModalProduto({
                   isExiting ? "animate-slide-out-top" : "animate-slide-in-top"
                 }`}
               >
-                <div className="flex items-center bg-white rounded-lg shadow-xl overflow-hidden border border-green-200">
-                  {/* Left colored section with icon */}
-                  <div className="bg-gradient-to-br from-green-400 to-emerald-600 p-3 flex items-center justify-center">
-                    <div className="animate-thumbs-up">
-                      <FaThumbsUp className="text-white w-6 h-6" />
+                <div className="flex items-center bg-white/90 backdrop-blur-sm rounded-full shadow-md overflow-hidden">
+                  {/* Success icon */}
+                  <div className="pl-4 flex items-center justify-center">
+                    <div className="animate-pulse">
+                      <FaThumbsUp className="text-pink-500 w-5 h-5" />
                     </div>
                   </div>
 
                   {/* Content section */}
-                  <div className="flex-1 px-4 py-3">
-                    <div className="flex justify-between items-center">
-                      <h3 className="font-bold text-gray-800">Sucesso!</h3>
-                      <button
-                        onClick={() => {
-                          setIsExiting(true);
-                          setTimeout(() => {
-                            setShowAddedNotification(false);
-                            setIsExiting(false);
-                          }, 400);
-                        }}
-                        className="text-gray-400 hover:text-gray-600"
-                      >
-                        <FiX className="w-4 h-4" />
-                      </button>
-                    </div>
-                    <p className="text-sm text-gray-600 mt-1">
-                      <span className="font-semibold text-pink-500">
-                        {title}
-                      </span>{" "}
-                      adicionado ao seu carrinho!
+                  <div className="flex-1 px-4 py-2.5">
+                    <p className="text-sm text-gray-700">
+                      <span className="font-medium text-pink-500">{title}</span>{" "}
+                      adicionado ao carrinho
                     </p>
                   </div>
 
-                  {/* Animated border indicator */}
-                  <div className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-green-400 via-emerald-500 to-green-400 animate-shimmer w-full"></div>
+                  {/* Close button */}
+                  <button
+                    onClick={() => {
+                      setIsExiting(true);
+                      setTimeout(() => {
+                        setShowAddedNotification(false);
+                        setIsExiting(false);
+                      }, 400);
+                    }}
+                    className="pr-4 text-gray-400 hover:text-gray-600"
+                  >
+                    <FiX className="w-4 h-4" />
+                  </button>
                 </div>
               </div>
             </div>

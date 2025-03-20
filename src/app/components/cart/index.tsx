@@ -31,6 +31,13 @@ export default function Cart() {
      * @param event - Mouse event
      */
     function handleOutsideClick(event: MouseEvent) {
+      // Check if the click target is inside a confirmation modal (they have z-index 10000)
+      const modalElement = document.querySelector('[class*="z-[10000]"]');
+      if (modalElement && modalElement.contains(event.target as Node)) {
+        // If clicking inside a confirmation modal, don't close the cart
+        return;
+      }
+
       if (
         cartRef.current &&
         !cartRef.current.contains(event.target as Node) &&
@@ -211,7 +218,7 @@ export default function Cart() {
                           onChange={(e) =>
                             setCodigoCupom(e.target.value.toUpperCase())
                           }
-                          placeholder="SASKIA30"
+                          placeholder="Digite seu cupom"
                           className="block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-300 focus:ring focus:ring-pink-200 focus:ring-opacity-50 text-sm"
                         />
                       </div>
