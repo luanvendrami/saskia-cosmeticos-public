@@ -113,6 +113,7 @@ export default function Carrossel({
                 imageUrl={item.imageUrl}
                 backupImageUrl={item.backupImageUrl}
                 alt={item.title}
+                category={item.category}
               />
             )}
           </SwiperSlide>

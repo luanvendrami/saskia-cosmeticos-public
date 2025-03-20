@@ -56,6 +56,7 @@ export interface HeroProduct {
   description: string; // Detailed product description
   primeiroCarrossel: boolean; // Indicates if the product appears in the first carousel
   isMobile: boolean; // Flag to determine if this item should appear on mobile devices
+  category?: string; // Category name for the clickable button
 }
 
 /**

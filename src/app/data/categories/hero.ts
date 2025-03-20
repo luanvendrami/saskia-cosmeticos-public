@@ -7,6 +7,7 @@ export interface HeroProduct {
   description: string;
   primeiroCarrossel: boolean;
   isMobile: boolean; // Flag to determine if this item should appear on mobile devices
+  category?: string; // Category name for the clickable button
 }
 
 export const heroProducts: HeroProduct[] = [
@@ -18,6 +19,7 @@ export const heroProducts: HeroProduct[] = [
     description: "Descrição da novidade 1",
     primeiroCarrossel: true,
     isMobile: false, // Desktop only
+    category: "", // Added category
   },
   {
     id: 2,
@@ -27,6 +29,7 @@ export const heroProducts: HeroProduct[] = [
     description: "Descrição da novidade 2",
     primeiroCarrossel: true,
     isMobile: false, // Desktop only
+    category: "", // Added category
   },
   // Mobile-specific entries
   {
@@ -38,6 +41,7 @@ export const heroProducts: HeroProduct[] = [
     description: "",
     primeiroCarrossel: true,
     isMobile: true, // Mobile only
+    category: "corpo", // Added category
   },
   {
     id: 5,
@@ -47,6 +51,7 @@ export const heroProducts: HeroProduct[] = [
     description: "",
     primeiroCarrossel: true,
     isMobile: true, // Mobile only
+    category: "maquiagem", // Added category
   },
   {
     id: 6,
@@ -56,5 +61,6 @@ export const heroProducts: HeroProduct[] = [
     description: "",
     primeiroCarrossel: true,
     isMobile: true, // Mobile only
+    category: "cabelos", // Added category
   },
 ];

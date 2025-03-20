@@ -177,8 +177,8 @@ export default function Cart() {
               <div className="flex-1 overflow-auto divide-y divide-gray-200">
                 {cartItems.length > 0 ? (
                   <ul className="divide-y divide-gray-200">
-                    {cartItems.map((item) => (
-                      <CartItem key={item.id} item={item} />
+                    {cartItems.map((item, index) => (
+                      <CartItem key={`${item.id}-${index}`} item={item} />
                     ))}
                   </ul>
                 ) : (

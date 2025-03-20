@@ -65,7 +65,7 @@ export default function Navbar({
     <Link
       key={href}
       href={href}
-      className="text-[#ff69b4] hover:text-[#ff1493] transition-colors duration-300"
+      className="px-4 py-2 text-[#ff69b4] bg-pink-100 hover:bg-pink-200 hover:text-[#ff1493] rounded-md font-medium transition-all duration-300 shadow-sm"
       onClick={isMobile ? toggleMenu : undefined}
     >
       {label}
@@ -99,7 +99,7 @@ export default function Navbar({
                 <li key={href}>
                   <Link
                     href={href}
-                    className="flex items-center py-2 text-lg font-medium text-[#ff69b4] hover:text-[#ff1493] hover:bg-pink-50 rounded-lg px-4 transition-all duration-200"
+                    className="flex items-center py-3 text-lg font-medium text-[#ff69b4] bg-pink-100 hover:bg-pink-200 hover:text-[#ff1493] rounded-lg px-5 transition-all duration-200 shadow-sm w-full"
                     onClick={toggleMenu}
                   >
                     {label}
@@ -123,7 +123,7 @@ export default function Navbar({
     <div className="menu-container relative">
       <div className="hidden md:block">
         <div className="flex items-center justify-between px-4 py-3 bg-[#ffe1ff] shadow-md relative z-20">
-          <nav className="flex items-center justify-center gap-8 w-full">
+          <nav className="flex items-center justify-center gap-6 w-full">
             {MENU_ITEMS.map(({ href, label }) => renderMenuItem(href, label))}
           </nav>
         </div>
