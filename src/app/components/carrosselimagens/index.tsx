@@ -170,10 +170,9 @@ export default function CarrosselImagens({
         >
           <Link
             href={`/${category}`}
-            className="px-2 py-2 bg-[#ff69b4] hover:bg-[#ff69b4] text-white rounded-lg font-medium shadow-lg transition-all duration-300 text-center flex items-center justify-center transform hover:scale-105"
+            className="px-4 py-2 bg-[#ff69b4] hover:bg-[#ff1493] text-white rounded-lg font-medium shadow-lg transition-all duration-300 text-center flex items-center justify-center transform hover:scale-105"
           >
-            <span className="mr-1">Ver produtos para </span>{" "}
-            {formatCategoryName(category)}
+            <span>Ver produtos para {formatCategoryName(category)}</span>
           </Link>
         </div>
       )}

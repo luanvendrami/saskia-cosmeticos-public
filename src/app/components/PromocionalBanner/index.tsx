@@ -18,7 +18,7 @@ export default function PromocionalBanner() {
       <div className="max-w-7xl mx-auto">
         <div className="relative overflow-hidden bg-gradient-to-r from-rose-200 via-pink-200 to-purple-200 py-6 sm:py-8 px-3 sm:px-6 text-center my-6 sm:my-10 rounded-3xl shadow-[0_15px_30px_-15px_rgba(219,39,119,0.3)] border border-pink-300/30 hover:shadow-[0_15px_35px_-12px_rgba(219,39,119,0.35)] hover:border-pink-300/40 transition-shadow duration-300 animate-fade-in">
           {/* Elementos decorativos de fundo */}
-          <div>
+          <div className="relative">
             <div className="absolute top-0 left-0 w-16 h-16 bg-gradient-to-r from-pink-300/50 to-purple-300/50 rounded-full blur-lg transform -translate-x-1/2 -translate-y-1/2 animate-float-slow opacity-60"></div>
             <div className="absolute bottom-0 right-0 w-16 h-16 bg-gradient-to-r from-pink-300/50 to-purple-300/50 rounded-full blur-lg transform translate-x-1/2 translate-y-1/2 animate-float opacity-60"></div>
           </div>
