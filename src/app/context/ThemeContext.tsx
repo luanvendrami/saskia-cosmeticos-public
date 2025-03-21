@@ -29,10 +29,19 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
 
   // Function to toggle between light and dark mode
   const toggleColorMode = () => {
-    setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
-    if (typeof window !== "undefined") {
-      localStorage.setItem("themeMode", mode === "light" ? "dark" : "light");
-    }
+    setMode((prevMode) => {
+      const newMode = prevMode === "light" ? "dark" : "light";
+      if (typeof window !== "undefined") {
+        localStorage.setItem("themeMode", newMode);
+        // Add or remove dark class to document element for broader CSS support
+        if (newMode === "dark") {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      }
+      return newMode;
+    });
   };
 
   // Effect to handle system preferences and stored preferences
@@ -42,19 +51,30 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     // Check for stored preference
     const storedMode = localStorage.getItem("themeMode") as PaletteMode | null;
 
+    // Function to apply theme mode to document
+    const applyThemeMode = (themeMode: PaletteMode) => {
+      setMode(themeMode);
+      if (themeMode === "dark") {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    };
+
     if (storedMode) {
-      setMode(storedMode);
+      applyThemeMode(storedMode);
     } else if (typeof window !== "undefined") {
       // Check system preference
       const prefersDarkMode = window.matchMedia(
         "(prefers-color-scheme: dark)"
       ).matches;
-      setMode(prefersDarkMode ? "dark" : "light");
+      applyThemeMode(prefersDarkMode ? "dark" : "light");
 
       // Add listener for system preference changes
       const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
       const handleChange = (e: MediaQueryListEvent) => {
-        setMode(e.matches ? "dark" : "light");
+        const newMode = e.matches ? "dark" : "light";
+        applyThemeMode(newMode);
       };
 
       mediaQuery.addEventListener("change", handleChange);

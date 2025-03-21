@@ -316,14 +316,14 @@ export default function ModalProduto({
               <>
                 <button
                   onClick={navigateToPrevImage}
-                  className="hidden md:block absolute left-2 top-1/2 -translate-y-1/2 bg-pink-500 hover:bg-pink-600 p-3 rounded-full shadow-md transition-colors z-10"
+                  className="hidden md:block absolute left-2 top-1/2 -translate-y-1/2 bg-[var(--primary-color)] hover:bg-[var(--primary-dark)] p-3 rounded-full shadow-md transition-colors z-10"
                   aria-label="Previous image"
                 >
                   <FiChevronLeft className="w-6 h-6 text-white" />
                 </button>
                 <button
                   onClick={navigateToNextImage}
-                  className="hidden md:block absolute right-2 top-1/2 -translate-y-1/2 bg-pink-500 hover:bg-pink-600 p-3 rounded-full shadow-md transition-colors z-10"
+                  className="hidden md:block absolute right-2 top-1/2 -translate-y-1/2 bg-[var(--primary-color)] hover:bg-[var(--primary-dark)] p-3 rounded-full shadow-md transition-colors z-10"
                   aria-label="Next image"
                 >
                   <FiChevronRight className="w-6 h-6 text-white" />
@@ -343,8 +343,8 @@ export default function ModalProduto({
                       }}
                       className={`w-2 h-2 rounded-full transition-all ${
                         index === currentImageIndex
-                          ? "bg-[#ff69b4] w-3"
-                          : "bg-gray-300 hover:bg-gray-400"
+                          ? "bg-[var(--primary-color)] w-3"
+                          : "bg-gray-300 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-500"
                       }`}
                       aria-label={`Go to image ${index + 1}`}
                     />
@@ -364,19 +364,19 @@ export default function ModalProduto({
           </div>
 
           {/* Content */}
-          <div className="p-2 sm:p-6 bg-gradient-to-b from-white to-gray-50">
+          <div className="p-2 sm:p-6 bg-gradient-to-b from-[var(--background-light)] to-[var(--background-dark)]">
             {category && (
-              <span className="inline-block px-3 py-1 text-sm font-medium text-[#ff69b4] bg-pink-50 rounded-full mb-2 sm:mb-3">
+              <span className="inline-block px-3 py-1 text-sm font-medium text-[var(--primary-color)] bg-[var(--primary-light)] rounded-full mb-2 sm:mb-3">
                 {category}
               </span>
             )}
 
-            <h3 className="text-lg sm:text-2xl font-semibold text-gray-800 tracking-tight">
+            <h3 className="text-lg sm:text-2xl font-semibold text-[var(--text-primary)] tracking-tight">
               {title}
             </h3>
 
             <div className="mt-2 sm:mt-4">
-              <p className="text-xs sm:text-base text-gray-600 leading-relaxed line-clamp-2 sm:line-clamp-none">
+              <p className="text-xs sm:text-base text-[var(--text-secondary)] leading-relaxed line-clamp-2 sm:line-clamp-none">
                 {description}
               </p>
             </div>
@@ -385,11 +385,11 @@ export default function ModalProduto({
               <div className="mt-2 sm:mt-6">
                 {/* Preço e desconto */}
                 <div className="flex items-center mb-1 sm:mb-4">
-                  <p className="text-base sm:text-xl text-gray-500 line-through">
+                  <p className="text-base sm:text-xl text-[var(--text-secondary)] line-through">
                     {price}
                   </p>
                   {promocao && (
-                    <span className="ml-3 bg-[#ff69b4] text-white text-xs sm:text-sm px-2 py-0.5 rounded font-medium">
+                    <span className="ml-3 bg-[var(--primary-color)] text-white text-xs sm:text-sm px-2 py-0.5 rounded font-medium">
                       -{descontoPromocao || 10}%
                     </span>
                   )}
@@ -397,14 +397,14 @@ export default function ModalProduto({
 
                 {/* Preço final */}
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-xl sm:text-2xl font-bold text-green-600">
+                  <span className="text-xl sm:text-2xl font-bold text-[var(--success-color)]">
                     {promocao && precoComDesconto
                       ? `R$ ${precoComDesconto}`
                       : price}
                   </span>
                   {promocao && cupom && (
-                    <div className="bg-green-100 px-2 sm:px-3 py-1 rounded-md">
-                      <span className="text-xs sm:text-sm text-green-800 font-medium">
+                    <div className="bg-green-100 dark:bg-green-900/30 px-2 sm:px-3 py-1 rounded-md">
+                      <span className="text-xs sm:text-sm text-green-800 dark:text-green-300 font-medium">
                         Cupom: {cupom}
                       </span>
                     </div>
@@ -430,14 +430,14 @@ export default function ModalProduto({
                         Últimas unidades!
                       </span>
                     ) : stockQuantity <= 10 ? (
-                      <span className="text-[#ff69b4] uppercase text-xs sm:text-sm font-medium flex items-center">
-                        <FiAlertCircle className="mr-1 text-[#ff69b4]" /> Poucas
-                        unidades
+                      <span className="text-[var(--primary-color)] uppercase text-xs sm:text-sm font-medium flex items-center">
+                        <FiAlertCircle className="mr-1 text-[var(--primary-color)]" />{" "}
+                        Poucas unidades
                       </span>
                     ) : (
-                      <span className="text-green-600 uppercase text-xs sm:text-sm font-medium flex items-center">
-                        <FiCheckCircle className="mr-1 text-green-600" /> Em
-                        estoque
+                      <span className="text-[var(--success-color)] uppercase text-xs sm:text-sm font-medium flex items-center">
+                        <FiCheckCircle className="mr-1 text-[var(--success-color)]" />{" "}
+                        Em estoque
                       </span>
                     )}
                   </div>
@@ -451,7 +451,7 @@ export default function ModalProduto({
                 <>
                   {stockQuantity === 0 ? (
                     <button
-                      className="w-full py-2 sm:py-3 rounded-lg flex items-center justify-center gap-1 sm:gap-2 bg-white border-2 border-gray-300 text-gray-700 text-xs sm:text-base hover:bg-gray-50 transition-colors shadow-sm"
+                      className="w-full py-2 sm:py-3 rounded-lg flex items-center justify-center gap-1 sm:gap-2 bg-[var(--background-light)] border-2 border-gray-300 dark:border-gray-700 text-[var(--text-primary)] text-xs sm:text-base hover:bg-[var(--background-dark)] transition-colors shadow-sm"
                       onClick={(e) => {
                         e.stopPropagation();
                         WhatsAppService.sendStockNotification(title);
@@ -463,7 +463,7 @@ export default function ModalProduto({
                   ) : (
                     <button
                       onClick={handleAddToCart}
-                      className="w-full py-2 sm:py-3 bg-pink-500 text-white rounded-lg flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-base hover:bg-pink-600 transition-colors"
+                      className="w-full py-2 sm:py-3 bg-[var(--primary-color)] text-white rounded-lg flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-base hover:bg-[var(--primary-dark)] transition-colors"
                     >
                       <FiShoppingCart className="w-4 h-4 sm:w-5 sm:h-5" />
                       Adicionar ao Carrinho
@@ -476,7 +476,7 @@ export default function ModalProduto({
               {category && !hideViewAll && (
                 <Link
                   href={`/${categoryPath}`}
-                  className="w-full py-2 sm:py-3 bg-white border border-pink-500 text-pink-500 rounded-lg flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-base hover:bg-pink-50 transition-colors"
+                  className="w-full py-2 sm:py-3 bg-[var(--background-light)] border border-[var(--primary-color)] text-[var(--primary-color)] rounded-lg flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-base hover:bg-[var(--primary-light)] transition-colors"
                   onClick={onClose}
                 >
                   <FiEye className="w-4 h-4 sm:w-5 sm:h-5" />

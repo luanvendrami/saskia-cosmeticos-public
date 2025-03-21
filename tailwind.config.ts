@@ -9,6 +9,7 @@ export default {
     "./components/**/*.{js,ts,jsx,tsx}",
     "./node_modules/swiper/**/*.{js,ts}",
   ],
+  darkMode: "class",
   theme: {
     extend: {
       colors: {

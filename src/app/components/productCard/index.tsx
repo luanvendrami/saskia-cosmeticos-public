@@ -102,11 +102,11 @@ export default function ProductCard({
         className="product-card product-card-hover"
       >
         {/* Gradient Background - Using our theme variables */}
-        <div className="absolute inset-0 bg-gradient-to-br from-pink-100 to-pink-200 opacity-90"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-light)] to-[var(--secondary-light)] opacity-90"></div>
 
         {/* Decorative elements */}
-        <div className="absolute top-0 right-0 w-32 h-32 bg-pink-300 opacity-20 rounded-full transform translate-x-16 -translate-y-16"></div>
-        <div className="absolute bottom-0 left-0 w-40 h-40 bg-pink-300 opacity-20 rounded-full transform -translate-x-20 translate-y-20"></div>
+        <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--secondary-color)] opacity-20 rounded-full transform translate-x-16 -translate-y-16"></div>
+        <div className="absolute bottom-0 left-0 w-40 h-40 bg-[var(--secondary-color)] opacity-20 rounded-full transform -translate-x-20 translate-y-20"></div>
 
         <div className="relative h-full w-full flex flex-col items-center justify-center p-8 text-center">
           {/* Icon */}
@@ -175,7 +175,7 @@ export default function ProductCard({
             {/* Category tag */}
             <div className="mb-1 flex-shrink-0">
               {category && (
-                <span className="inline-block px-2 py-1 text-xs font-medium text-[var(--primary-color)] bg-pink-50 rounded-full">
+                <span className="inline-block px-2 py-1 text-xs font-medium text-[var(--primary-color)] bg-[var(--primary-light)] rounded-full">
                   {category}
                 </span>
               )}
@@ -198,9 +198,11 @@ export default function ProductCard({
             <div className="product-price-container">
               {/* Original Price + Discount */}
               <div className="flex items-center mb-2">
-                <p className="text-sm text-gray-500 line-through">{price}</p>
+                <p className="text-sm text-[var(--text-secondary)] line-through">
+                  {price}
+                </p>
                 {promocao && (
-                  <span className="ml-2 bg-[#ff69b4] text-white text-xs px-1.5 py-0.5 rounded font-medium">
+                  <span className="ml-2 bg-[var(--primary-color)] text-white text-xs px-1.5 py-0.5 rounded font-medium">
                     -{descontoPromocao || 10}%
                   </span>
                 )}
@@ -208,25 +210,26 @@ export default function ProductCard({
 
               {/* Final Price Row */}
               <div className="flex items-center mb-1.5">
-                <span className="text-base sm:text-lg font-bold text-green-600">
+                <span className="text-base sm:text-lg font-bold text-[var(--success-color)]">
                   {promocao && precoComDesconto
                     ? `R$ ${precoComDesconto}`
                     : price}
                 </span>
                 {promocao && cupom && (
-                  <span className="ml-2 text-[10px] text-green-700 bg-green-100 px-1.5 py-0.5 rounded-sm font-medium">
+                  <span className="ml-2 text-[10px] text-green-700 dark:text-green-300 bg-green-100 dark:bg-green-900/30 px-1.5 py-0.5 rounded-sm font-medium">
                     {cupom}
                   </span>
                 )}
               </div>
 
               {/* Stock Status - Directly display status */}
-              <div className="text-[10px] text-gray-500 flex items-center">
+              <div className="text-[10px] text-[var(--text-secondary)] flex items-center">
                 {stockQuantity !== undefined && (
                   <span className="flex items-center">
                     {stockQuantity <= 0 ? (
                       <>
-                        <FiXCircle className="mr-1 text-red-500" /> Esgotado
+                        <FiXCircle className="mr-1 text-[var(--error-color)]" />{" "}
+                        Esgotado
                       </>
                     ) : stockQuantity <= 3 ? (
                       <>
@@ -241,13 +244,13 @@ export default function ProductCard({
                       </>
                     ) : stockQuantity <= 10 ? (
                       <>
-                        <FiAlertCircle className="mr-1 text-[#ff69b4]" /> Poucas
-                        unidades
+                        <FiAlertCircle className="mr-1 text-[var(--primary-color)]" />{" "}
+                        Poucas unidades
                       </>
                     ) : (
                       <>
-                        <FiCheckCircle className="mr-1 text-green-600" /> Em
-                        estoque
+                        <FiCheckCircle className="mr-1 text-[var(--success-color)]" />{" "}
+                        Em estoque
                       </>
                     )}
                   </span>

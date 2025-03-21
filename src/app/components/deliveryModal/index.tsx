@@ -792,14 +792,14 @@ export default function DeliveryModal({
           </div>
 
           {/* Footer */}
-          <div className="px-4 py-3 bg-gray-50 border-t border-gray-200">
+          <div className="px-4 py-3 bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
             <button
               onClick={handleSubmit}
               disabled={deliveryType === "delivery" && !isFormComplete}
               className={`w-full border rounded-md py-3 px-4 font-medium text-white transition-colors
                 ${
                   isFormComplete
-                    ? "bg-[#ff69b4] border-transparent hover:bg-[#ff4dab] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+                    ? "bg-[var(--primary-color)] border-transparent hover:bg-[var(--primary-dark)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
                     : "bg-gray-400 border-gray-400 cursor-not-allowed"
                 }
               `}
