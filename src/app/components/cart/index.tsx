@@ -31,17 +31,37 @@ export default function Cart() {
      * @param event - Mouse event
      */
     function handleOutsideClick(event: MouseEvent) {
-      // Check if the click target is inside a confirmation modal (they have z-index 10000)
-      const modalElement = document.querySelector('[class*="z-[10000]"]');
-      if (modalElement && modalElement.contains(event.target as Node)) {
-        // If clicking inside a confirmation modal, don't close the cart
+      // If checkout modal is open, don't close cart at all
+      if (isCheckoutModalOpen) {
+        return;
+      }
+
+      // Check if clicked element or any of its parents is a modal
+      const target = event.target as HTMLElement;
+
+      // Check if clicking inside a confirmation modal
+      const isInConfirmationModal = !!document
+        .querySelector('[class*="z-[10000]"]')
+        ?.contains(target);
+
+      // Check if clicking inside the delivery modal using data attributes
+      const isInDeliveryModal =
+        !!target.closest('[data-modal-type="delivery-modal"]') ||
+        !!target.closest(".MuiThemeProvider-root");
+
+      // Don't close cart if clicking inside any modal
+      if (isInConfirmationModal || isInDeliveryModal) {
+        // If it's a modal click, don't close the cart
         return;
       }
 
       if (
         cartRef.current &&
-        !cartRef.current.contains(event.target as Node) &&
-        isCartOpen
+        !cartRef.current.contains(target) &&
+        isCartOpen &&
+        // Additional check to make sure we're not in a modal
+        !isInConfirmationModal &&
+        !isInDeliveryModal
       ) {
         toggleCart();
       }
@@ -63,7 +83,7 @@ export default function Cart() {
       document.removeEventListener("mousedown", handleOutsideClick);
       document.body.style.overflow = "";
     };
-  }, [isCartOpen, toggleCart]);
+  }, [isCartOpen, toggleCart, isCheckoutModalOpen]);
 
   /**
    * Validates and applies discount coupon to cart
@@ -113,11 +133,10 @@ export default function Cart() {
       deliveryInfo
     );
 
-    // Close the checkout modal
+    // Close the checkout modal only, keep the cart open
     setIsCheckoutModalOpen(false);
 
-    // Close the cart
-    toggleCart();
+    // We don't close the cart here anymore, allowing the user to continue shopping
   };
 
   // Calculate total after discount
@@ -290,7 +309,11 @@ export default function Cart() {
       {/* Checkout Modal */}
       <DeliveryModal
         isOpen={isCheckoutModalOpen}
-        onClose={() => setIsCheckoutModalOpen(false)}
+        onClose={() => {
+          console.log("Delivery modal closing, keeping cart open");
+          // Just close the modal, don't affect cart state
+          setIsCheckoutModalOpen(false);
+        }}
         onCheckout={handleCheckout}
       />
     </>

@@ -445,12 +445,29 @@ export default function DeliveryModal({
 
   return (
     <ThemeProvider theme={theme}>
-      <div className="fixed inset-0 z-[100] flex items-center justify-center">
-        {/* Backdrop - removed onClick handler to prevent closing on outside click */}
-        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+      <div
+        className="fixed inset-0 z-[100] flex items-center justify-center"
+        onClick={(e) => e.stopPropagation()}
+        onMouseDown={(e) => e.stopPropagation()}
+        data-modal-type="delivery-modal"
+      >
+        {/* Backdrop - add onClick with stopPropagation and onClose */}
+        <div
+          className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+          onClick={(e) => {
+            e.stopPropagation();
+            onClose();
+          }}
+          data-modal-backdrop="true"
+        />
 
         {/* Modal */}
-        <div className="relative w-full max-w-md bg-white rounded-lg shadow-xl overflow-hidden transform z-10 max-h-[90vh] overflow-y-auto">
+        <div
+          className="relative w-full max-w-md bg-white rounded-lg shadow-xl overflow-hidden transform z-10 max-h-[90vh] overflow-y-auto"
+          onClick={(e) => e.stopPropagation()}
+          onMouseDown={(e) => e.stopPropagation()}
+          data-modal-content="true"
+        >
           {/* Animation styles */}
           <style jsx global>{`
             @keyframes border-select {
@@ -501,7 +518,10 @@ export default function DeliveryModal({
               Finalizar Compra
             </h2>
             <button
-              onClick={onClose}
+              onClick={(e) => {
+                e.stopPropagation();
+                onClose();
+              }}
               className="rounded-md bg-white p-2 hover:bg-gray-100 transition-colors"
             >
               <FiX className="w-5 h-5 text-gray-500" />
