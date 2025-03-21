@@ -10,71 +10,10 @@ import {
   Fade,
   Chip,
   Button,
-  ThemeProvider,
-  createTheme,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import StarIcon from "@mui/icons-material/Star";
-
-// Create a refined theme
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#ff69b4",
-      light: "#ffeef6",
-    },
-    background: {
-      default: "#ffffff",
-    },
-    text: {
-      primary: "#333333",
-      secondary: "#666666",
-    },
-  },
-  typography: {
-    fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
-    button: {
-      textTransform: "none",
-      fontWeight: 600,
-    },
-    h6: {
-      letterSpacing: "0.5px",
-    },
-  },
-  components: {
-    MuiDialog: {
-      styleOverrides: {
-        paper: {
-          borderRadius: 20,
-          overflow: "hidden",
-          boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
-        },
-      },
-    },
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          borderRadius: 30,
-          boxShadow: "0 4px 12px rgba(255, 105, 180, 0.3)",
-          transition: "all 0.3s ease",
-          "&:hover": {
-            transform: "translateY(-2px)",
-            boxShadow: "0 6px 15px rgba(255, 105, 180, 0.4)",
-          },
-        },
-      },
-    },
-    MuiChip: {
-      styleOverrides: {
-        root: {
-          borderRadius: 4,
-          padding: "0 4px",
-        },
-      },
-    },
-  },
-});
 
 /**
  * Componente de modal promocional elegante
@@ -116,75 +55,79 @@ export default function ModalPromocional() {
   if (!mounted) return null;
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <Dialog
         open={open}
         onClose={handleClose}
-        maxWidth="xs"
+        aria-labelledby="promo-dialog-title"
+        maxWidth="sm"
         fullWidth
+        sx={{
+          backdropFilter: "blur(5px)",
+          "& .MuiDialog-paper": {
+            backgroundImage:
+              "linear-gradient(135deg, #fff6fb 0%, #fff6fb 100%)",
+            overflowY: "visible",
+          },
+        }}
         TransitionComponent={Fade}
-        TransitionProps={{ timeout: 300 }}
+        transitionDuration={{
+          enter: 700,
+          exit: 500,
+        }}
       >
-        <IconButton
-          onClick={handleClose}
-          aria-label="close"
-          sx={{
-            position: "absolute",
-            right: 12,
-            top: 12,
-            color: "rgba(0,0,0,0.4)",
-            zIndex: 9999,
-            bgcolor: "rgba(255,255,255,0.6)",
-            backdropFilter: "blur(8px)",
-            "&:hover": {
-              bgcolor: "rgba(255,255,255,0.8)",
-            },
-            padding: "8px",
-            cursor: "pointer",
-          }}
-        >
-          <CloseIcon fontSize="small" />
-        </IconButton>
-
-        {/* Decorative elements */}
-        <Box
-          sx={{
-            position: "absolute",
-            top: -18,
-            right: -18,
-            width: 100,
-            height: 100,
-            background: "linear-gradient(45deg, #ff69b4, #ff8dc7)",
-            borderRadius: "50%",
-            opacity: 0.1,
-            zIndex: 0,
-          }}
-        />
-        <Box
-          sx={{
-            position: "absolute",
-            bottom: -15,
-            left: -15,
-            width: 70,
-            height: 70,
-            background: "linear-gradient(45deg, #ff69b4, #ff8dc7)",
-            borderRadius: "50%",
-            opacity: 0.1,
-            zIndex: 0,
-          }}
-        />
-
         <DialogContent
           sx={{
-            py: 5,
-            px: 3.5,
+            px: 3,
+            pt: { xs: 3, sm: 4 },
+            pb: { xs: 3, sm: 4 },
             textAlign: "center",
-            background:
-              "linear-gradient(180deg, rgba(255, 239, 246, 0.5) 0%, rgba(255, 255, 255, 1) 100%)",
             position: "relative",
-            zIndex: 1,
+            overflow: "hidden",
           }}
         >
+          {/* Close button */}
+          <IconButton
+            aria-label="close"
+            onClick={handleClose}
+            sx={{
+              position: "absolute",
+              right: 8,
+              top: 8,
+              color: "text.secondary",
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+
+          {/* Decorative elements */}
+          <Box
+            sx={{
+              position: "absolute",
+              top: -18,
+              right: -18,
+              width: 100,
+              height: 100,
+              background: "linear-gradient(45deg, #ff69b4, #ff8dc7)",
+              borderRadius: "50%",
+              opacity: 0.1,
+              zIndex: 0,
+            }}
+          />
+          <Box
+            sx={{
+              position: "absolute",
+              bottom: -15,
+              left: -15,
+              width: 70,
+              height: 70,
+              background: "linear-gradient(45deg, #ff69b4, #ff8dc7)",
+              borderRadius: "50%",
+              opacity: 0.1,
+              zIndex: 0,
+            }}
+          />
+
           <Box sx={{ position: "relative", mb: 1 }}>
             <Chip
               icon={<StarIcon fontSize="small" />}
@@ -303,12 +246,12 @@ export default function ModalPromocional() {
 
           <Typography
             variant="caption"
-            color="text.secondary"
             sx={{
-              mt: 2,
               display: "block",
+              mt: 2,
+              color: "text.secondary",
               fontSize: "0.75rem",
-              opacity: 0.7,
+              fontStyle: "italic",
             }}
           >
             *Válido por tempo limitado
@@ -344,6 +287,6 @@ export default function ModalPromocional() {
           </Button>
         </Box>
       )}
-    </ThemeProvider>
+    </>
   );
 }

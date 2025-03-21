@@ -177,7 +177,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="bg-[#ffe1ff] min-h-screen pt-5 md:pt-20">
+    <div className="bg-[var(--primary-light)] min-h-screen pt-5 md:pt-20">
       <div className="mt-0 sm:mt-16 md:mt-20">
         <Carrossel
           items={heroProducts}

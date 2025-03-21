@@ -147,12 +147,12 @@ export default function Cart() {
       {/* Cart button in header */}
       <button
         onClick={toggleCart}
-        className="relative p-2 rounded-lg text-[#ff69b4] hover:bg-pink-100 transition-colors z-10"
+        className="relative p-2 rounded-lg text-[var(--primary-color)] hover:bg-[var(--secondary-light)] transition-colors z-10"
         aria-label="Open cart"
       >
         <FiShoppingCart className="w-6 h-6" suppressHydrationWarning />
         {cartCount > 0 && (
-          <span className="absolute -top-1 -right-1 bg-[#ff69b4] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+          <span className="absolute -top-1 -right-1 bg-[var(--primary-color)] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
             {cartCount}
           </span>
         )}
@@ -177,12 +177,12 @@ export default function Cart() {
               <div className="px-4 py-3 border-b border-gray-200 flex justify-between items-center bg-gradient-to-r from-pink-50 to-white">
                 <h2 className="text-lg font-medium text-gray-900 flex items-center">
                   <FiShoppingCart
-                    className="mr-2 text-[#ff69b4]"
+                    className="mr-2 text-[var(--primary-color)]"
                     suppressHydrationWarning
                   />
                   Seu Carrinho
                   {cartCount > 0 && (
-                    <span className="ml-2 bg-[#ff69b4] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                    <span className="ml-2 bg-[var(--primary-color)] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                       {cartCount}
                     </span>
                   )}
@@ -295,7 +295,7 @@ export default function Cart() {
                   {/* Checkout button */}
                   <button
                     onClick={openCheckoutModal}
-                    className="w-full bg-[#ff69b4] border border-transparent rounded-md py-3 px-4 font-medium text-white hover:bg-[#ff4dab] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition-colors"
+                    className="w-full bg-[var(--primary-color)] border border-transparent rounded-md py-3 px-4 font-medium text-white hover:bg-[var(--primary-dark)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition-colors"
                   >
                     Finalizar Compra via WhatsApp
                   </button>
