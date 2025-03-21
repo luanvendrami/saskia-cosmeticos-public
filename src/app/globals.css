@@ -244,6 +244,17 @@
   transform: translateY(-5px);
 }
 
+/* Dark mode product card styles */
+.dark .product-card {
+  background-color: var(--background-light);
+  border-color: var(--border-color);
+}
+
+.dark .product-content {
+  background-color: var(--background-light);
+  border-color: var(--border-color);
+}
+
 /* Search input focus effect */
 .search-input-focus {
   transition: all 0.2s ease;

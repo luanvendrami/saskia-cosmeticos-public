@@ -170,25 +170,25 @@ export default function ProductCard({
           )}
         </div>
 
-        <div className="product-content">
+        <div className="product-content dark:bg-gray-900 dark:border-gray-700">
           <div className="product-details">
             {/* Category tag */}
             <div className="mb-1 flex-shrink-0">
               {category && (
-                <span className="inline-block px-2 py-1 text-xs font-medium text-[var(--primary-color)] bg-[var(--primary-light)] rounded-full">
+                <span className="inline-block px-2 py-1 text-xs font-medium text-[var(--primary-color)] bg-[var(--primary-light)] rounded-full dark:bg-gray-800">
                   {category}
                 </span>
               )}
             </div>
 
             {/* Title - without fixed height */}
-            <h3 className="text-base sm:text-lg font-semibold text-[var(--text-primary)] leading-tight line-clamp-2 mb-1">
+            <h3 className="text-base sm:text-lg font-semibold text-[var(--text-primary)] leading-tight line-clamp-2 mb-1 dark:text-gray-200">
               {title}
             </h3>
 
             {/* "Clique para ver detalhes" - now positioned with flex behavior */}
             <div className="text-xs text-[var(--primary-color)] flex-grow flex items-end pb-2">
-              <span className="inline-block hover:underline cursor-pointer">
+              <span className="inline-block hover:underline cursor-pointer dark:text-pink-300">
                 Clique para ver detalhes
               </span>
             </div>
@@ -198,11 +198,11 @@ export default function ProductCard({
             <div className="product-price-container">
               {/* Original Price + Discount */}
               <div className="flex items-center mb-2">
-                <p className="text-sm text-[var(--text-secondary)] line-through">
+                <p className="text-sm text-[var(--text-secondary)] line-through dark:text-gray-400">
                   {price}
                 </p>
                 {promocao && (
-                  <span className="ml-2 bg-[var(--primary-color)] text-white text-xs px-1.5 py-0.5 rounded font-medium">
+                  <span className="ml-2 bg-[var(--primary-color)] text-white text-xs px-1.5 py-0.5 rounded font-medium dark:bg-pink-700">
                     -{descontoPromocao || 10}%
                   </span>
                 )}
@@ -210,7 +210,7 @@ export default function ProductCard({
 
               {/* Final Price Row */}
               <div className="flex items-center mb-1.5">
-                <span className="text-base sm:text-lg font-bold text-[var(--success-color)]">
+                <span className="text-base sm:text-lg font-bold text-[var(--success-color)] dark:text-green-400">
                   {promocao && precoComDesconto
                     ? `R$ ${precoComDesconto}`
                     : price}
@@ -223,34 +223,40 @@ export default function ProductCard({
               </div>
 
               {/* Stock Status - Directly display status */}
-              <div className="text-[10px] text-[var(--text-secondary)] flex items-center">
+              <div className="text-[10px] text-[var(--text-secondary)] flex items-center dark:text-gray-400">
                 {stockQuantity !== undefined && (
                   <span className="flex items-center">
                     {stockQuantity <= 0 ? (
                       <>
                         <FiXCircle className="mr-1 text-[var(--error-color)]" />{" "}
-                        Esgotado
+                        <span className="dark:text-gray-300">Esgotado</span>
                       </>
                     ) : stockQuantity <= 3 ? (
                       <>
-                        <FiAlertCircle className="mr-1 text-orange-500" />{" "}
-                        Apenas {stockQuantity}{" "}
-                        {stockQuantity === 1 ? "unidade" : "unidades"}!
+                        <FiAlertCircle className="mr-1 text-orange-500 dark:text-orange-400" />{" "}
+                        <span className="dark:text-orange-200">
+                          Apenas {stockQuantity}{" "}
+                          {stockQuantity === 1 ? "unidade" : "unidades"}!
+                        </span>
                       </>
                     ) : stockQuantity <= 5 ? (
                       <>
-                        <FiAlertCircle className="mr-1 text-orange-400" />{" "}
-                        Últimas unidades!
+                        <FiAlertCircle className="mr-1 text-orange-400 dark:text-orange-300" />{" "}
+                        <span className="dark:text-orange-200">
+                          Últimas unidades!
+                        </span>
                       </>
                     ) : stockQuantity <= 10 ? (
                       <>
-                        <FiAlertCircle className="mr-1 text-[var(--primary-color)]" />{" "}
-                        Poucas unidades
+                        <FiAlertCircle className="mr-1 text-[var(--primary-color)] dark:text-pink-400" />{" "}
+                        <span className="dark:text-pink-200">
+                          Poucas unidades
+                        </span>
                       </>
                     ) : (
                       <>
-                        <FiCheckCircle className="mr-1 text-[var(--success-color)]" />{" "}
-                        Em estoque
+                        <FiCheckCircle className="mr-1 text-[var(--success-color)] dark:text-green-400" />{" "}
+                        <span className="dark:text-green-200">Em estoque</span>
                       </>
                     )}
                   </span>

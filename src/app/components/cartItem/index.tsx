@@ -39,7 +39,7 @@ export default function CartItem({ item }: CartItemProps) {
       <li className="py-4 px-4">
         <div className="flex items-start space-x-3">
           {/* Product Image */}
-          <div className="relative w-20 h-20 rounded-md overflow-hidden flex-shrink-0 border border-gray-200">
+          <div className="relative w-20 h-20 rounded-md overflow-hidden flex-shrink-0 border border-gray-200 dark:border-gray-700">
             {imageUrl && imageUrl.trim() !== "" ? (
               <Image
                 src={imageUrl}
@@ -49,18 +49,20 @@ export default function CartItem({ item }: CartItemProps) {
                 sizes="80px"
               />
             ) : (
-              <div className="w-full h-full flex items-center justify-center bg-gray-100">
-                <span className="text-gray-400 text-xs">No image</span>
+              <div className="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-gray-800">
+                <span className="text-gray-400 dark:text-gray-500 text-xs">
+                  No image
+                </span>
               </div>
             )}
           </div>
 
           {/* Product Info */}
           <div className="flex-1 min-w-0">
-            <h4 className="text-base font-medium text-gray-800 truncate">
+            <h4 className="text-base font-medium text-gray-800 dark:text-gray-200 truncate">
               {title}
             </h4>
-            <p className="mt-1 text-sm text-gray-500">
+            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
               R$ {numericPrice.toFixed(2).replace(".", ",")}
             </p>
 
@@ -69,19 +71,19 @@ export default function CartItem({ item }: CartItemProps) {
               <button
                 onClick={() => decreaseQuantity(id)}
                 disabled={quantity <= 1}
-                className="p-1 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="p-1 rounded-md text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
                 aria-label="Diminuir quantidade"
               >
                 <FiMinus className="w-4 h-4" suppressHydrationWarning />
               </button>
 
-              <span className="mx-2 w-8 text-center text-sm font-medium">
+              <span className="mx-2 w-8 text-center text-sm font-medium dark:text-gray-300">
                 {quantity}
               </span>
 
               <button
                 onClick={() => increaseQuantity(id)}
-                className="p-1 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+                className="p-1 rounded-md text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                 aria-label="Aumentar quantidade"
               >
                 <FiPlus className="w-4 h-4" suppressHydrationWarning />
@@ -91,13 +93,13 @@ export default function CartItem({ item }: CartItemProps) {
 
           {/* Price and Remove Button */}
           <div className="flex flex-col items-end">
-            <span className="text-base font-medium text-gray-900">
+            <span className="text-base font-medium text-gray-900 dark:text-gray-100">
               R$ {totalPrice.toFixed(2).replace(".", ",")}
             </span>
 
             <button
               onClick={handleDelete}
-              className="mt-2 p-1 text-gray-400 hover:text-red-500 transition-colors"
+              className="mt-2 p-1 text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 transition-colors"
               aria-label="Remover item"
             >
               <FiTrash2 className="w-5 h-5" suppressHydrationWarning />

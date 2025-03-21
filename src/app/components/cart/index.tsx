@@ -170,12 +170,12 @@ export default function Cart() {
           {/* Cart */}
           <div
             ref={cartRef}
-            className="relative w-full max-w-md bg-white h-full shadow-xl overflow-hidden transform transition-transform animate-slide-in-right"
+            className="relative w-full max-w-md bg-white dark:bg-gray-900 h-full shadow-xl overflow-hidden transform transition-transform animate-slide-in-right"
           >
             <div className="flex flex-col h-full">
               {/* Header */}
-              <div className="px-4 py-3 border-b border-gray-200 flex justify-between items-center bg-gradient-to-r from-pink-50 to-white">
-                <h2 className="text-lg font-medium text-gray-900 flex items-center">
+              <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center bg-gradient-to-r from-pink-50 to-white dark:from-gray-800 dark:to-gray-900">
+                <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100 flex items-center">
                   <FiShoppingCart
                     className="mr-2 text-[var(--primary-color)]"
                     suppressHydrationWarning
@@ -189,35 +189,35 @@ export default function Cart() {
                 </h2>
                 <button
                   onClick={toggleCart}
-                  className="rounded-md bg-white p-2 hover:bg-gray-100 transition-colors"
+                  className="rounded-md bg-white dark:bg-gray-800 p-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                 >
                   <FiX
-                    className="w-5 h-5 text-gray-500"
+                    className="w-5 h-5 text-gray-500 dark:text-gray-400"
                     suppressHydrationWarning
                   />
                 </button>
               </div>
 
               {/* Content */}
-              <div className="flex-1 overflow-auto divide-y divide-gray-200">
+              <div className="flex-1 overflow-auto divide-y divide-gray-200 dark:divide-gray-700">
                 {cartItems.length > 0 ? (
-                  <ul className="divide-y divide-gray-200">
+                  <ul className="divide-y divide-gray-200 dark:divide-gray-700">
                     {cartItems.map((item, index) => (
                       <CartItem key={`${item.id}-${index}`} item={item} />
                     ))}
                   </ul>
                 ) : (
                   <div className="flex flex-col items-center justify-center h-full text-center p-4">
-                    <div className="w-24 h-24 rounded-full bg-pink-50 flex items-center justify-center mb-4">
+                    <div className="w-24 h-24 rounded-full bg-pink-50 dark:bg-pink-900/20 flex items-center justify-center mb-4">
                       <FiShoppingCart
                         className="w-12 h-12 text-[#ff69b4]"
                         suppressHydrationWarning
                       />
                     </div>
-                    <h3 className="text-lg font-medium text-gray-900 mb-1">
+                    <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-1">
                       Seu carrinho está vazio
                     </h3>
-                    <p className="text-gray-500 max-w-xs">
+                    <p className="text-gray-500 dark:text-gray-400 max-w-xs">
                       Adicione produtos ao seu carrinho para continuar com a
                       compra.
                     </p>
@@ -227,14 +227,14 @@ export default function Cart() {
 
               {/* Footer with total and checkout */}
               {cartItems.length > 0 && (
-                <div className="border-t border-gray-200 p-4 bg-gradient-to-r from-white to-pink-50">
+                <div className="border-t border-gray-200 dark:border-gray-700 p-4 bg-gradient-to-r from-white to-pink-50 dark:from-gray-900 dark:to-gray-800">
                   {/* Coupon */}
                   <div className="mb-4">
                     <div className="flex gap-2 items-center">
                       <div className="flex-1">
                         <label
                           htmlFor="cupom"
-                          className="block text-sm font-medium text-gray-700 mb-1 flex items-center"
+                          className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 flex items-center"
                         >
                           <FiTag
                             className="mr-1 text-[#ff69b4]"
@@ -250,21 +250,23 @@ export default function Cart() {
                             setCodigoCupom(e.target.value.toUpperCase())
                           }
                           placeholder="Digite seu cupom"
-                          className="block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-300 focus:ring focus:ring-pink-200 focus:ring-opacity-50 text-sm"
+                          className="block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-pink-300 focus:ring focus:ring-pink-200 focus:ring-opacity-50 text-sm dark:bg-gray-800 dark:text-white dark:placeholder-gray-400"
                         />
                       </div>
                       <button
                         onClick={aplicarCupom}
-                        className="px-4 py-2 bg-pink-100 text-[#ff69b4] rounded-md hover:bg-pink-200 transition-colors mt-6 text-sm font-medium"
+                        className="px-4 py-2 bg-pink-100 dark:bg-pink-900/30 text-[#ff69b4] dark:text-pink-300 rounded-md hover:bg-pink-200 dark:hover:bg-pink-800/40 transition-colors mt-6 text-sm font-medium"
                       >
                         Aplicar
                       </button>
                     </div>
                     {erroCupom && (
-                      <p className="mt-1 text-xs text-red-500">{erroCupom}</p>
+                      <p className="mt-1 text-xs text-red-500 dark:text-red-400">
+                        {erroCupom}
+                      </p>
                     )}
                     {descontoAplicado > 0 && (
-                      <p className="mt-1 text-xs text-green-600">
+                      <p className="mt-1 text-xs text-green-600 dark:text-green-400">
                         Desconto aplicado com sucesso!
                       </p>
                     )}
@@ -272,13 +274,13 @@ export default function Cart() {
 
                   {/* Summary */}
                   <div className="space-y-2 mb-4">
-                    <div className="flex justify-between text-base text-gray-900">
+                    <div className="flex justify-between text-base text-gray-900 dark:text-gray-100">
                       <p>Subtotal</p>
                       <p>R$ {cartTotal.toFixed(2).replace(".", ",")}</p>
                     </div>
 
                     {descontoAplicado > 0 && (
-                      <div className="flex justify-between text-base text-green-600">
+                      <div className="flex justify-between text-base text-green-600 dark:text-green-400">
                         <p>Desconto</p>
                         <p>
                           -R$ {descontoAplicado.toFixed(2).replace(".", ",")}
@@ -286,7 +288,7 @@ export default function Cart() {
                       </div>
                     )}
 
-                    <div className="flex justify-between text-lg font-semibold">
+                    <div className="flex justify-between text-lg font-semibold text-gray-900 dark:text-white">
                       <p>Total</p>
                       <p>R$ {totalComDesconto.toFixed(2).replace(".", ",")}</p>
                     </div>
