@@ -18,9 +18,9 @@ const CategoryHeader: React.FC<CategoryHeaderProps> = ({
   description,
   categoryId,
 }) => {
-  // Site palette colors
-  const textColor = "text-[#ff69b4]";
-  const accentColor = "bg-[#ff69b4]";
+  // Site palette colors using CSS variables
+  const textColor = "text-[var(--primary-color)]";
+  const accentColor = "bg-[var(--primary-color)]";
 
   return (
     <div className="relative mb-0">
@@ -33,7 +33,9 @@ const CategoryHeader: React.FC<CategoryHeaderProps> = ({
         <div className={`h-1.5 w-32 ${accentColor} rounded-full mb-2`}></div>
 
         {/* Category description */}
-        <p className="text-gray-600 max-w-3xl mb-0">{description}</p>
+        <p className="text-[var(--text-secondary)] max-w-3xl mb-0">
+          {description}
+        </p>
       </div>
     </div>
   );

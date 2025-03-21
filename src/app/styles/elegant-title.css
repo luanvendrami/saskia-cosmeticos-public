@@ -29,7 +29,7 @@ a {
 /* Main title layout */
 .elegant-title {
   font-weight: 800;
-  color: #ff69b4;
+  color: var(--primary-color);
   letter-spacing: 0.5px;
   display: flex;
   align-items: center;
@@ -70,7 +70,7 @@ a {
 /* Title text styling */
 .title-text-main {
   font-size: 1.1em;
-  color: #ff69b4;
+  color: var(--primary-color);
   display: block;
   line-height: 1;
   font-weight: 800;
@@ -79,7 +79,7 @@ a {
 
 .title-text-secondary {
   font-size: 0.75em;
-  color: #ff69b4;
+  color: var(--primary-color);
   display: block;
   line-height: 1.2;
   letter-spacing: 0.05em;
@@ -109,4 +109,16 @@ a {
 /* Simple hover effect */
 .elegant-title-container:hover .elegant-title-wrapper {
   transform: scale(1.05);
+}
+
+/* Dark mode adaptations */
+@media (prefers-color-scheme: dark) {
+  .elegant-title {
+    text-shadow: 0 0 3px rgba(255, 105, 180, 0.5);
+  }
+  
+  .title-text-main,
+  .title-text-secondary {
+    text-shadow: 0 0 4px rgba(255, 105, 180, 0.5);
+  }
 } 

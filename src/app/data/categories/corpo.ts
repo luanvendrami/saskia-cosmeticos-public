@@ -164,7 +164,7 @@ export const corpoProducts: CategoryProduct[] = [
     cupom: "PROMO10",
   },
   {
-    id: 511,
+    id: 512,
     imageUrl: "/images/corpo/13.png",
     title: "Labotrat - Labotrat Dia a Dia Pessêgo Hidratante 190ml",
     price: "R$ 34,90",

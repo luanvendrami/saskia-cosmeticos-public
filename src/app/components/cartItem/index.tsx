@@ -72,7 +72,7 @@ export default function CartItem({ item }: CartItemProps) {
                 className="p-1 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
                 aria-label="Diminuir quantidade"
               >
-                <FiMinus className="w-4 h-4" />
+                <FiMinus className="w-4 h-4" suppressHydrationWarning />
               </button>
 
               <span className="mx-2 w-8 text-center text-sm font-medium">
@@ -84,7 +84,7 @@ export default function CartItem({ item }: CartItemProps) {
                 className="p-1 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100"
                 aria-label="Aumentar quantidade"
               >
-                <FiPlus className="w-4 h-4" />
+                <FiPlus className="w-4 h-4" suppressHydrationWarning />
               </button>
             </div>
           </div>
@@ -100,7 +100,7 @@ export default function CartItem({ item }: CartItemProps) {
               className="mt-2 p-1 text-gray-400 hover:text-red-500 transition-colors"
               aria-label="Remover item"
             >
-              <FiTrash2 className="w-5 h-5" />
+              <FiTrash2 className="w-5 h-5" suppressHydrationWarning />
             </button>
           </div>
         </div>

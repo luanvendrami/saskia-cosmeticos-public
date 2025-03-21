@@ -58,7 +58,10 @@ export default function CategoryPage({
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <FiSearch className="text-[var(--text-secondary)]" />
+                      <FiSearch
+                        className="text-[var(--text-secondary)]"
+                        suppressHydrationWarning
+                      />
                     </InputAdornment>
                   ),
                   sx: {
@@ -115,7 +118,7 @@ export default function CategoryPage({
         ) : (
           <div className="flex flex-col items-center justify-center py-12 text-center fade-in">
             <div className="w-16 h-16 mb-4 text-[var(--text-secondary)]">
-              <FiSearch className="w-full h-full" />
+              <FiSearch className="w-full h-full" suppressHydrationWarning />
             </div>
             <h3 className="text-lg font-medium text-[var(--text-primary)]">
               Nenhum produto encontrado

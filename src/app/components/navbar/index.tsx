@@ -65,7 +65,7 @@ export default function Navbar({
     <Link
       key={href}
       href={href}
-      className="px-4 py-2 text-[#ff69b4] bg-pink-100 hover:bg-pink-200 hover:text-[#ff1493] rounded-md font-medium transition-all duration-300 shadow-sm"
+      className="px-4 py-2 text-[var(--primary-color)] bg-opacity-20 bg-[var(--secondary-light)] hover:bg-opacity-30  hover:text-[var(--secondary-dark)] rounded-md font-medium transition-all duration-300 shadow-sm"
       onClick={isMobile ? toggleMenu : undefined}
     >
       {label}
@@ -75,21 +75,21 @@ export default function Navbar({
   const renderMobileMenu = () => (
     <>
       <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[100]" />
-      <div className="fixed top-0 left-0 h-full w-72 bg-[#ffe1ff] shadow-2xl z-[101] transform transition-transform duration-300 ease-in-out">
+      <div className="fixed top-0 left-0 h-full w-72 bg-[var(--primary-light)] shadow-2xl z-[101] transform transition-transform duration-300 ease-in-out">
         <div className="flex flex-col h-full">
-          <div className="flex items-center justify-between p-4 border-b border-pink-200">
+          <div className="flex items-center justify-between p-4 border-b border-opacity-20 border-[var(--primary-color)]">
             <Link
               href="/"
-              className="text-xl font-bold text-[#ff69b4]"
+              className="text-xl font-bold text-[var(--primary-color)]"
               onClick={toggleMenu}
             >
               Saskia Cosméticos
             </Link>
             <button
-              className="p-2 rounded-full hover:bg-pink-100 transition-colors"
+              className="p-2 rounded-full hover:bg-opacity-20 hover:bg-[var(--primary-color)] transition-colors"
               onClick={toggleMenu}
             >
-              <X className="w-6 h-6 text-[#ff69b4]" />
+              <X className="w-6 h-6 text-[var(--primary-color)]" />
             </button>
           </div>
 
@@ -99,7 +99,7 @@ export default function Navbar({
                 <li key={href}>
                   <Link
                     href={href}
-                    className="flex items-center py-3 text-lg font-medium text-[#ff69b4] bg-pink-100 hover:bg-pink-200 hover:text-[#ff1493] rounded-lg px-5 transition-all duration-200 shadow-sm w-full"
+                    className="flex items-center py-3 text-lg font-medium text-[var(--primary-color)] bg-opacity-10 bg-[var(--secondary-light)] hover:bg-opacity-20 hover:text-[var(--primary-dark)] rounded-lg px-5 transition-all duration-200 shadow-sm w-full"
                     onClick={toggleMenu}
                   >
                     {label}
@@ -109,8 +109,8 @@ export default function Navbar({
             </ul>
           </nav>
 
-          <div className="p-4 border-t border-pink-200">
-            <p className="text-sm text-[#ff69b4] text-center">
+          <div className="p-4 border-t border-opacity-20 border-[var(--primary-color)]">
+            <p className="text-sm text-[var(--primary-color)] text-center">
               © 2024 Saskia Cosméticos
             </p>
           </div>
@@ -122,7 +122,7 @@ export default function Navbar({
   return (
     <div className="menu-container relative">
       <div className="hidden md:block">
-        <div className="flex items-center justify-between px-4 py-3 bg-[#ffe1ff] shadow-md relative z-20">
+        <div className="flex items-center justify-between px-4 py-3 bg-[var(--primary-light)] shadow-md relative z-20">
           <nav className="flex items-center justify-center gap-6 w-full">
             {MENU_ITEMS.map(({ href, label }) => renderMenuItem(href, label))}
           </nav>

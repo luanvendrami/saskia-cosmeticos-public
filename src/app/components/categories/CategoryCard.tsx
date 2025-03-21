@@ -22,10 +22,10 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
   slug,
   imageUrl,
 }) => {
-  // Site palette colors
-  const textColor = "text-purple-700";
-  const accentColor = "bg-purple-400";
-  const buttonBgColor = "bg-purple-100";
+  // Site palette colors using CSS variables
+  const textColor = "text-[var(--primary-dark)]";
+  const accentColor = "bg-[var(--primary-color)]";
+  const buttonBgColor = "bg-[var(--primary-light)]";
 
   return (
     <Link href={`/category/${slug}`}>
@@ -36,7 +36,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
           <div className={`h-1 w-16 ${accentColor} rounded-full mb-3`}></div>
 
           {/* Category description */}
-          <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+          <p className="text-[var(--text-secondary)] text-sm mb-4 line-clamp-2">
             {description}
           </p>
 
@@ -44,7 +44,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
           <div
             className={`${buttonBgColor} rounded-full py-2 px-5 w-fit text-sm ${textColor} font-medium`}
             style={{
-              boxShadow: "0 4px 8px rgba(0,0,0,0.05)",
+              boxShadow: "var(--shadow-sm)",
             }}
           >
             Explorar

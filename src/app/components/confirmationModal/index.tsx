@@ -89,7 +89,10 @@ export default function ConfirmationModal({
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
           <h3 className="text-lg font-medium text-gray-900 flex items-center">
-            <FiAlertCircle className="w-5 h-5 text-pink-500 mr-2" />
+            <FiAlertCircle
+              className="w-5 h-5 text-pink-500 mr-2"
+              suppressHydrationWarning
+            />
             {title}
           </h3>
           <button
@@ -99,7 +102,7 @@ export default function ConfirmationModal({
             }}
             className="p-2 rounded-full hover:bg-gray-100 transition-colors"
           >
-            <FiX className="w-5 h-5 text-gray-500" />
+            <FiX className="w-5 h-5 text-gray-500" suppressHydrationWarning />
           </button>
         </div>
 

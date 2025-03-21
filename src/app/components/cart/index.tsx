@@ -131,7 +131,7 @@ export default function Cart() {
         className="relative p-2 rounded-lg text-[#ff69b4] hover:bg-pink-100 transition-colors z-10"
         aria-label="Open cart"
       >
-        <FiShoppingCart className="w-6 h-6" />
+        <FiShoppingCart className="w-6 h-6" suppressHydrationWarning />
         {cartCount > 0 && (
           <span className="absolute -top-1 -right-1 bg-[#ff69b4] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
             {cartCount}
@@ -157,7 +157,10 @@ export default function Cart() {
               {/* Header */}
               <div className="px-4 py-3 border-b border-gray-200 flex justify-between items-center bg-gradient-to-r from-pink-50 to-white">
                 <h2 className="text-lg font-medium text-gray-900 flex items-center">
-                  <FiShoppingCart className="mr-2 text-[#ff69b4]" />
+                  <FiShoppingCart
+                    className="mr-2 text-[#ff69b4]"
+                    suppressHydrationWarning
+                  />
                   Seu Carrinho
                   {cartCount > 0 && (
                     <span className="ml-2 bg-[#ff69b4] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
@@ -169,7 +172,10 @@ export default function Cart() {
                   onClick={toggleCart}
                   className="rounded-md bg-white p-2 hover:bg-gray-100 transition-colors"
                 >
-                  <FiX className="w-5 h-5 text-gray-500" />
+                  <FiX
+                    className="w-5 h-5 text-gray-500"
+                    suppressHydrationWarning
+                  />
                 </button>
               </div>
 
@@ -184,7 +190,10 @@ export default function Cart() {
                 ) : (
                   <div className="flex flex-col items-center justify-center h-full text-center p-4">
                     <div className="w-24 h-24 rounded-full bg-pink-50 flex items-center justify-center mb-4">
-                      <FiShoppingCart className="w-12 h-12 text-[#ff69b4]" />
+                      <FiShoppingCart
+                        className="w-12 h-12 text-[#ff69b4]"
+                        suppressHydrationWarning
+                      />
                     </div>
                     <h3 className="text-lg font-medium text-gray-900 mb-1">
                       Seu carrinho está vazio
@@ -208,8 +217,11 @@ export default function Cart() {
                           htmlFor="cupom"
                           className="block text-sm font-medium text-gray-700 mb-1 flex items-center"
                         >
-                          <FiTag className="mr-1 text-[#ff69b4]" /> Cupom de
-                          desconto
+                          <FiTag
+                            className="mr-1 text-[#ff69b4]"
+                            suppressHydrationWarning
+                          />{" "}
+                          Cupom de desconto
                         </label>
                         <input
                           type="text"

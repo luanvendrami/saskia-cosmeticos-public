@@ -72,7 +72,7 @@ export default function Header() {
   };
 
   // Style classes for the header based on visibility
-  const headerClasses = `fixed top-0 left-0 right-0 z-50 w-full mx-auto max-w-[1920px] bg-[#ffe1ff] shadow-md transition-transform duration-300 ${
+  const headerClasses = `fixed top-0 left-0 right-0 z-50 w-full mx-auto max-w-[1920px] bg-[var(--primary-light)] shadow-md transition-transform duration-300 ${
     isHeaderVisible || isMenuOpen ? "transform-none" : "-translate-y-full"
   }`;
 
@@ -87,11 +87,11 @@ export default function Header() {
           <div className="flex-1 flex justify-start items-center">
             {isMobile && (
               <button
-                className="p-2 rounded-lg hover:bg-pink-100 transition-colors"
+                className="p-2 rounded-lg hover:bg-opacity-20 hover:bg-[var(--primary-color)] transition-colors"
                 onClick={toggleMenu}
                 aria-label="Toggle menu"
               >
-                <Menu className="w-6 h-6 text-[#ff69b4]" />
+                <Menu className="w-6 h-6 text-[var(--primary-color)]" />
               </button>
             )}
           </div>
@@ -111,6 +111,7 @@ export default function Header() {
                       width={28}
                       height={28}
                       className="makeup-icon-img"
+                      suppressHydrationWarning
                     />
                     <div className="title-container">
                       <span className="title-text-main">Saskia</span>

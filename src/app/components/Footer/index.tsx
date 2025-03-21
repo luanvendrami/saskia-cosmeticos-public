@@ -54,14 +54,20 @@ export default function Rodape() {
             </h4>
             <ul className="space-y-3 w-full">
               <li className="flex items-center justify-center">
-                <FiMapPin className="text-[#ff69b4] mr-2 flex-shrink-0" />
+                <FiMapPin
+                  className="text-[#ff69b4] mr-2 flex-shrink-0"
+                  suppressHydrationWarning
+                />
                 <span className="text-sm text-center">
                   Rua Luigui Sardagna, 100, Rodeio, SC
                 </span>
               </li>
               <li className="flex flex-col items-center md:items-start">
                 <div className="flex items-center">
-                  <FiClock className="text-[#ff69b4] mr-2 flex-shrink-0" />
+                  <FiClock
+                    className="text-[#ff69b4] mr-2 flex-shrink-0"
+                    suppressHydrationWarning
+                  />
                   <span>Seg-Sex: 11h - 18:30h</span>
                 </div>
                 <span className="ml-6 md:ml-6">Sab: 08h - 12h</span>
@@ -77,7 +83,7 @@ export default function Rodape() {
                 className="text-gray-500 hover:text-[#ff69b4] transition-colors"
                 aria-label="Instagram"
               >
-                <FiInstagram size={20} />
+                <FiInstagram size={20} suppressHydrationWarning />
               </a>
               <a
                 href="https://wa.me/5547997273738"
@@ -86,7 +92,7 @@ export default function Rodape() {
                 className="text-gray-500 hover:text-[#ff69b4] transition-colors"
                 aria-label="WhatsApp"
               >
-                <FiPhone size={20} />
+                <FiPhone size={20} suppressHydrationWarning />
               </a>
             </div>
           </div>
@@ -128,7 +134,11 @@ export default function Rodape() {
               className="inline-flex items-center font-medium hover:text-[#ff69b4] transition-colors"
             >
               Desenvolvido por Luan Vendrami{" "}
-              <FiLinkedin className="ml-1 text-blue-600" size={18} />
+              <FiLinkedin
+                className="ml-1 text-blue-600"
+                size={18}
+                suppressHydrationWarning
+              />
             </a>
           </p>
         </div>

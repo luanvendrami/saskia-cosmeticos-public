@@ -61,6 +61,36 @@
   --transition-slow: 0.5s ease;
 }
 
+/* Dark mode variables */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Primary colors - adjusted for dark mode */
+    --primary-color: #ff69b4;
+    --primary-light: #331a29;
+    --primary-dark: #ff8dc7;
+    
+    /* Secondary colors - adjusted for dark mode */
+    --secondary-color: #f8c4ff;
+    --secondary-light: #2a1f2e;
+    --secondary-dark: #ffd5ff;
+    
+    /* Text colors - adjusted for dark mode */
+    --text-primary: #ffffff;
+    --text-secondary: #aaaaaa;
+    --text-light: #ffffff;
+    
+    /* Neutral colors - adjusted for dark mode */
+    --background-light: #1e1e1e;
+    --background-dark: #121212;
+    --border-color: #333333;
+    
+    /* Shadows - adjusted for dark mode */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.4);
+  }
+}
+
 /* Global styles */
 body {
   font-family: 'Roboto', 'Helvetica Neue', sans-serif;

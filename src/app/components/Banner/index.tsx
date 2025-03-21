@@ -64,7 +64,7 @@ export default function Banner({
           className={`${buttonClass} inline-flex items-center justify-center`}
         >
           {ctaText}
-          <FiArrowRight className="ml-2" />
+          <FiArrowRight className="ml-2" suppressHydrationWarning />
         </Link>
       </div>
     </div>
