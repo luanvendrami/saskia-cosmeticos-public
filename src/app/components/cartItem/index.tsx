@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { FiTrash2, FiMinus, FiPlus } from "react-icons/fi";
 import { useCart } from "../../context/CartContext";
+import { useTheme } from "../../context/ThemeContext";
 import { CartItem as CartItemType } from "../../interfaces/cart";
 import ConfirmationModal from "../confirmationModal";
 
@@ -13,6 +14,7 @@ interface CartItemProps {
 
 export default function CartItem({ item }: CartItemProps) {
   const { removeFromCart, increaseQuantity, decreaseQuantity } = useCart();
+  const { mode } = useTheme();
   const { id, imageUrl, title, price, quantity } = item;
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 

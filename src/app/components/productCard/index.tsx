@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import ProductModal from "../ProductModal";
 import { useCart } from "../../context/CartContext";
+import { useTheme } from "../../context/ThemeContext";
 import {
   FiGrid,
   FiArrowRight,
@@ -50,6 +51,7 @@ export default function ProductCard({
 }: ProductCardProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { addToCart } = useCart();
+  const { mode } = useTheme();
 
   /**
    * Manipula o clique no cartão do produto
@@ -102,7 +104,13 @@ export default function ProductCard({
         className="product-card product-card-hover"
       >
         {/* Gradient Background - Using our theme variables */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-light)] to-[var(--secondary-light)] opacity-90"></div>
+        <div
+          className={`absolute inset-0 bg-gradient-to-br ${
+            mode === "dark"
+              ? "from-[var(--primary-dark)] to-[var(--secondary-dark)]"
+              : "from-[var(--primary-light)] to-[var(--secondary-light)]"
+          } opacity-90`}
+        ></div>
 
         {/* Decorative elements */}
         <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--secondary-color)] opacity-20 rounded-full transform translate-x-16 -translate-y-16"></div>
@@ -110,8 +118,20 @@ export default function ProductCard({
 
         <div className="relative h-full w-full flex flex-col items-center justify-center p-8 text-center">
           {/* Icon */}
-          <div className="mb-5 bg-[var(--primary-color)] p-4 rounded-full">
-            <FiGrid className="w-10 h-10 text-[var(--text-light)]" />
+          <div
+            className={`mb-5 ${
+              mode === "dark"
+                ? "bg-[var(--primary-dark)]"
+                : "bg-[var(--primary-color)]"
+            } p-4 rounded-full`}
+          >
+            <FiGrid
+              className={`w-10 h-10 ${
+                mode === "dark"
+                  ? "text-[var(--text-secondary)]"
+                  : "text-[var(--text-light)]"
+              }`}
+            />
           </div>
 
           {/* Category */}

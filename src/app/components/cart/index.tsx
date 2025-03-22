@@ -4,6 +4,7 @@ import { useRef, useEffect, useState } from "react";
 import { FiX, FiShoppingCart, FiTag } from "react-icons/fi";
 
 import { useCart } from "../../context/CartContext";
+import { useTheme } from "../../context/ThemeContext";
 import { CartService } from "../../services";
 import { DeliveryInfo } from "../../interfaces/delivery";
 import CartItem from "../cartItem/index";
@@ -18,6 +19,7 @@ import DeliveryModal from "../deliveryModal";
 export default function Cart() {
   const cartRef = useRef<HTMLDivElement>(null);
   const { cartItems, isCartOpen, toggleCart, cartTotal, cartCount } = useCart();
+  const { mode } = useTheme();
 
   const [codigoCupom, setCodigoCupom] = useState("");
   const [erroCupom, setErroCupom] = useState("");
