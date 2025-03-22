@@ -20,21 +20,8 @@ const ThemeContext = createContext<ThemeContextType>({
 // Hook to use the theme context
 export const useTheme = () => useContext(ThemeContext);
 
-// Function to forcefully apply light mode and counter dark mode extensions
-const forceLightMode = () => {
-  // Add light mode classes
-  document.documentElement.classList.add("light");
-  document.documentElement.classList.add("light-mode");
-  document.documentElement.classList.remove("dark");
-  document.documentElement.classList.remove("dark-mode");
-
-  // Force light mode styles
-  document.documentElement.style.colorScheme = "light";
-  document.documentElement.style.filter = "none";
-  document.documentElement.style.webkitFilter = "none";
-  document.documentElement.style.backgroundColor = "#ffffff";
-  document.documentElement.style.color = "#333333";
-
+// Function to prevent dark mode extensions
+const preventDarkMode = () => {
   // Remove Dark Reader attributes if they exist
   if (document.documentElement.hasAttribute("data-darkreader-mode")) {
     document.documentElement.removeAttribute("data-darkreader-mode");
@@ -42,24 +29,6 @@ const forceLightMode = () => {
   if (document.documentElement.hasAttribute("data-darkreader-scheme")) {
     document.documentElement.removeAttribute("data-darkreader-scheme");
   }
-
-  // Target all elements with Dark Reader inline styles
-  document
-    .querySelectorAll("[data-darkreader-inline-bgcolor]")
-    .forEach((el) => {
-      el.removeAttribute("data-darkreader-inline-bgcolor");
-    });
-  document.querySelectorAll("[data-darkreader-inline-color]").forEach((el) => {
-    el.removeAttribute("data-darkreader-inline-color");
-  });
-  document.querySelectorAll("[data-darkreader-inline-border]").forEach((el) => {
-    el.removeAttribute("data-darkreader-inline-border");
-  });
-  document
-    .querySelectorAll("[data-darkreader-inline-outline]")
-    .forEach((el) => {
-      el.removeAttribute("data-darkreader-inline-outline");
-    });
 };
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
@@ -67,71 +36,23 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const [mode] = useState<PaletteMode>("light");
   const [mounted, setMounted] = useState(false);
 
-  // Effect to handle mounted state and enforce light mode
+  // Effect to handle mounted state and prevent dark mode
   useEffect(() => {
     setMounted(true);
 
-    // Apply light mode immediately
-    forceLightMode();
+    // Set light mode class
+    document.documentElement.classList.add("light");
+    document.documentElement.classList.remove("dark");
 
-    // Continuously check and enforce light mode every 500ms
-    const intervalId = setInterval(() => {
-      forceLightMode();
-    }, 500);
+    // Run prevention on mount
+    preventDarkMode();
 
-    // Create MutationObserver to detect and counter Dark Reader changes
-    const observer = new MutationObserver((mutations) => {
-      const shouldForceLightMode = mutations.some((mutation) => {
-        // Check for attribute changes that might be from Dark Reader
-        if (mutation.type === "attributes") {
-          const target = mutation.target as HTMLElement;
-          if (
-            target.hasAttribute("data-darkreader-mode") ||
-            target.hasAttribute("data-darkreader-scheme") ||
-            target.hasAttribute("data-darkreader-inline-bgcolor") ||
-            target.hasAttribute("data-darkreader-inline-color")
-          ) {
-            return true;
-          }
-
-          // Check if the style attribute was changed to include filter properties
-          if (mutation.attributeName === "style") {
-            const style = target.getAttribute("style");
-            if (
-              style &&
-              (style.includes("filter") ||
-                style.includes("background") ||
-                style.includes("color"))
-            ) {
-              return true;
-            }
-          }
-        }
-        return false;
-      });
-
-      if (shouldForceLightMode) {
-        forceLightMode();
-      }
-    });
-
-    // Start observing the document
-    observer.observe(document.documentElement, {
-      attributes: true,
-      childList: true,
-      subtree: true,
-      attributeFilter: [
-        "style",
-        "class",
-        "data-darkreader-mode",
-        "data-darkreader-scheme",
-      ],
-    });
+    // Check periodically for dark reader
+    const intervalId = setInterval(preventDarkMode, 2000);
 
     // Clean up
     return () => {
       clearInterval(intervalId);
-      observer.disconnect();
     };
   }, []);
 
