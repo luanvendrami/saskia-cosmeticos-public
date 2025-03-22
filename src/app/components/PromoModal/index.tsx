@@ -52,22 +52,39 @@ export default function ModalPromocional() {
     setOpen(false);
   };
 
+  // Handle backdrop click
+  const handleBackdropClick = (event: {}, reason: string) => {
+    if (reason === "backdropClick") {
+      handleClose();
+    }
+  };
+
+  // Handle content click to prevent propagation
+  const handleContentClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
   if (!mounted) return null;
 
   return (
     <>
       <Dialog
         open={open}
-        onClose={handleClose}
+        onClose={handleBackdropClick}
         aria-labelledby="promo-dialog-title"
         maxWidth="sm"
         fullWidth
+        onClick={handleContentClick}
+        disableScrollLock
         sx={{
           backdropFilter: "blur(5px)",
           "& .MuiDialog-paper": {
             backgroundImage:
               "linear-gradient(135deg, #fff6fb 0%, #fff6fb 100%)",
             overflowY: "visible",
+          },
+          "& .MuiBackdrop-root": {
+            backgroundColor: "rgba(0,0,0,0.3)",
           },
         }}
         TransitionComponent={Fade}
@@ -94,10 +111,20 @@ export default function ModalPromocional() {
               position: "absolute",
               right: 8,
               top: 8,
-              color: "text.secondary",
+              color: "#666",
+              zIndex: 10,
+              backgroundColor: "rgba(255, 255, 255, 0.8)",
+              boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+              "&:hover": {
+                backgroundColor: "rgba(255, 255, 255, 1)",
+                color: "#000",
+              },
+              padding: "5px",
+              width: "32px",
+              height: "32px",
             }}
           >
-            <CloseIcon />
+            <CloseIcon fontSize="medium" />
           </IconButton>
 
           {/* Decorative elements */}
