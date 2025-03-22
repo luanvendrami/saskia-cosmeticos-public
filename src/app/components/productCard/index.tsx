@@ -190,7 +190,7 @@ export default function ProductCard({
           )}
         </div>
 
-        <div className="product-content dark:bg-gray-900 dark:border-gray-700">
+        <div className="product-content dark:bg-[#c94c8e] dark:border-[#c94c8e]/50">
           <div className="product-details">
             {/* Category tag */}
             <div className="mb-1 flex-shrink-0">

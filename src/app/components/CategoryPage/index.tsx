@@ -44,7 +44,7 @@ export default function CategoryPage({
 
       <div
         className={`container mx-auto px-4 py-4 md:py-8 ${
-          mode === "dark" ? "text-gray-100" : ""
+          mode === "dark" ? "bg-[#c94c8e]/90 text-gray-100" : ""
         }`}
       >
         {/* Cabeçalho da página com pesquisa */}

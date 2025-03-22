@@ -172,11 +172,11 @@ export default function Cart() {
           {/* Cart */}
           <div
             ref={cartRef}
-            className="relative w-full max-w-md bg-white dark:bg-gray-900 h-full shadow-xl overflow-hidden transform transition-transform animate-slide-in-right"
+            className="relative w-full max-w-md bg-white dark:bg-[#c94c8e] h-full shadow-xl overflow-hidden transform transition-transform animate-slide-in-right"
           >
             <div className="flex flex-col h-full">
               {/* Header */}
-              <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center bg-gradient-to-r from-pink-50 to-white dark:from-gray-800 dark:to-gray-900">
+              <div className="px-4 py-3 border-b border-gray-200 dark:border-[#c94c8e]/80 flex justify-between items-center bg-gradient-to-r from-pink-50 to-white dark:from-[#c94c8e] dark:to-[#c94c8e]/70">
                 <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100 flex items-center">
                   <FiShoppingCart
                     className="mr-2 text-[var(--primary-color)]"
@@ -191,7 +191,7 @@ export default function Cart() {
                 </h2>
                 <button
                   onClick={toggleCart}
-                  className="rounded-md bg-white dark:bg-gray-800 p-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                  className="rounded-md bg-white dark:bg-[#c94c8e]/80 p-2 hover:bg-gray-100 dark:hover:bg-[#c94c8e] transition-colors"
                 >
                   <FiX
                     className="w-5 h-5 text-gray-500 dark:text-gray-400"
@@ -201,16 +201,16 @@ export default function Cart() {
               </div>
 
               {/* Content */}
-              <div className="flex-1 overflow-auto divide-y divide-gray-200 dark:divide-gray-700">
+              <div className="flex-1 overflow-auto divide-y divide-gray-200 dark:divide-[#c94c8e]/40">
                 {cartItems.length > 0 ? (
-                  <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+                  <ul className="divide-y divide-gray-200 dark:divide-[#c94c8e]/30">
                     {cartItems.map((item, index) => (
                       <CartItem key={`${item.id}-${index}`} item={item} />
                     ))}
                   </ul>
                 ) : (
                   <div className="flex flex-col items-center justify-center h-full text-center p-4">
-                    <div className="w-24 h-24 rounded-full bg-pink-50 dark:bg-pink-900/20 flex items-center justify-center mb-4">
+                    <div className="w-24 h-24 rounded-full bg-pink-50 dark:bg-pink-900/30 flex items-center justify-center mb-4">
                       <FiShoppingCart
                         className="w-12 h-12 text-[#ff69b4]"
                         suppressHydrationWarning
@@ -229,7 +229,7 @@ export default function Cart() {
 
               {/* Footer with total and checkout */}
               {cartItems.length > 0 && (
-                <div className="border-t border-gray-200 dark:border-gray-700 p-4 bg-gradient-to-r from-white to-pink-50 dark:from-gray-900 dark:to-gray-800">
+                <div className="border-t border-gray-200 dark:border-[#c94c8e]/50 p-4 bg-gradient-to-r from-white to-pink-50 dark:from-[#c94c8e]/90 dark:to-[#c94c8e]/70">
                   {/* Coupon */}
                   <div className="mb-4">
                     <div className="flex gap-2 items-center">
@@ -252,7 +252,7 @@ export default function Cart() {
                             setCodigoCupom(e.target.value.toUpperCase())
                           }
                           placeholder="Digite seu cupom"
-                          className="block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-pink-300 focus:ring focus:ring-pink-200 focus:ring-opacity-50 text-sm dark:bg-gray-800 dark:text-white dark:placeholder-gray-400"
+                          className="block w-full rounded-md border-gray-300 dark:border-[#c94c8e]/40 shadow-sm focus:border-pink-300 focus:ring focus:ring-pink-200 focus:ring-opacity-50 text-sm dark:bg-[#c94c8e]/80 dark:text-white dark:placeholder-gray-200"
                         />
                       </div>
                       <button
