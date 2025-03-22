@@ -116,11 +116,9 @@ export default function CarrosselImagens({
         @keyframes fadeInUp {
           from {
             opacity: 0;
-            transform: translateY(20px);
           }
           to {
             opacity: 1;
-            transform: translateY(0);
           }
         }
 
@@ -130,8 +128,7 @@ export default function CarrosselImagens({
 
         .button-animate-out {
           opacity: 0;
-          transform: translateY(20px);
-          transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+          transition: opacity 0.3s ease-out;
         }
       `}</style>
 
@@ -170,7 +167,7 @@ export default function CarrosselImagens({
         >
           <Link
             href={`/${category}`}
-            className="px-4 py-2 bg-[var(--primary-color)] hover:bg-[var(--primary-dark)] text-white rounded-lg font-medium shadow-lg transition-all duration-300 text-center flex items-center justify-center transform hover:scale-105"
+            className="px-4 py-2 bg-[var(--primary-color)] hover:bg-[var(--primary-dark)] text-white rounded-lg font-medium shadow-lg transition-colors duration-300 text-center flex items-center justify-center"
           >
             <span>Ver produtos para {formatCategoryName(category)}</span>
           </Link>

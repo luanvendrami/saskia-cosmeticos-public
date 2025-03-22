@@ -344,7 +344,7 @@ export default function ModalProduto({
                       className={`w-2 h-2 rounded-full transition-all ${
                         index === currentImageIndex
                           ? "bg-[var(--primary-color)] w-3"
-                          : "bg-gray-300 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-500"
+                          : "bg-gray-300 hover:bg-gray-400"
                       }`}
                       aria-label={`Go to image ${index + 1}`}
                     />
@@ -403,8 +403,8 @@ export default function ModalProduto({
                       : price}
                   </span>
                   {promocao && cupom && (
-                    <div className="bg-green-100 dark:bg-green-900/30 px-2 sm:px-3 py-1 rounded-md">
-                      <span className="text-xs sm:text-sm text-green-800 dark:text-green-300 font-medium">
+                    <div className="bg-green-100 px-2 sm:px-3 py-1 rounded-md">
+                      <span className="text-xs sm:text-sm text-green-800 font-medium">
                         Cupom: {cupom}
                       </span>
                     </div>
@@ -435,38 +435,43 @@ export default function ModalProduto({
                         Poucas unidades
                       </span>
                     ) : (
-                      <span className="text-[var(--success-color)] uppercase text-xs sm:text-sm font-medium flex items-center">
-                        <FiCheckCircle className="mr-1 text-[var(--success-color)]" />{" "}
-                        Em estoque
-                      </span>
+                      <div className="bg-green-100 px-2 sm:px-3 py-1 rounded-md">
+                        <span className="text-xs sm:text-sm text-green-800 font-medium">
+                          Em Estoque
+                        </span>
+                      </div>
                     )}
                   </div>
                 )}
               </div>
             )}
 
-            <div className="mt-2 sm:mt-6 grid gap-2 sm:gap-4 grid-cols-1 sm:grid-cols-2">
+            <div className="mt-4 sm:mt-6 grid gap-2 sm:gap-4 grid-cols-1">
               {/* Add to Cart Button - Disable if out of stock */}
               {price && onAddToCart && (
                 <>
                   {stockQuantity === 0 ? (
                     <button
-                      className="w-full py-2 sm:py-3 rounded-lg flex items-center justify-center gap-1 sm:gap-2 bg-[var(--background-light)] border-2 border-gray-300 dark:border-gray-700 text-[var(--text-primary)] text-xs sm:text-base hover:bg-[var(--background-dark)] transition-colors shadow-sm"
+                      className="w-full mb-2 py-3 px-4 rounded-full bg-[var(--background-light)] border-2 border-gray-300 text-[var(--text-primary)] text-sm sm:text-base hover:bg-[var(--background-dark)] transition-colors shadow-sm flex items-center justify-center gap-2"
                       onClick={(e) => {
                         e.stopPropagation();
                         WhatsAppService.sendStockNotification(title);
                       }}
                     >
                       <FaWhatsapp className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
-                      Avise-me quando disponível
+                      <span>Avise-me quando disponível</span>
                     </button>
                   ) : (
                     <button
                       onClick={handleAddToCart}
-                      className="w-full py-2 sm:py-3 bg-[var(--primary-color)] text-white rounded-lg flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-base hover:bg-[var(--primary-dark)] transition-colors"
+                      className={`w-full py-3 px-4 rounded-full transition-colors flex items-center justify-center gap-2 ${
+                        (stockQuantity ?? 0) > 0
+                          ? "bg-[var(--primary-color)] hover:bg-[var(--primary-dark)] text-white"
+                          : "bg-gray-300 hover:bg-gray-400"
+                      }`}
                     >
                       <FiShoppingCart className="w-4 h-4 sm:w-5 sm:h-5" />
-                      Adicionar ao Carrinho
+                      <span>Adicionar ao Carrinho</span>
                     </button>
                   )}
                 </>
@@ -476,11 +481,11 @@ export default function ModalProduto({
               {category && !hideViewAll && (
                 <Link
                   href={`/${categoryPath}`}
-                  className="w-full py-2 sm:py-3 bg-[var(--background-light)] border border-[var(--primary-color)] text-[var(--primary-color)] rounded-lg flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-base hover:bg-[var(--primary-light)] transition-colors"
+                  className="w-full py-3 px-4 bg-[var(--background-light)] border border-[var(--primary-color)] text-[var(--primary-color)] rounded-full flex items-center justify-center gap-2 text-sm sm:text-base hover:bg-[var(--primary-light)] transition-colors"
                   onClick={onClose}
                 >
                   <FiEye className="w-4 h-4 sm:w-5 sm:h-5" />
-                  Ver Todos {category}
+                  <span>Ver Todos {category}</span>
                 </Link>
               )}
             </div>

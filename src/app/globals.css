@@ -2,6 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Force light mode regardless of browser settings or extensions */
+:root {
+  color-scheme: light !important;
+  forced-color-adjust: none !important;
+  -webkit-filter: none !important;
+  filter: none !important;
+  background-color: #ffffff !important;
+  color: #333333 !important;
+}
+
+html {
+  color-scheme: light !important;
+  -webkit-filter: none !important;
+  filter: none !important;
+  background-color: #ffffff !important;
+}
+
+/* Target Dark Reader extension specifically */
+html[data-darkreader-scheme],
+html[data-darkreader-mode],
+[data-darkreader-inline-bgcolor],
+[data-darkreader-inline-color] {
+  filter: none !important;
+  -webkit-filter: none !important;
+  background-color: initial !important;
+  color: initial !important;
+}
+
+/* Prevent dark mode styling from browser */
+@media (prefers-color-scheme: dark) {
+  html, body {
+    color-scheme: light !important;
+    background-color: #ffffff !important;
+    color: #333333 !important;
+    filter: none !important;
+    -webkit-filter: none !important;
+  }
+  
+  /* Override Dark Reader */
+  img, picture, video {
+    filter: none !important;
+  }
+}
+
 /* Import our custom styles */
 @import './styles/index.css';
 
@@ -244,26 +288,9 @@
   transform: translateY(-5px);
 }
 
-/* Dark mode product card styles */
-.dark .product-card {
-  background-color: var(--background-light);
-  border-color: var(--border-color);
-}
-
-.dark .product-content {
-  background-color: var(--background-light);
-  border-color: var(--border-color);
-}
-
 /* Search input focus effect */
 .search-input-focus {
-  transition: all 0.2s ease;
-  border: 1px solid #e5e7eb;
-}
-
-.search-input-focus:focus {
-  border-color: #ff69b4;
-  box-shadow: 0 0 0 2px rgba(255, 105, 180, 0.2);
+  transition: all 0.3s ease;
   outline: none;
 }
 

@@ -5,29 +5,29 @@
 
 :root {
   /* Primary colors */
-  --primary-color: #ff69b4;
-  --primary-light: #ffe1ff;
-  --primary-dark: #c94c8e;
+  --primary-color: #ff69b4 !important;
+  --primary-light: #ffe1ff !important;
+  --primary-dark: #c94c8e !important;
   
   /* Secondary colors */
-  --secondary-color: #f8c4ff;
-  --secondary-light: #fff1ff;
-  --secondary-dark: #d19bd1;
+  --secondary-color: #f8c4ff !important;
+  --secondary-light: #fff1ff !important;
+  --secondary-dark: #d19bd1 !important;
   
   /* Text colors */
-  --text-primary: #333333;
-  --text-secondary: #666666;
-  --text-light: #ffffff;
+  --text-primary: #333333 !important;
+  --text-secondary: #666666 !important;
+  --text-light: #ffffff !important;
   
   /* Status colors */
-  --success-color: #4caf50;
-  --warning-color: #ff9800;
-  --error-color: #f44336;
+  --success-color: #4caf50 !important;
+  --warning-color: #ff9800 !important;
+  --error-color: #f44336 !important;
   
   /* Neutral colors */
-  --background-light: #ffffff;
-  --background-dark: #f5f5f5;
-  --border-color: #e0e0e0;
+  --background-light: #ffffff !important;
+  --background-dark: #f5f5f5 !important;
+  --border-color: #e0e0e0 !important;
   
   /* Spacing variables */
   --spacing-xs: 0.25rem;
@@ -59,45 +59,63 @@
   --transition-fast: 0.15s ease;
   --transition-medium: 0.3s ease;
   --transition-slow: 0.5s ease;
+  
+  /* Force light mode */
+  color-scheme: light !important;
+  forced-color-adjust: none !important;
+  -webkit-filter: none !important;
+  filter: none !important;
 }
 
-/* Dark mode variables */
+/* Ensure light mode is always applied regardless of browser settings */
 @media (prefers-color-scheme: dark) {
   :root {
-    /* Primary colors - adjusted for dark mode */
-    --primary-color: #ff69b4;
-    --primary-light: #331a29;
-    --primary-dark: #ff8dc7;
-    
-    /* Secondary colors - adjusted for dark mode */
-    --secondary-color: #f8c4ff;
-    --secondary-light: #2a1f2e;
-    --secondary-dark: #ffd5ff;
-    
-    /* Text colors - adjusted for dark mode */
-    --text-primary: #ffffff;
-    --text-secondary: #aaaaaa;
-    --text-light: #ffffff;
-    
-    /* Neutral colors - adjusted for dark mode */
-    --background-light: #1e1e1e;
-    --background-dark: #121212;
-    --border-color: #333333;
-    
-    /* Shadows - adjusted for dark mode */
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
-    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.4);
+    color-scheme: light !important;
+    -webkit-filter: none !important;
+    filter: none !important;
+  }
+  
+  html, body {
+    background-color: var(--background-light) !important;
+    color: var(--text-primary) !important;
+    -webkit-filter: none !important;
+    filter: none !important;
+  }
+  
+  /* Target Dark Reader and similar extensions */
+  img, picture, video, svg {
+    -webkit-filter: none !important;
+    filter: none !important;
+  }
+  
+  /* Prevent inverted colors */
+  * {
+    background-color: initial !important;
+    box-shadow: initial !important;
+    border-color: initial !important;
+    outline-color: initial !important;
+    -webkit-filter: none !important;
+    filter: none !important;
   }
 }
 
 /* Global styles */
 body {
-  font-family: 'Roboto', 'Helvetica Neue', sans-serif;
-  color: var(--text-primary);
-  background-color: var(--primary-light);
+  font-family: 'Roboto', 'Helvetica Neue', sans-serif !important;
+  color: var(--text-primary) !important;
+  background-color: var(--primary-light) !important;
   margin: 0;
   padding: 0;
+}
+
+/* Light mode specific overrides to counter Dark Reader */
+html.light-mode body,
+html.light body,
+body.light-mode,
+.light-mode * {
+  color-scheme: light !important;
+  -webkit-filter: none !important;
+  filter: none !important;
 }
 
 /* Button styles */

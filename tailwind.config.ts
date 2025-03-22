@@ -9,13 +9,13 @@ export default {
     "./components/**/*.{js,ts,jsx,tsx}",
     "./node_modules/swiper/**/*.{js,ts}",
   ],
-  darkMode: "class",
   theme: {
     extend: {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      forcedColorAdjust: "none",
       keyframes: {
         "modal-slide-up": {
           "0%": { transform: "translateY(10px) scale(0.95)", opacity: "0" },

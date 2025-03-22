@@ -7,7 +7,6 @@ import ProductCard from "../productCard";
 import { Product } from "../../interfaces/product";
 import { CategoryPageProps } from "../../interfaces/category";
 import { ProductService, DataService } from "../../services";
-import { useTheme } from "../../context/ThemeContext";
 import Footer from "../Footer";
 
 /**
@@ -23,7 +22,6 @@ export default function CategoryPage({
 }: CategoryPageProps) {
   const [termoPesquisa, setTermoPesquisa] = useState("");
   const [produtosFiltrados, setProdutosFiltrados] = useState<Product[]>([]);
-  const { mode } = useTheme();
 
   // Ordenação e filtragem de produtos usando DataService
   useEffect(() => {
@@ -42,21 +40,11 @@ export default function CategoryPage({
       {/* Div para dar espaço para o header fixo */}
       <div className="h-16 md:h-32"></div>
 
-      <div
-        className={`container mx-auto px-4 py-4 md:py-8 ${
-          mode === "dark" ? "bg-[#c94c8e]/90 text-gray-100" : ""
-        }`}
-      >
+      <div className="container mx-auto px-4 py-4 md:py-8">
         {/* Cabeçalho da página com pesquisa */}
         <div className="mb-6 md:mb-8">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 md:mb-6">
-            <h1
-              className={`text-3xl font-bold ${
-                mode === "dark"
-                  ? "text-pink-300"
-                  : "text-[var(--primary-color)]"
-              } mb-4 sm:mb-0 slide-in-left`}
-            >
+            <h1 className="text-3xl font-bold text-[var(--primary-color)] mb-4 sm:mb-0 slide-in-left">
               {nomeExibicao}
             </h1>
 
@@ -71,11 +59,7 @@ export default function CategoryPage({
                   startAdornment: (
                     <InputAdornment position="start">
                       <FiSearch
-                        className={`${
-                          mode === "dark"
-                            ? "text-gray-300"
-                            : "text-[var(--text-secondary)]"
-                        }`}
+                        className="text-[var(--text-secondary)]"
                         suppressHydrationWarning
                       />
                     </InputAdornment>
@@ -98,11 +82,7 @@ export default function CategoryPage({
           </div>
 
           {/* Contador de resultados */}
-          <p
-            className={`${
-              mode === "dark" ? "text-gray-300" : "text-[var(--text-secondary)]"
-            }`}
-          >
+          <p className="text-[var(--text-secondary)]">
             Mostrando {produtosFiltrados.length}{" "}
             {produtosFiltrados.length === 1 ? "produto" : "produtos"}
             {termoPesquisa && ` para "${termoPesquisa}"`}
@@ -137,37 +117,19 @@ export default function CategoryPage({
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center py-12 text-center fade-in">
-            <div
-              className={`w-16 h-16 mb-4 ${
-                mode === "dark"
-                  ? "text-pink-300"
-                  : "text-[var(--text-secondary)]"
-              }`}
-            >
+            <div className="w-16 h-16 mb-4 text-[var(--text-secondary)]">
               <FiSearch className="w-full h-full" suppressHydrationWarning />
             </div>
-            <h3
-              className={`text-lg font-medium ${
-                mode === "dark" ? "text-gray-200" : "text-[var(--text-primary)]"
-              }`}
-            >
+            <h3 className="text-lg font-medium text-[var(--text-primary)]">
               Nenhum produto encontrado
             </h3>
-            <p
-              className={`mt-1 ${
-                mode === "dark"
-                  ? "text-gray-400"
-                  : "text-[var(--text-secondary)]"
-              }`}
-            >
+            <p className="mt-1 text-[var(--text-secondary)]">
               Não encontramos produtos correspondentes à sua busca.
             </p>
             {termoPesquisa && (
               <button
                 onClick={() => setTermoPesquisa("")}
-                className={`btn ${
-                  mode === "dark" ? "btn-primary" : "btn-secondary"
-                } mt-4`}
+                className="btn btn-secondary mt-4"
               >
                 Limpar busca
               </button>

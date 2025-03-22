@@ -104,13 +104,7 @@ export default function ProductCard({
         className="product-card product-card-hover"
       >
         {/* Gradient Background - Using our theme variables */}
-        <div
-          className={`absolute inset-0 bg-gradient-to-br ${
-            mode === "dark"
-              ? "from-[var(--primary-dark)] to-[var(--secondary-dark)]"
-              : "from-[var(--primary-light)] to-[var(--secondary-light)]"
-          } opacity-90`}
-        ></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-light)] to-[var(--secondary-light)] opacity-90"></div>
 
         {/* Decorative elements */}
         <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--secondary-color)] opacity-20 rounded-full transform translate-x-16 -translate-y-16"></div>
@@ -118,20 +112,8 @@ export default function ProductCard({
 
         <div className="relative h-full w-full flex flex-col items-center justify-center p-8 text-center">
           {/* Icon */}
-          <div
-            className={`mb-5 ${
-              mode === "dark"
-                ? "bg-[var(--primary-dark)]"
-                : "bg-[var(--primary-color)]"
-            } p-4 rounded-full`}
-          >
-            <FiGrid
-              className={`w-10 h-10 ${
-                mode === "dark"
-                  ? "text-[var(--text-secondary)]"
-                  : "text-[var(--text-light)]"
-              }`}
-            />
+          <div className="mb-5 bg-[var(--primary-color)] p-4 rounded-full">
+            <FiGrid className="w-10 h-10 text-[var(--text-light)]" />
           </div>
 
           {/* Category */}
@@ -190,25 +172,25 @@ export default function ProductCard({
           )}
         </div>
 
-        <div className="product-content dark:bg-[#c94c8e] dark:border-[#c94c8e]/50">
+        <div className="product-content">
           <div className="product-details">
             {/* Category tag */}
             <div className="mb-1 flex-shrink-0">
               {category && (
-                <span className="inline-block px-2 py-1 text-xs font-medium text-[var(--primary-color)] bg-[var(--primary-light)] rounded-full dark:bg-gray-800">
+                <span className="inline-block px-2 py-1 text-xs font-medium text-[var(--primary-color)] bg-[var(--primary-light)] rounded-full">
                   {category}
                 </span>
               )}
             </div>
 
             {/* Title - without fixed height */}
-            <h3 className="text-base sm:text-lg font-semibold text-[var(--text-primary)] leading-tight line-clamp-2 mb-1 dark:text-gray-200">
+            <h3 className="text-base sm:text-lg font-semibold text-[var(--text-primary)] leading-tight line-clamp-2 mb-1">
               {title}
             </h3>
 
             {/* "Clique para ver detalhes" - now positioned with flex behavior */}
             <div className="text-xs text-[var(--primary-color)] flex-grow flex items-end pb-2">
-              <span className="inline-block hover:underline cursor-pointer dark:text-pink-300">
+              <span className="inline-block hover:underline cursor-pointer">
                 Clique para ver detalhes
               </span>
             </div>
@@ -218,11 +200,11 @@ export default function ProductCard({
             <div className="product-price-container">
               {/* Original Price + Discount */}
               <div className="flex items-center mb-2">
-                <p className="text-sm text-[var(--text-secondary)] line-through dark:text-gray-400">
+                <p className="text-sm text-[var(--text-secondary)] line-through">
                   {price}
                 </p>
                 {promocao && (
-                  <span className="ml-2 bg-[var(--primary-color)] text-white text-xs px-1.5 py-0.5 rounded font-medium dark:bg-pink-700">
+                  <span className="ml-2 bg-[var(--primary-color)] text-white text-xs px-1.5 py-0.5 rounded font-medium">
                     -{descontoPromocao || 10}%
                   </span>
                 )}
@@ -230,53 +212,49 @@ export default function ProductCard({
 
               {/* Final Price Row */}
               <div className="flex items-center mb-1.5">
-                <span className="text-base sm:text-lg font-bold text-[var(--success-color)] dark:text-green-400">
+                <span className="text-base sm:text-lg font-bold text-[var(--success-color)]">
                   {promocao && precoComDesconto
                     ? `R$ ${precoComDesconto}`
                     : price}
                 </span>
                 {promocao && cupom && (
-                  <span className="ml-2 text-[10px] text-green-700 dark:text-green-300 bg-green-100 dark:bg-green-900/30 px-1.5 py-0.5 rounded-sm font-medium">
+                  <span className="ml-2 text-[10px] text-green-700 bg-green-100 px-1.5 py-0.5 rounded-sm font-medium">
                     {cupom}
                   </span>
                 )}
               </div>
 
               {/* Stock Status - Directly display status */}
-              <div className="text-[10px] text-[var(--text-secondary)] flex items-center dark:text-gray-400">
+              <div className="text-[10px] text-[var(--text-secondary)] flex items-center">
                 {stockQuantity !== undefined && (
                   <span className="flex items-center">
                     {stockQuantity <= 0 ? (
                       <>
-                        <FiXCircle className="mr-1 text-[var(--error-color)]" />{" "}
-                        <span className="dark:text-gray-300">Esgotado</span>
+                        <FiXCircle className="mr-1 text-red-500" />{" "}
+                        <span>Esgotado</span>
                       </>
                     ) : stockQuantity <= 3 ? (
                       <>
-                        <FiAlertCircle className="mr-1 text-orange-500 dark:text-orange-400" />{" "}
-                        <span className="dark:text-orange-200">
-                          Apenas {stockQuantity}{" "}
+                        <FiAlertCircle className="mr-1 text-orange-500" />{" "}
+                        <span>
+                          Últimas {stockQuantity}{" "}
                           {stockQuantity === 1 ? "unidade" : "unidades"}!
                         </span>
                       </>
                     ) : stockQuantity <= 5 ? (
                       <>
-                        <FiAlertCircle className="mr-1 text-orange-400 dark:text-orange-300" />{" "}
-                        <span className="dark:text-orange-200">
-                          Últimas unidades!
-                        </span>
+                        <FiAlertCircle className="mr-1 text-orange-400" />{" "}
+                        <span>Poucas unidades!</span>
                       </>
                     ) : stockQuantity <= 10 ? (
                       <>
-                        <FiAlertCircle className="mr-1 text-[var(--primary-color)] dark:text-pink-400" />{" "}
-                        <span className="dark:text-pink-200">
-                          Poucas unidades
-                        </span>
+                        <FiAlertCircle className="mr-1 text-[var(--primary-color)]" />{" "}
+                        <span>Em estoque</span>
                       </>
                     ) : (
                       <>
-                        <FiCheckCircle className="mr-1 text-[var(--success-color)] dark:text-green-400" />{" "}
-                        <span className="dark:text-green-200">Em estoque</span>
+                        <FiCheckCircle className="mr-1 text-[var(--success-color)]" />{" "}
+                        <span>Em estoque</span>
                       </>
                     )}
                   </span>
@@ -285,34 +263,25 @@ export default function ProductCard({
             </div>
           )}
         </div>
-
-        {link && (
-          <a
-            href={link}
-            className="absolute inset-0 focus:ring-2 focus:ring-[#ff69b4] focus:outline-none rounded-2xl"
-            aria-label={`Ver detalhes de ${title}`}
-          />
-        )}
       </div>
 
-      {isModalOpen && (
-        <ProductModal
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          imageUrl={imageUrl}
-          images={images}
-          title={title}
-          description={description}
-          price={price}
-          category={category}
-          hideViewAll={hideViewAll || isViewAllSlide}
-          onAddToCart={aoAdicionarAoCarrinho}
-          stockQuantity={stockQuantity}
-          promocao={promocao}
-          descontoPromocao={descontoPromocao}
-          cupom={cupom}
-        />
-      )}
+      {/* Modal de produto completo */}
+      <ProductModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        imageUrl={imageUrl}
+        images={images}
+        title={title}
+        description={description}
+        price={price}
+        category={category}
+        hideViewAll={hideViewAll}
+        onAddToCart={aoAdicionarAoCarrinho}
+        stockQuantity={stockQuantity}
+        promocao={promocao}
+        descontoPromocao={descontoPromocao}
+        cupom={cupom}
+      />
     </>
   );
 }

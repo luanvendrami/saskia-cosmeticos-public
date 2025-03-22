@@ -82,13 +82,13 @@ export default function ConfirmationModal({
 
       {/* Modal */}
       <div
-        className="relative bg-white dark:bg-gray-900 rounded-lg shadow-xl w-full max-w-md animate-modal-slide-up"
+        className="relative bg-white rounded-lg shadow-xl w-full max-w-md animate-modal-slide-up"
         onClick={(e) => e.stopPropagation()}
         onMouseDown={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
-          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 flex items-center">
+        <div className="flex items-center justify-between p-4 border-b border-gray-200">
+          <h3 className="text-lg font-medium text-gray-900 flex items-center">
             <FiAlertCircle
               className="w-5 h-5 text-pink-500 mr-2"
               suppressHydrationWarning
@@ -100,28 +100,25 @@ export default function ConfirmationModal({
               e.stopPropagation();
               onClose();
             }}
-            className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            className="p-2 rounded-full hover:bg-gray-100 transition-colors"
           >
-            <FiX
-              className="w-5 h-5 text-gray-500 dark:text-gray-400"
-              suppressHydrationWarning
-            />
+            <FiX className="w-5 h-5 text-gray-500" suppressHydrationWarning />
           </button>
         </div>
 
         {/* Body */}
         <div className="p-6">
-          <p className="text-gray-700 dark:text-gray-300">{message}</p>
+          <p className="text-gray-700">{message}</p>
         </div>
 
         {/* Footer */}
-        <div className="flex justify-end gap-3 p-4 border-t border-gray-200 dark:border-gray-700">
+        <div className="flex justify-end gap-3 p-4 border-t border-gray-200">
           <button
             onClick={(e) => {
               e.stopPropagation();
               onClose();
             }}
-            className="px-4 py-2 text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+            className="px-4 py-2 text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 transition-colors"
           >
             {cancelText}
           </button>

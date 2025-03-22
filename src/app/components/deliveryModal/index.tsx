@@ -792,27 +792,29 @@ export default function DeliveryModal({
           </div>
 
           {/* Footer */}
-          <div className="px-4 py-3 bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
-            <button
-              onClick={handleSubmit}
-              disabled={deliveryType === "delivery" && !isFormComplete}
-              className={`w-full border rounded-md py-3 px-4 font-medium text-white transition-colors
-                ${
-                  isFormComplete
-                    ? "bg-[var(--primary-color)] border-transparent hover:bg-[var(--primary-dark)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
-                    : "bg-gray-400 border-gray-400 cursor-not-allowed"
-                }
-              `}
-            >
-              {!isFormComplete && deliveryType === "delivery" ? (
-                <div className="flex items-center justify-center">
-                  <FiAlertCircle className="mr-2" />
-                  Preencha todos os campos obrigatórios
-                </div>
-              ) : (
-                "Continuar para o WhatsApp"
-              )}
-            </button>
+          <div className="px-4 py-3 bg-gray-50 border-t border-gray-200">
+            <div className="flex justify-end">
+              <button
+                onClick={handleSubmit}
+                disabled={deliveryType === "delivery" && !isFormComplete}
+                className={`w-full border rounded-md py-3 px-4 font-medium text-white transition-colors
+                  ${
+                    isFormComplete
+                      ? "bg-[var(--primary-color)] border-transparent hover:bg-[var(--primary-dark)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+                      : "bg-gray-400 border-gray-400 cursor-not-allowed"
+                  }
+                `}
+              >
+                {!isFormComplete && deliveryType === "delivery" ? (
+                  <div className="flex items-center justify-center">
+                    <FiAlertCircle className="mr-2" />
+                    Preencha todos os campos obrigatórios
+                  </div>
+                ) : (
+                  "Continuar para o WhatsApp"
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </div>
