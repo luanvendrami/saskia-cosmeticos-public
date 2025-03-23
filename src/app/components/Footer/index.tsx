@@ -53,12 +53,12 @@ export default function Rodape() {
               Saskia Cosméticos
             </h4>
             <ul className="space-y-3 w-full">
-              <li className="flex items-center justify-center">
+              <li className="flex items-center justify-center md:justify-start">
                 <FiMapPin
                   className="text-[#ff69b4] mr-2 flex-shrink-0"
                   suppressHydrationWarning
                 />
-                <span className="text-sm text-center">
+                <span className="text-sm text-center md:text-left">
                   Rua Luigui Sardagna, 100, Rodeio, SC
                 </span>
               </li>

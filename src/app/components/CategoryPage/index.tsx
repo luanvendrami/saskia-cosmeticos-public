@@ -38,9 +38,9 @@ export default function CategoryPage({
   return (
     <>
       {/* Div para dar espaço para o header fixo */}
-      <div className="h-16 md:h-32"></div>
+      <div className="h-5 md:h-32"></div>
 
-      <div className="container mx-auto px-4 py-4 md:py-8">
+      <div className="container mx-auto px-4 py-4 md:py-12">
         {/* Cabeçalho da página com pesquisa */}
         <div className="mb-6 md:mb-8">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 md:mb-6">
