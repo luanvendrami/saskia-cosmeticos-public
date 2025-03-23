@@ -28,6 +28,7 @@ export interface CarouselProps {
   swiperClassName?: string;
   breakpoints?: SwiperBreakpoints;
   centeredSlides?: boolean;
+  renderItem?: (item: CarouselItem, isMobile: boolean) => React.ReactNode;
 }
 
 /**

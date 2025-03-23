@@ -8,11 +8,9 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
 import styles from "./styles.module.css";
-import ProductCard from "../productCard";
-import CarrosselImagens from "../carrosselimagens";
 import { CarouselProps } from "../../interfaces/carousel";
 
-export default function Carrossel({
+export default function GenericCarousel({
   items,
   autoplayDelay,
   loop = true,
@@ -22,6 +20,7 @@ export default function Carrossel({
   swiperClassName = "",
   breakpoints,
   centeredSlides,
+  renderItem,
 }: CarouselProps) {
   const [isNavigationEnabled, setIsNavigationEnabled] =
     useState(navigationEnabled);
@@ -92,30 +91,7 @@ export default function Carrossel({
       >
         {filteredItems.map((item) => (
           <SwiperSlide key={item.id}>
-            {!item.primeiroCarrossel ? (
-              <ProductCard
-                id={item.id}
-                imageUrl={item.imageUrl}
-                title={item.title}
-                price={item.price}
-                description={item.description}
-                link={item.link}
-                category={item.category}
-                isViewAllSlide={item.isViewAllSlide}
-                viewAllUrl={item.viewAllUrl}
-                stockQuantity={item.stockQuantity}
-                promocao={item.promocao}
-                descontoPromocao={item.descontoPromocao}
-                cupom={item.cupom}
-              />
-            ) : (
-              <CarrosselImagens
-                imageUrl={item.imageUrl}
-                backupImageUrl={item.backupImageUrl}
-                alt={item.title}
-                category={item.category}
-              />
-            )}
+            {renderItem && renderItem(item, isMobile)}
           </SwiperSlide>
         ))}
       </Swiper>

@@ -5,10 +5,10 @@
  * Exibe carrosséis de produtos populares por categoria e banner promocional
  */
 
-import Carrossel from "./components/carrossel";
+import GenericCarousel from "./components/GenericCarousel";
 import Footer from "./components/Footer";
 import PromocionalBanner from "./components/PromocionalBanner";
-import { CategoryHeader } from "./components/categories";
+import CategoryHeader from "./components/categories/CategoryHeader";
 import {
   heroProducts,
   cabelosProducts,
@@ -20,6 +20,8 @@ import {
 } from "./data/categories";
 
 import { CarouselItem } from "./interfaces";
+import InitVideoImagens from "@/app/components/InitVideoImagens";
+import ProductCard from "./components/productCard";
 
 /**
  * Converte um array de produtos para CarouselItem[]
@@ -179,13 +181,21 @@ export default function Home() {
   return (
     <div className="bg-[var(--primary-light)] min-h-screen pt-5 md:pt-20">
       <div className="mt-0 sm:mt-16 md:mt-20">
-        <Carrossel
+        <GenericCarousel
           items={heroProducts}
           slidesPerView={1}
           spaceBetween={0}
           autoplayDelay={4700}
           loop
           swiperClassName="w-full max-w-[1200px] mx-auto h-[350px] sm:h-[350px] md:h-[400px] lg:h-[450px] xl:h-[450px] 2xl:h-[450px] relative"
+          renderItem={(item, isMobile) => (
+            <InitVideoImagens
+              imageUrl={item.imageUrl}
+              backupImageUrl={item.backupImageUrl}
+              alt={item.title}
+              category={item.category}
+            />
+          )}
         />
       </div>
 
@@ -204,7 +214,7 @@ export default function Home() {
 
             <div className="relative mt-2">
               <div className="rounded-2xl overflow-hidden shadow-[0_10px_40px_-15px_rgba(255,105,180,0.3)] bg-white/40 p-8 border-2 border-[#ff69b4]/20 hover:shadow-[0_15px_50px_-12px_rgba(255,105,180,0.4)] transition-shadow duration-300">
-                <Carrossel
+                <GenericCarousel
                   items={convertToCarouselItems(categoria.produtos)}
                   loop={false}
                   autoplayDelay={undefined}
@@ -213,6 +223,23 @@ export default function Home() {
                   spaceBetween={10}
                   swiperClassName="w-full h-[520px] md:h-[520px]"
                   breakpoints={configuracaoCarrossel}
+                  renderItem={(item) => (
+                    <ProductCard
+                      id={item.id}
+                      imageUrl={item.imageUrl}
+                      title={item.title}
+                      price={item.price}
+                      description={item.description}
+                      link={item.link}
+                      category={item.category}
+                      isViewAllSlide={item.isViewAllSlide}
+                      viewAllUrl={item.viewAllUrl}
+                      stockQuantity={item.stockQuantity}
+                      promocao={item.promocao}
+                      descontoPromocao={item.descontoPromocao}
+                      cupom={item.cupom}
+                    />
+                  )}
                 />
               </div>
             </div>

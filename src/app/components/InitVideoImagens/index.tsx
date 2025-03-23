@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function CarrosselImagens({
+export default function InitVideoImagens({
   imageUrl,
   backupImageUrl,
   alt = "Imagem de novidade",
