@@ -5,7 +5,7 @@ export const cabelosProducts: CategoryProduct[] = [
     id: 101,
     imageUrl: "/images/cabelos/2.png",
     title: "Chikas - Finalizador Deleta Danos 300mL",
-    price: "R$ 29,90",
+    price: "R$ 31,90",
     description:
       "O Finalizador Deleta Danos trata, reconstrói e suaviza os fios. Com óleo de dendê, aminoácidos de cereais e vitaminas, recupera cabelos danificados.",
     primeiroCarrossel: false,
