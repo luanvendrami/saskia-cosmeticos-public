@@ -44,7 +44,7 @@ export default function ModalPromocional() {
         return () => clearTimeout(timer);
       }
     } catch (error) {
-      console.error("Erro ao acessar localStorage", error);
+      // Silent error - unable to access localStorage
     }
   }, []);
 

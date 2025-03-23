@@ -23,7 +23,7 @@ export const useProducts = (categoryProducts: CategoryProduct[]) => {
 
       setProducts(formattedProducts);
     } catch (error) {
-      console.error("Error processing products:", error);
+      // Remove console.error
     } finally {
       setIsLoading(false);
     }

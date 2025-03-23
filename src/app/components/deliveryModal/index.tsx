@@ -246,7 +246,7 @@ export default function DeliveryModal({
       if (fieldsFilledByCep.state) delete newErrors.state;
       setErrors(newErrors);
     } catch (error) {
-      console.error("Erro ao buscar CEP:", error);
+      // Failed to fetch CEP data - silent error
       setCepError("Erro ao buscar CEP. Tente novamente.");
       setIsAddressFromCep(false);
     } finally {

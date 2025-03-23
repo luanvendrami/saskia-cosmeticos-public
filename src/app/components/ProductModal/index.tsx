@@ -69,13 +69,6 @@ export default function ModalProduto({
   const imageArray =
     images && images.length > 0 ? images : imageUrl ? [imageUrl] : [];
 
-  console.log("ProductModal - Images:", {
-    images,
-    imageUrl,
-    imageArray,
-    imageArrayLength: imageArray.length,
-  });
-
   // Handle touch start
   const handleTouchStart = (e: TouchEvent) => {
     setTouchEnd(null); // Reset touch end
@@ -121,16 +114,10 @@ export default function ModalProduto({
   // Navigate to the previous image
   const navigateToPrevImage = (e: React.MouseEvent) => {
     e.stopPropagation();
-    console.log("Navigating to previous image", {
-      currentIndex: currentImageIndex,
-      arrayLength: imageArray.length,
-    });
-    // Simplify logic to test
-    if (currentImageIndex > 0) {
-      setCurrentImageIndex(currentImageIndex - 1);
-    } else {
-      setCurrentImageIndex(imageArray.length - 1);
-    }
+    // Navigation logic without console.log
+    setCurrentImageIndex((prev) =>
+      prev === 0 ? imageArray.length - 1 : prev - 1
+    );
   };
 
   // Navigate to the next image

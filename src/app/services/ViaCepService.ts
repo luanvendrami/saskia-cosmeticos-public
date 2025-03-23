@@ -47,8 +47,7 @@ export class ViaCepService {
 
       return data;
     } catch (error) {
-      console.error("Erro ao buscar CEP:", error);
-      return null;
+      throw new Error("Não foi possível obter os dados do CEP.");
     }
   }
 

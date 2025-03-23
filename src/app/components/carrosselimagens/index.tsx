@@ -23,13 +23,6 @@ export default function CarrosselImagens({
   const [isVisible, setIsVisible] = useState(false);
   const [buttonVisible, setButtonVisible] = useState(false);
 
-  useEffect(() => {
-    // Log for debugging
-    if (isVideo) {
-      console.log("Attempting to load video:", imageUrl);
-    }
-  }, [isVideo, imageUrl]);
-
   // Set up intersection observer to detect when video is visible
   useEffect(() => {
     if (!isVideo || !containerRef.current) return;
@@ -96,7 +89,6 @@ export default function CarrosselImagens({
   }, [isVideo]);
 
   const handleVideoError = () => {
-    console.error("Error loading video:", imageUrl);
     setVideoError(true);
   };
 
@@ -153,7 +145,7 @@ export default function CarrosselImagens({
           className="object-cover"
           priority={true}
           onError={() => {
-            console.warn("Image failed to load:", imageUrl);
+            // Image error handling without console.warn
           }}
         />
       )}

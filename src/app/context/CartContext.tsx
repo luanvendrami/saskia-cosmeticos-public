@@ -40,7 +40,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         setCartItems(JSON.parse(storedCart));
       }
     } catch (error) {
-      console.error("Falha ao carregar o carrinho do localStorage:", error);
+      // Silently fail if localStorage is not available
     }
   }, []);
 
@@ -68,7 +68,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       const count = cartItems.reduce((sum, item) => sum + item.quantity, 0);
       setCartCount(count);
     } catch (error) {
-      console.error("Falha ao salvar o carrinho no localStorage:", error);
+      // Silently fail if localStorage is not available
     }
   }, [cartItems]);
 

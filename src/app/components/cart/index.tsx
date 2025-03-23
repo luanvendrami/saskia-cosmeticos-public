@@ -144,6 +144,11 @@ export default function Cart() {
   // Calculate total after discount
   const totalComDesconto = cartTotal - descontoAplicado;
 
+  const closeDeliveryModal = () => {
+    setIsCheckoutModalOpen(false);
+    // Keep cart open without logging
+  };
+
   return (
     <>
       {/* Cart button in header */}
@@ -309,11 +314,7 @@ export default function Cart() {
       {/* Checkout Modal */}
       <DeliveryModal
         isOpen={isCheckoutModalOpen}
-        onClose={() => {
-          console.log("Delivery modal closing, keeping cart open");
-          // Just close the modal, don't affect cart state
-          setIsCheckoutModalOpen(false);
-        }}
+        onClose={closeDeliveryModal}
         onCheckout={handleCheckout}
       />
     </>
