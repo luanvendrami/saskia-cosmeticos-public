@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { FiAlertCircle } from "react-icons/fi";
 import GenericModal from "../../components/GenericModal";
 
-interface ConfirmationModalPageProps {
+interface ConfirmationModalProps {
   isOpen?: boolean;
   title?: string;
   message?: string;
@@ -15,12 +15,12 @@ interface ConfirmationModalPageProps {
 }
 
 /**
- * Confirmation Modal Page
+ * Confirmation Modal Component
  *
  * A modal for confirming user actions with a simple yes/no interface.
  * Uses the GenericModal component for the modal structure.
  */
-export default function ConfirmationModalPage({
+export default function ConfirmationModal({
   isOpen = false,
   title = "Confirm Action",
   message = "Are you sure you want to proceed?",
@@ -28,7 +28,7 @@ export default function ConfirmationModalPage({
   cancelText = "Cancel",
   onConfirm = () => {},
   onCancel = () => {},
-}: ConfirmationModalPageProps) {
+}: ConfirmationModalProps) {
   const [isModalOpen, setIsModalOpen] = useState(isOpen);
 
   // Update modal state when isOpen prop changes
