@@ -7,7 +7,7 @@ import ProductCard from "../productCard";
 import { Product } from "../../interfaces/product";
 import { CategoryPageProps } from "../../interfaces/category";
 import { ProductService, DataService } from "../../services";
-import Footer from "../Footer";
+import FooterPage from "@/app/feature/footer/page";
 
 /**
  * Componente que exibe uma página completa de categoria de produtos
@@ -137,7 +137,7 @@ export default function CategoryPage({
           </div>
         )}
       </div>
-      <Footer />
+      <FooterPage />
     </>
   );
 }

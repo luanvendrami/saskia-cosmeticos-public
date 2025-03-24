@@ -7,7 +7,7 @@ import { Menu } from "lucide-react";
 
 import Navbar from "../navbar";
 import "../../styles/elegant-title.css";
-import CartPage from "@/app/features/cart/page";
+import CartPage from "@/app/feature/cart/page";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

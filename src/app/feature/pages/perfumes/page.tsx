@@ -1,8 +1,8 @@
 "use client";
 
-import CategoryPage from "../../components/CategoryPage";
-import { perfumesProducts } from "../../data/categories";
-import { useProducts } from "../../hooks/useProducts";
+import CategoryPage from "@/app/components/CategoryPage";
+import { perfumesProducts } from "@/app/data/categories";
+import { useProducts } from "@/app/hooks/useProducts";
 
 /**
  * Componente de página para a categoria Perfumes

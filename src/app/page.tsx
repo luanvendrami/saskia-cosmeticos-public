@@ -6,7 +6,6 @@
  */
 
 import GenericCarousel from "./components/GenericCarousel";
-import Footer from "./components/Footer";
 import PromocionalBanner from "./components/PromocionalBanner";
 import CategorieProductHeader from "./components/CategorieProductHeader";
 import {
@@ -22,6 +21,7 @@ import {
 import { CarouselItem } from "./interfaces";
 import InitVideoImagens from "@/app/components/InitVideoImagens";
 import ProductCard from "./components/productCard";
+import FooterPage from "@/app/feature/footer/page";
 
 /**
  * Converte um array de produtos para CarouselItem[]
@@ -110,7 +110,7 @@ export default function Home() {
       primeiroCarrossel: false,
       category,
       isViewAllSlide: true,
-      viewAllUrl: `/features/${urlPath}`,
+      viewAllUrl: `/${urlPath}`,
       promocao: false,
       descontoPromocao: 0,
       cupom: "",
@@ -247,7 +247,7 @@ export default function Home() {
         </div>
       ))}
 
-      <Footer />
+      <FooterPage />
     </div>
   );
 }

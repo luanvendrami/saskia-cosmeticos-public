@@ -28,32 +28,27 @@ const nextConfig = {
   images: {
     domains: ["images.unsplash.com", "via.placeholder.com", "placehold.co"],
   },
-  async redirects() {
+  async rewrites() {
     return [
       {
         source: '/cabelos',
-        destination: '/features/cabelos',
-        permanent: true,
+        destination: '/feature/pages/cabelos',
       },
       {
         source: '/corpo',
-        destination: '/features/corpo',
-        permanent: true,
+        destination: '/feature/pages/corpo',
       },
       {
         source: '/maquiagem',
-        destination: '/features/maquiagem',
-        permanent: true,
+        destination: '/feature/pages/maquiagem',
       },
       {
         source: '/perfumes',
-        destination: '/features/perfumes',
-        permanent: true,
+        destination: '/feature/pages/perfumes',
       },
       {
         source: '/skincare',
-        destination: '/features/skincare',
-        permanent: true,
+        destination: '/feature/pages/skincare',
       },
     ];
   },
