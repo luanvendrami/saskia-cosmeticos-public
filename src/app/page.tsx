@@ -5,9 +5,8 @@
  * Exibe carrosséis de produtos populares por categoria e banner promocional
  */
 
-import GenericCarousel from "./components/GenericCarousel";
-import PromocionalBanner from "./components/PromocionalBanner";
-import CategorieProductHeader from "./components/CategorieProductHeader";
+import GenericCarousel from "./components/generic-carousel";
+import CategorieProductHeader from "./components/categorie-product-header";
 import {
   heroProducts,
   cabelosProducts,
@@ -19,9 +18,10 @@ import {
 } from "./data/categories";
 
 import { CarouselItem } from "./interfaces";
-import ProductCard from "./components/productCard";
+import ProductCard from "./components/product-card";
 import FooterPage from "@/app/feature/footer/page";
 import InitialBanner from "@/app/feature/initial-banner/page";
+import PromocionalBanner from "@/app/feature/promotional-banner/page";
 
 /**
  * Converte um array de produtos para CarouselItem[]

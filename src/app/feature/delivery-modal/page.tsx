@@ -13,7 +13,7 @@ import TextField from "@mui/material/TextField";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import InputAdornment from "@mui/material/InputAdornment";
 import CircularProgress from "@mui/material/CircularProgress";
-import GenericModal from "../../components/GenericModal";
+import GenericModal from "../../components/generic-modal";
 
 // Create a custom theme with pink primary color to match the existing design
 const theme = createTheme({

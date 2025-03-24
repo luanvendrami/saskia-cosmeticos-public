@@ -19,7 +19,7 @@ import { CartService } from "../../services";
 import { DeliveryInfo } from "../../interfaces/delivery";
 import { CartItem as CartItemType } from "../../interfaces/cart";
 import DeliveryModalPage from "@/app/feature/delivery-modal/page";
-import ConfirmationModalPage from "@/app/feature/confirmation-modal/page";
+import ConfirmationModal from "@/app/components/confirmation-modal";
 
 /**
  * Cart Item Component
@@ -125,7 +125,7 @@ function CartItemComponent({ item }: CartItemComponentProps) {
       </li>
 
       {/* Confirmation Modal */}
-      <ConfirmationModalPage
+      <ConfirmationModal
         isOpen={showDeleteModal}
         title="Remover produto"
         message={`Tem certeza que deseja remover "${title}" do carrinho?`}

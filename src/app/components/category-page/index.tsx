@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { FiSearch } from "react-icons/fi";
 import { TextField, InputAdornment } from "@mui/material";
-import ProductCard from "../productCard";
+import ProductCard from "../product-card";
 import { Product } from "../../interfaces/product";
 import { CategoryPageProps } from "../../interfaces/category";
 import { ProductService, DataService } from "../../services";

@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import ProductModal from "../ProductModal";
 import { useCart } from "../../context/CartContext";
 import { useTheme } from "../../context/ThemeContext";
 import {
@@ -15,6 +14,7 @@ import {
 } from "react-icons/fi";
 import { ProductCardProps } from "../../interfaces/productCard";
 import { ProductService } from "../../services";
+import ProductModal from "@/app/components/product-modal";
 
 /**
  * Componente que exibe um cartão de produto com opções de visualização rápida e adição ao carrinho

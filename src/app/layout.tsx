@@ -1,10 +1,10 @@
 import "./globals.css";
 import { CartProvider } from "./context/CartContext";
 import { ThemeProvider } from "./context/ThemeContext";
-import PromoModal from "./components/PromoModal";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
 import HeaderPage from "./feature/header/page";
+import PromoModal from "@/app/components/promo-modal";
 
 export const metadata = {
   title: "Saskia Cosméticos",

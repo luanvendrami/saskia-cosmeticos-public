@@ -1,6 +1,6 @@
 "use client";
 
-import CategoryPage from "@/app/components/CategoryPage";
+import CategoryPage from "@/app/components/category-page";
 import { maquiagemProducts } from "@/app/data/categories";
 import { useProducts } from "@/app/hooks/useProducts";
 
