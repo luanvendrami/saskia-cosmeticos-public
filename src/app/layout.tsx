@@ -1,10 +1,12 @@
 import "./globals.css";
-import { CartProvider } from "./context/CartContext";
-import { ThemeProvider } from "./context/ThemeContext";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
-import HeaderPage from "./feature/header/page";
-import PromoModal from "@/app/components/promo-modal";
+
+import PromoModal from "@/components/promo-modal";
+import { CartProvider } from "@/context/cartContext";
+import { ThemeProvider } from "@/context/themeContext";
+
+import HeaderPage from "../components/ui/header";
 
 export const metadata = {
   title: "Saskia Cosméticos",
@@ -19,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" suppressHydrationWarning className="light">
+    <html lang="pt-BR" suppressHydrationWarning className="light h-full">
       <head>
         <meta name="color-scheme" content="light" />
         <meta name="theme-color" content="#ffffff" />
@@ -55,15 +57,15 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className="light-mode">
-        <ThemeProvider>
-          <CartProvider>
+      <body className="light-mode min-h-screen flex flex-col bg-[var(--primary-light)]">
+        <CartProvider>
+          <ThemeProvider>
             <HeaderPage />
-            {children}
+            <main className="flex-grow flex flex-col">{children}</main>
             <PromoModal />
             <SpeedInsights />
-          </CartProvider>
-        </ThemeProvider>
+          </ThemeProvider>
+        </CartProvider>
       </body>
     </html>
   );

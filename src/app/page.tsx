@@ -5,8 +5,7 @@
  * Exibe carrosséis de produtos populares por categoria e banner promocional
  */
 
-import GenericCarousel from "./components/generic-carousel";
-import CategorieProductHeader from "./components/categorie-product-header";
+import CategorieProductHeader from "../components/categorie-product-header";
 import {
   heroProducts,
   cabelosProducts,
@@ -15,13 +14,14 @@ import {
   perfumesProducts,
   corpoProducts,
   CategoryProduct,
-} from "./data/categories";
+} from "../data/categories";
 
-import { CarouselItem } from "./interfaces";
-import ProductCard from "./components/product-card";
-import FooterPage from "@/app/feature/footer/page";
-import InitialBanner from "@/app/feature/initial-banner/page";
-import PromocionalBanner from "@/app/feature/promotional-banner/page";
+import { CarouselItem } from "../interfaces";
+import Footer from "@/components/ui/footer";
+import InitialBanner from "@/components/inital-banner";
+import PromocionalBanner from "@/components/promotional-banner";
+import GenericCarousel from "@/components/ui/generic-carousel";
+import ProductCard from "@/components/product-card";
 
 /**
  * Converte um array de produtos para CarouselItem[]
@@ -188,7 +188,15 @@ export default function Home() {
           autoplayDelay={4700}
           loop
           swiperClassName="w-full max-w-[1200px] mx-auto h-[350px] sm:h-[350px] md:h-[400px] lg:h-[450px] xl:h-[450px] 2xl:h-[450px] relative"
-          renderItem={(item, isMobile) => (
+          renderItem={(
+            item: {
+              imageUrl: string;
+              backupImageUrl?: string;
+              title?: string;
+              category?: string;
+            },
+            isMobile: any
+          ) => (
             <InitialBanner
               imageUrl={item.imageUrl}
               backupImageUrl={item.backupImageUrl}
@@ -223,7 +231,21 @@ export default function Home() {
                   spaceBetween={10}
                   swiperClassName="w-full h-[520px] md:h-[520px]"
                   breakpoints={configuracaoCarrossel}
-                  renderItem={(item) => (
+                  renderItem={(item: {
+                    id?: any;
+                    imageUrl?: any;
+                    title?: any;
+                    price?: any;
+                    description?: any;
+                    link?: any;
+                    category?: any;
+                    isViewAllSlide?: any;
+                    viewAllUrl?: any;
+                    stockQuantity?: any;
+                    promocao?: any;
+                    descontoPromocao?: any;
+                    cupom?: any;
+                  }) => (
                     <ProductCard
                       id={item.id}
                       imageUrl={item.imageUrl}
@@ -247,7 +269,7 @@ export default function Home() {
         </div>
       ))}
 
-      <FooterPage />
+      <Footer />
     </div>
   );
 }

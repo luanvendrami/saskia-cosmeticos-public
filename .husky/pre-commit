@@ -1,3 +1,4 @@
-#!/bin/sh
-echo 'Husky pre-commit hook is temporarily disabled'
-exit 0
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+npm run lint

@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+
+/* Import our custom styles */
+@import '../styles/index.css';
+
+
 /* Force light mode regardless of browser settings or extensions */
 :root {
   color-scheme: light !important;
@@ -30,9 +35,6 @@ html[data-darkreader-mode],
     filter: none !important;
   }
 }
-
-/* Import our custom styles */
-@import './styles/index.css';
 
 /* Custom animations */
 @keyframes modal-slide-up {
