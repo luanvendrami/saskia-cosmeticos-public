@@ -5,9 +5,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { Menu } from "lucide-react";
 
-import Navbar from "@/app/components/navbar";
 import "@/app/styles/elegant-title.css";
 import CartPage from "@/app/feature/cart/page";
+import Navbar from "@/app/feature/navbar/page";
 
 export default function HeaderPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

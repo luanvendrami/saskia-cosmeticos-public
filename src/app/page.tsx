@@ -19,9 +19,9 @@ import {
 } from "./data/categories";
 
 import { CarouselItem } from "./interfaces";
-import InitVideoImagens from "@/app/components/InitVideoImagens";
 import ProductCard from "./components/productCard";
 import FooterPage from "@/app/feature/footer/page";
+import InitialBanner from "@/app/feature/initial-banner/page";
 
 /**
  * Converte um array de produtos para CarouselItem[]
@@ -57,7 +57,7 @@ export default function Home() {
       spaceBetween: 10,
     },
     425: {
-      slidesPerView: 1,
+      slidesPerView: 1.2,
       spaceBetween: 10,
     },
     640: {
@@ -189,7 +189,7 @@ export default function Home() {
           loop
           swiperClassName="w-full max-w-[1200px] mx-auto h-[350px] sm:h-[350px] md:h-[400px] lg:h-[450px] xl:h-[450px] 2xl:h-[450px] relative"
           renderItem={(item, isMobile) => (
-            <InitVideoImagens
+            <InitialBanner
               imageUrl={item.imageUrl}
               backupImageUrl={item.backupImageUrl}
               alt={item.title}

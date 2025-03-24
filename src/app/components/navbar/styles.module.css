@@ -1,7 +1,0 @@
-.header_navbar_container {
-    @apply flex justify-center items-center w-full space-x-8 h-16 bg-[var(--primary-light)];
-}
-
-.link_text{
-    @apply text-[var(--text-primary)] hover:text-[var(--text-secondary)];
-}

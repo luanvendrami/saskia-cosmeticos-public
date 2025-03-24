@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function InitVideoImagens({
+export default function InitialBanner({
   imageUrl,
   backupImageUrl,
   alt = "Imagem de novidade",
@@ -159,9 +159,15 @@ export default function InitVideoImagens({
         >
           <Link
             href={`/${category}`}
-            className="px-4 py-2 bg-[var(--primary-color)] hover:bg-[var(--primary-dark)] text-white rounded-lg font-medium shadow-lg transition-colors duration-300 text-center flex items-center justify-center"
+            className="px-6 py-3 bg-[var(--primary-color)] hover:bg-[var(--primary-dark)] text-white rounded-lg font-bold shadow-lg transition-colors duration-300 text-center flex items-center justify-center outline-none focus:outline-none active:outline-none active:bg-[var(--primary-color)]"
+            style={{
+              WebkitTapHighlightColor: "transparent",
+              touchAction: "manipulation",
+            }}
           >
-            <span>Ver produtos para {formatCategoryName(category)}</span>
+            <span className="text-white text-base">
+              Ver produtos para {formatCategoryName(category)}
+            </span>
           </Link>
         </div>
       )}
