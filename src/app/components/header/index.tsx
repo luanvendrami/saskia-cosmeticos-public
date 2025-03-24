@@ -5,9 +5,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { Menu } from "lucide-react";
 
-import Cart from "../cart";
 import Navbar from "../navbar";
 import "../../styles/elegant-title.css";
+import CartPage from "@/app/features/cart/page";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -125,7 +125,7 @@ export default function Header() {
           </div>
 
           <div className="flex-1 flex justify-end items-center gap-1 sm:gap-3">
-            <Cart />
+            <CartPage />
           </div>
         </div>
 

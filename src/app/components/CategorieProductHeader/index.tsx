@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
 
 interface CategoryHeaderProps {
   title: string;
@@ -13,7 +12,7 @@ interface CategoryHeaderProps {
  * Componente para exibir o cabeçalho de uma categoria na página principal
  * Versão simplificada sem caixa de contorno
  */
-const CategoryHeader: React.FC<CategoryHeaderProps> = ({
+const CategorieProductHeader: React.FC<CategoryHeaderProps> = ({
   title,
   description,
   categoryId,
@@ -41,4 +40,4 @@ const CategoryHeader: React.FC<CategoryHeaderProps> = ({
   );
 };
 
-export default CategoryHeader;
+export default CategorieProductHeader;

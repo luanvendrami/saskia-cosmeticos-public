@@ -1,22 +1,285 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import { FiX, FiShoppingCart, FiTag } from "react-icons/fi";
+import Image from "next/image";
+import {
+  FiX,
+  FiShoppingCart,
+  FiTag,
+  FiTrash2,
+  FiMinus,
+  FiPlus,
+  FiAlertCircle,
+} from "react-icons/fi";
+import { createPortal } from "react-dom";
 
 import { useCart } from "../../context/CartContext";
 import { useTheme } from "../../context/ThemeContext";
 import { CartService } from "../../services";
 import { DeliveryInfo } from "../../interfaces/delivery";
-import CartItem from "../cartItem/index";
-import DeliveryModal from "../deliveryModal";
+import { CartItem as CartItemType } from "../../interfaces/cart";
+import DeliveryModal from "../../components/deliveryModal";
 
 /**
- * Cart Component
+ * Confirmation Modal Component
+ */
+interface ConfirmationModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+  title: string;
+  message: string;
+  confirmText?: string;
+  cancelText?: string;
+}
+
+function ConfirmationModal({
+  isOpen,
+  onClose,
+  onConfirm,
+  title,
+  message,
+  confirmText = "Confirmar",
+  cancelText = "Cancelar",
+}: ConfirmationModalProps) {
+  const [mounted, setMounted] = useState(false);
+
+  // Handle mounting for client-side rendering
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
+
+  // Don't render on server or if modal is not open
+  if (!mounted || !isOpen) return null;
+
+  // Prevent events from bubbling up to parent components
+  const handleModalClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
+  // Function to handle confirmation
+  const handleConfirm = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onConfirm();
+    onClose();
+  };
+
+  const modalContent = (
+    <div
+      className="fixed inset-0 z-[10000] flex items-center justify-center p-4"
+      onClick={handleModalClick}
+      onMouseDown={handleModalClick}
+    >
+      {/* Animation styles */}
+      <style jsx global>{`
+        @keyframes modal-slide-up {
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .animate-modal-slide-up {
+          animation: modal-slide-up 0.3s ease-out forwards;
+        }
+      `}</style>
+
+      {/* Backdrop with blur */}
+      <div
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        onClick={(e) => {
+          e.stopPropagation();
+          onClose();
+        }}
+        onMouseDown={(e) => e.stopPropagation()}
+      />
+
+      {/* Modal */}
+      <div
+        className="relative bg-white rounded-lg shadow-xl w-full max-w-md animate-modal-slide-up"
+        onClick={(e) => e.stopPropagation()}
+        onMouseDown={(e) => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between p-4 border-b border-gray-200">
+          <h3 className="text-lg font-medium text-gray-900 flex items-center">
+            <FiAlertCircle
+              className="w-5 h-5 text-pink-500 mr-2"
+              suppressHydrationWarning
+            />
+            {title}
+          </h3>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onClose();
+            }}
+            className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+          >
+            <FiX className="w-5 h-5 text-gray-500" suppressHydrationWarning />
+          </button>
+        </div>
+
+        {/* Body */}
+        <div className="p-6">
+          <p className="text-gray-700">{message}</p>
+        </div>
+
+        {/* Footer */}
+        <div className="flex justify-end gap-3 p-4 border-t border-gray-200">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onClose();
+            }}
+            className="px-4 py-2 text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 transition-colors"
+          >
+            {cancelText}
+          </button>
+          <button
+            onClick={handleConfirm}
+            className="px-4 py-2 text-white bg-pink-500 rounded-md hover:bg-pink-600 transition-colors"
+          >
+            {confirmText}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+
+  // Use createPortal to render the modal at the document body level
+  return createPortal(modalContent, document.body);
+}
+
+/**
+ * Cart Item Component
+ */
+interface CartItemComponentProps {
+  item: CartItemType;
+}
+
+function CartItemComponent({ item }: CartItemComponentProps) {
+  const { removeFromCart, increaseQuantity, decreaseQuantity } = useCart();
+  const { mode } = useTheme();
+  const { id, imageUrl, title, price, quantity } = item;
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  // Parse price from string (R$ XX,XX) to number
+  const getNumericPrice = (priceString: string | undefined | null): number => {
+    if (!priceString || typeof priceString !== "string") return 0;
+    return parseFloat(priceString.replace("R$ ", "").replace(",", "."));
+  };
+
+  const numericPrice = getNumericPrice(price);
+  const totalPrice = numericPrice * quantity;
+
+  const handleDelete = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setShowDeleteModal(true);
+  };
+
+  const handleConfirmDelete = () => {
+    removeFromCart(id);
+  };
+
+  return (
+    <>
+      <li className="py-4 px-4">
+        <div className="flex items-start space-x-3">
+          {/* Product Image */}
+          <div className="relative w-20 h-20 rounded-md overflow-hidden flex-shrink-0 border border-gray-200">
+            {imageUrl && imageUrl.trim() !== "" ? (
+              <Image
+                src={imageUrl}
+                alt={title}
+                fill
+                className="object-cover"
+                sizes="80px"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center bg-gray-100">
+                <span className="text-gray-400 text-xs">No image</span>
+              </div>
+            )}
+          </div>
+
+          {/* Product Info */}
+          <div className="flex-1 min-w-0">
+            <h4 className="text-base font-medium text-gray-800 truncate">
+              {title}
+            </h4>
+            <p className="mt-1 text-sm text-gray-500">
+              R$ {numericPrice.toFixed(2).replace(".", ",")}
+            </p>
+
+            {/* Quantity Controls */}
+            <div className="mt-2 flex items-center">
+              <button
+                onClick={() => decreaseQuantity(id)}
+                disabled={quantity <= 1}
+                className="p-1 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                aria-label="Diminuir quantidade"
+              >
+                <FiMinus className="w-4 h-4" suppressHydrationWarning />
+              </button>
+
+              <span className="mx-2 w-8 text-center text-sm font-medium">
+                {quantity}
+              </span>
+
+              <button
+                onClick={() => increaseQuantity(id)}
+                className="p-1 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+                aria-label="Aumentar quantidade"
+              >
+                <FiPlus className="w-4 h-4" suppressHydrationWarning />
+              </button>
+            </div>
+          </div>
+
+          {/* Price and Remove Button */}
+          <div className="flex flex-col items-end">
+            <span className="text-base font-medium text-gray-900">
+              R$ {totalPrice.toFixed(2).replace(".", ",")}
+            </span>
+
+            <button
+              onClick={handleDelete}
+              className="mt-2 p-1 text-gray-400 hover:text-red-500 transition-colors"
+              aria-label="Remover item"
+            >
+              <FiTrash2 className="w-5 h-5" suppressHydrationWarning />
+            </button>
+          </div>
+        </div>
+      </li>
+
+      {/* Confirmation Modal */}
+      <ConfirmationModal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        onConfirm={handleConfirmDelete}
+        title="Remover produto"
+        message={`Tem certeza que deseja remover "${title}" do carrinho?`}
+        confirmText="Remover"
+        cancelText="Cancelar"
+      />
+    </>
+  );
+}
+
+/**
+ * Cart Page
  *
  * Displays added products, allows managing quantities
  * and finalizing the order via WhatsApp
  */
-export default function Cart() {
+export default function CartPage() {
   const cartRef = useRef<HTMLDivElement>(null);
   const { cartItems, isCartOpen, toggleCart, cartTotal, cartCount } = useCart();
   const { mode } = useTheme();
@@ -210,7 +473,10 @@ export default function Cart() {
                 {cartItems.length > 0 ? (
                   <ul className="divide-y divide-gray-200">
                     {cartItems.map((item, index) => (
-                      <CartItem key={`${item.id}-${index}`} item={item} />
+                      <CartItemComponent
+                        key={`${item.id}-${index}`}
+                        item={item}
+                      />
                     ))}
                   </ul>
                 ) : (

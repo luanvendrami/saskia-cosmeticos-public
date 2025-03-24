@@ -8,7 +8,7 @@
 import GenericCarousel from "./components/GenericCarousel";
 import Footer from "./components/Footer";
 import PromocionalBanner from "./components/PromocionalBanner";
-import CategoryHeader from "./components/categories/CategoryHeader";
+import CategorieProductHeader from "./components/CategorieProductHeader";
 import {
   heroProducts,
   cabelosProducts,
@@ -205,8 +205,8 @@ export default function Home() {
       {categorias.map((categoria) => (
         <div key={categoria.id} className="py-6 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
-            {/* Use the CategoryHeader component */}
-            <CategoryHeader
+            {/* Use the CategorieBodyHeader component */}
+            <CategorieProductHeader
               title={categoria.titulo}
               description={categoria.descricao}
               categoryId={categoria.id}
