@@ -1,10 +1,10 @@
-import Header from "./components/header";
 import "./globals.css";
 import { CartProvider } from "./context/CartContext";
 import { ThemeProvider } from "./context/ThemeContext";
 import PromoModal from "./components/PromoModal";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
+import HeaderPage from "./feature/header/page";
 
 export const metadata = {
   title: "Saskia Cosméticos",
@@ -58,7 +58,7 @@ export default function RootLayout({
       <body className="light-mode">
         <ThemeProvider>
           <CartProvider>
-            <Header />
+            <HeaderPage />
             {children}
             <PromoModal />
             <SpeedInsights />

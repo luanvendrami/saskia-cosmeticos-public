@@ -86,8 +86,12 @@ export default function Navbar({
               Saskia Cosméticos
             </Link>
             <button
-              className="p-2 rounded-full hover:bg-opacity-20 hover:bg-[var(--primary-color)] transition-colors"
+              className="p-2 rounded-full outline-none focus:outline-none active:outline-none active:bg-transparent hover:text-[var(--primary-color)]"
               onClick={toggleMenu}
+              style={{
+                WebkitTapHighlightColor: "transparent",
+                touchAction: "manipulation",
+              }}
             >
               <X className="w-6 h-6 text-[var(--primary-color)]" />
             </button>
@@ -111,7 +115,7 @@ export default function Navbar({
 
           <div className="p-4 border-t border-opacity-20 border-[var(--primary-color)]">
             <p className="text-sm text-[var(--primary-color)] text-center">
-              © 2024 Saskia Cosméticos
+              © {new Date().getFullYear()} Saskia Cosméticos
             </p>
           </div>
         </div>

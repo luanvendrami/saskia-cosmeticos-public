@@ -5,11 +5,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { Menu } from "lucide-react";
 
-import Navbar from "../navbar";
-import "../../styles/elegant-title.css";
+import Navbar from "@/app/components/navbar";
+import "@/app/styles/elegant-title.css";
 import CartPage from "@/app/feature/cart/page";
 
-export default function Header() {
+export default function HeaderPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
@@ -76,6 +76,11 @@ export default function Header() {
     isHeaderVisible || isMenuOpen ? "transform-none" : "-translate-y-full"
   }`;
 
+  // Check if we're viewing the page directly or as a component
+  const isStandalonePage =
+    typeof window !== "undefined" &&
+    window.location.pathname.includes("/feature/header");
+
   return (
     <>
       <div
@@ -87,9 +92,13 @@ export default function Header() {
           <div className="flex-1 flex justify-start items-center">
             {isMobile && (
               <button
-                className="p-2 rounded-lg hover:bg-opacity-20 hover:bg-[var(--primary-color)] transition-colors"
+                className="p-2 rounded-lg outline-none focus:outline-none active:outline-none active:bg-transparent hover:text-[var(--primary-color)]"
                 onClick={toggleMenu}
                 aria-label="Toggle menu"
+                style={{
+                  WebkitTapHighlightColor: "transparent",
+                  touchAction: "manipulation",
+                }}
               >
                 <Menu className="w-6 h-6 text-[var(--primary-color)]" />
               </button>
@@ -135,6 +144,21 @@ export default function Header() {
           toggleMenu={toggleMenu}
         />
       </header>
+
+      {isStandalonePage && (
+        <div className="mt-32 pt-20 px-6 max-w-4xl mx-auto">
+          <div className="bg-white rounded-lg shadow-lg p-8 text-center">
+            <div className="mt-8">
+              <Link
+                href="/"
+                className="px-6 py-3 bg-[var(--primary-color)] text-white rounded-md hover:bg-[var(--primary-dark)] transition-colors"
+              >
+                Voltar para a Página Inicial
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
