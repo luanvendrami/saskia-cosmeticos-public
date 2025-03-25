@@ -6,8 +6,8 @@ A modern and elegant e-commerce platform for beauty products and cosmetics.
 
 **Note:** The source code is incomplete and will not run if cloned. Many customer-sensitive information has been removed. This is a real project in production, and I have authorization from the client to include it in my public resume. The actual project is private.
 
-## 🇧🇷 Client: Brazilian  
-### 💬 Language: Portuguese
+✅ ### 🇧🇷 Client: Brazilian  
+✅ ### 💬 Language: Portuguese
 
 ## 🌟 Project Description
 
