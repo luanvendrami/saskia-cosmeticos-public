@@ -2,7 +2,9 @@
 
 A modern and elegant e-commerce platform for beauty products and cosmetics.
 
-> **🚨 This project is in production! Access the live version [here](https://www.cosmeticossaskia.com.br/).** 
+> **🚨 This project is in production! Access the live version [here](https://www.cosmeticossaskia.com.br/).**
+
+**Note:** The source code is incomplete and will not run if cloned. Many customer-sensitive information has been removed. This is a real project in production, and I have authorization from the client to include it in my public resume. The actual project is private.
 
 ## 🚀 Overview
 
@@ -34,6 +36,31 @@ Saskia Cosmetics is an e-commerce platform developed with cutting-edge web techn
 ## 🏗️ Current Status
 
 **Under Development** - Actively working on new features and improvements!
+
+### ✅ Steps Already Achieved
+
+- [x] Creation of the project in **Next.js** with **Tailwind CSS**
+- [x] Establishment of **community project standards** for best practices
+- [x] Used **Material-UI** framework to aid in building standard components
+- [x] Fully designed the project for all types of screens, from desktop to mobile
+- [x] Integrated **easy WhatsApp sales** feature for direct communication with customers
+- [x] Implemented **responsive design** to ensure smooth experience across devices
+- [x] Set up **TypeScript** and **ESLint** for robust, type-safe development
+- [x] Integrated **Framer Motion** for smooth animations and transitions
+- [x] Utilized **Swiper** carousel for showcasing product images and features
+- [x] Applied **Next Themes** for dynamic theming, offering a seamless user interface customization
+- [x] Optimized performance using **Vercel Speed Insights** for fast page loads and high performance
+- [x] Integrated **React Icons** and **Lucide React** for a beautiful, consistent icon set
+- [x] Ensured high **code quality** with **Husky** Git hooks for linting and formatting on commit
+- [x] Deployed the application using **Vercel** for fast and efficient deployment
+
+### 🔜 Next Steps
+
+- [ ] Create an interface for product and site registration and maintenance
+- [ ] It will also be created in Next.js with Tailwind CSS
+- [ ] Backend will be created in .NET 8 with Entity Framework
+- [ ] The database will be PostgresSQL
+- [ ] For backend deployment, the RENDER platform will be used
 
 ## 📦 Project Structure
 
