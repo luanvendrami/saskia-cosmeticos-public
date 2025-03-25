@@ -6,6 +6,9 @@ A modern and elegant e-commerce platform for beauty products and cosmetics.
 
 **Note:** The source code is incomplete and will not run if cloned. Many customer-sensitive information has been removed. This is a real project in production, and I have authorization from the client to include it in my public resume. The actual project is private.
 
+## 🇧🇷 Client: Brazilian  
+### 💬 Language: Portuguese
+
 ## 🌟 Project Description
 
 Saskia Cosmetics is an e-commerce platform designed for selling feminine beauty products. The site was specifically created for quick sales, without the need for a traditional checkout process. Instead, purchases are made directly through WhatsApp, and products are sent to customers manually. This approach was requested by the client as they do not have an inventory to support a full-fledged e-commerce operation. 
