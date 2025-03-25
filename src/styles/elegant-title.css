@@ -1,0 +1,112 @@
+/* Essential styles for the title in header */
+
+/* Remove text decoration from links */
+a {
+  text-decoration: none !important;
+}
+
+.no-underline-wrapper a {
+  text-decoration: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Container styling */
+.elegant-title-container {
+  position: relative;
+  display: inline-block;
+  padding: 8px 14px;
+  text-decoration: none !important;
+}
+
+/* Title wrapper styling */
+.elegant-title-wrapper {
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+/* Main title layout */
+.elegant-title {
+  font-weight: 800;
+  color: var(--primary-color);
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 25px; /* Moderate gap between icon and text - reduced from 50px */
+  text-shadow: 0 0 2px rgba(255, 105, 180, 0.3);
+  margin-right: 22px;
+}
+
+/* Font size responsiveness */
+.elegant-title {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+@media (min-width: 640px) {
+  .elegant-title {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .elegant-title {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    gap: 15px; /* Smaller gap on larger screens */
+  }
+}
+
+/* Title text container */
+.title-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Title text styling */
+.title-text-main {
+  font-size: 1.1em;
+  color: var(--primary-color);
+  display: block;
+  line-height: 1;
+  font-weight: 800;
+  text-shadow: 0 0 3px rgba(255, 105, 180, 0.3);
+}
+
+.title-text-secondary {
+  font-size: 0.75em;
+  color: var(--primary-color);
+  display: block;
+  line-height: 1.2;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  text-shadow: 0 0 3px rgba(255, 105, 180, 0.3);
+}
+
+/* Lipstick icon styling */
+.makeup-icon-img {
+  display: inline-block;
+  filter: drop-shadow(0 0 3px rgba(255, 105, 180, 0.4));
+  transition: all 0.3s ease;
+  object-fit: contain;
+  height: auto;
+  margin-right: -17px; /* Small additional margin */
+}
+
+@media (max-width: 767px) {
+  .makeup-icon-img {
+    width: 24px;
+    height: 24px;
+    margin-right: -25px;
+    filter: drop-shadow(0 0 2px rgba(255, 105, 180, 0.3));
+  }
+}
+
+/* Simple hover effect */
+.elegant-title-container:hover .elegant-title-wrapper {
+  transform: scale(1.05);
+} 

@@ -1,0 +1,135 @@
+:root {
+  /* Primary colors */
+  --primary-color: #ff69b4;
+  --primary-light: #ffe1ff;
+  --primary-dark: #c94c8e;
+  
+  /* Secondary colors */
+  --secondary-color: #f8c4ff;
+  --secondary-light: #fff1ff;
+  --secondary-dark: #d19bd1;
+  
+  /* Text colors */
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --text-light: #ffffff;
+  
+  /* Status colors */
+  --success-color: #4caf50;
+  --warning-color: #ff9800;
+  --error-color: #f44336;
+  
+  /* Neutral colors */
+  --background-light: #ffffff;
+  --background-dark: #f5f5f5;
+  --border-color: #e0e0e0;
+  
+  /* Spacing variables */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  
+  /* Font sizes */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-xxl: 2rem;
+  
+  /* Border radius */
+  --border-radius-sm: 0.25rem;
+  --border-radius-md: 0.5rem;
+  --border-radius-lg: 1rem;
+  --border-radius-full: 50%;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-medium: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  
+  /* Force light mode */
+  color-scheme: light !important;
+}
+
+/* Ensure light mode is always applied regardless of browser settings */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: light !important;
+  }
+  
+  html, body {
+    background-color: var(--background-light);
+    color: var(--text-primary);
+  }
+  
+  /* Target Dark Reader and similar extensions */
+  img, picture, video, svg {
+    filter: none !important;
+  }
+}
+
+/* Global styles */
+body {
+  font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+  color: var(--text-primary);
+  background-color: var(--primary-light);
+  margin: 0;
+  padding: 0;
+}
+
+/* Light mode specific overrides to counter Dark Reader */
+html.light-mode body,
+html.light body,
+body.light-mode,
+.light-mode * {
+  color-scheme: light !important;
+}
+
+/* Button styles */
+.btn {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  font-weight: 500;
+  transition: var(--transition-fast);
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: var(--text-light);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+  color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+  background-color: var(--secondary-dark);
+}
+
+/* Card styles */
+.card {
+  background-color: var(--background-light);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: var(--spacing-md);
+  transition: var(--transition-medium);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+} 

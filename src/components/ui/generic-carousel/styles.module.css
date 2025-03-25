@@ -1,0 +1,28 @@
+/* Estilos para os pontos do Swiper */
+.customBullet {
+  width: 10px; /* Ajuste o tamanho do ponto */
+  height: 10px; /* Ajuste a altura do ponto */
+  border-radius: 50%; /* Ponto redondo */
+  background-color: rgba(0, 0, 0, 0.5); /* Cor de fundo inicial */
+  transition: all 0.3s ease-in-out; /* Suaviza a transição */
+  margin: 0 6px; /* Espaçamento entre os pontos */
+}
+
+.customBullet.swiper-pagination-bullet-active {
+  background-color: #faeddf; /* Cor do ponto ativo */
+  width: 14px !important; /* Ajuste o tamanho */
+  height: 14px !important; /* Ajuste a altura */
+  transform: scale(1.8); /* Pequeno ajuste para suavizar */
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3); /* Adiciona sombra */
+}
+
+
+/* 
+   Reposiciona e centraliza o container de paginação 
+   (usando .paginationOverride como wrapper local no componente)
+*/
+.paginationOverride :global(.swiper-pagination) {
+  bottom: -5px !important;       /* Ajuste a distância do fundo (20px, 30px, etc.) */
+  left: 50%;                     /* Centraliza horizontalmente */
+  transform: translateX(-50%);   /* Completa a centralização */
+}
