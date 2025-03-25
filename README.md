@@ -2,7 +2,7 @@
 
 A modern and elegant e-commerce platform for beauty products and cosmetics.
 
-> **🚨 This project is in production! Access the live version [here](cosmeticossaskia.com.br).** 
+> **🚨 This project is in production! Access the live version [here](https://www.cosmeticossaskia.com.br/).** 
 
 ## 🚀 Overview
 
