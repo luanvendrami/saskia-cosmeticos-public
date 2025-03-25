@@ -2,6 +2,8 @@
 
 A modern and elegant e-commerce platform for beauty products and cosmetics.
 
+> **🚨 This project is in production! Access the live version [here](cosmeticossaskia.com.br).** 
+
 ## 🚀 Overview
 
 Saskia Cosmetics is an e-commerce platform developed with cutting-edge web technologies, offering a smooth and pleasant shopping experience for customers.
